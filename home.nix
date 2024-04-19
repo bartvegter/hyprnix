@@ -12,6 +12,9 @@
     enable = true;
     userName = "Bart Vegter";
     userEmail = "mail@bartvegter.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
   };
 
   # User defined packages
