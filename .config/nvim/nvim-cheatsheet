@@ -1,0 +1,47 @@
+--- Might forget ---
+
+K/:help - Looks up documentation of current word/command
+x 	- Deletes selected character(s)
+r	- Replaces character at cursor
+R	- Same as above, but for multiple characters (replace mode)
+c	- Deletes (count+motion) and switches to insert mode
+u	- Undo
+<C-r>	- Redo
+
+
+--- Navigation/searching ---
+
+w	- Goes to the start of next word (on first character)
+e	- Goes to next end of word (on last character)
+gg	- Goes to first line in file
+G	- Goes to last line (default) or specific line (when prepending count) in file
+<C-g>	- Shows current location in file
+<C-o>	- Goes back in position history
+<C-i>	- Goes forward in position history
+
+/	- Searches forward
+?	- Searches backwards
+n	- Searches for the same phrase (forwards)
+N	- Searches for the same phrase (backwards)
+
+%	- Finds matching ), ], or }
+
+
+--- Substituting "old" with "new" ---
+
+- Current line
+:s/old/new	- Substitutes first occurrence
+:s/old/new/g	- Substitutes all occurrences
+
+- Specific lines
+:#,#s/old/new/g	- Substitutes all occurrences between two line numbers (#)
+
+- Whole file
+:%s/old/new/g	- Substitutes all occurrences
+:%s/old/new/gc	- Substitutes all occurrences with confirmation dialogue
+
+
+--- Commands ---
+!	- Prepend to execute shell commands (ex. :!ls)
+:r	- Retrieves file content and puts this below the cursor line. Also works with other commands (ex. :r !ls)
+:set	- Sets specific Neovim settings

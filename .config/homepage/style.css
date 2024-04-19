@@ -1,0 +1,55 @@
+@import '/home/bart/.config/color-scheme/active/colors.css';
+
+* {
+  font-family: "JetBrainsMono NF", Arial, sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100svh;
+  display: grid;
+  grid-template: ".   .   ." 30svh
+                 ". title ." min-content
+                 ".   .   ." 5svh
+                 ". links ." 1fr
+                 ".   .   ." 10svh / 10vw 1fr 10vw;
+  margin: 0;
+  background: var(--background);
+}
+
+h1 {
+  grid-area: title;
+  color: var(--color6);
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#links {
+  grid-area: links;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding: 1em;
+}
+
+a {
+  color: var(--color5);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--color5);
+}
+
+
