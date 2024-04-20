@@ -104,13 +104,6 @@
     portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
-  # Make QT follow GTK theme
-  qt = {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
-  };
-
   # Syncthing
   services.syncthing = {
     #enable = true;
