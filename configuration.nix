@@ -50,15 +50,6 @@
     variant = "altgr-intl";
   };
 
-  # Graphics
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-    #extraPackages = [
-      #rocmPackages.clr
-    #];
-  };
-
   # Networking
   networking.hostName = "hyprnix"; # Define your hostname.
   networking.networkmanager.enable = true;
@@ -105,9 +96,18 @@
   };
 
   # Syncthing
-  services.syncthing = {
-    #enable = true;
-    #openDefaultPorts = true;
+  # services.syncthing = {
+  #   enable = true;
+  #   openDefaultPorts = true;
+  # };
+
+  # Graphics
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+    #extraPackages = [
+      #rocmPackages.clr
+    #];
   };
 
   # Gaming
@@ -127,6 +127,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     cliphist
+    kitty
     mako
     sddm-chili-theme
     vim
