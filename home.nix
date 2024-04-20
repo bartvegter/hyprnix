@@ -24,7 +24,7 @@ in
     enable = true;
     enableCompletion = true;
     shellAliases = myAliases;
-    autoSuggestions.enable = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     # autocd = true;
     history = {
