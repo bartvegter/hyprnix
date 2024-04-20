@@ -169,53 +169,53 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".config/alacritty/" = {
-      source = ./dotfiles/.config/alacritty/;
+      source = ./dotfiles/.config/alacritty;
       recursive = true;
     };
     ".config/btop/" = {
-      source = ./dotfiles/.config/btop/;
+      source = ./dotfiles/.config/btop;
       recursive = true;
     };
     ".config/color-scheme/" = {
-      source = ./dotfiles/.config/color-scheme/;
+      source = ./dotfiles/.config/color-scheme;
       recursive = true;
     };
     # gtk-2,3,4
     ".config/homepage/" = {
-      source = ./dotfiles/.config/homepage/;
+      source = ./dotfiles/.config/homepage;
       recursive = true;
     };
     ".config/htop/" = {
-      source = ./dotfiles/.config/htop/;
+      source = ./dotfiles/.config/htop;
       recursive = true;
     };
     ".config/hypr/" = {
-      source = ./dotfiles/.config/hypr/;
+      source = ./dotfiles/.config/hypr;
       recursive = true;
     };
     ".config/mako/" = {
-      source = ./dotfiles/.config/mako/;
+      source = ./dotfiles/.config/mako;
       recursive = true;
     };
-    # ".config/nvim/".recursive = ./dotfiles/.config/nvim/;
+    # ".config/nvim/".recursive = ./dotfiles/.config/nvim;
     ".config/starship/" = {
-      source = ./dotfiles/.config/starship/;
+      source = ./dotfiles/.config/starship;
       recursive = true;
     };
-    ".config/Thunar/uca".s{
-      source = ./dotfiles/.config/Thunar/uca.xml/;
+    ".config/Thunar/" = {
+      source = ./dotfiles/.config/Thunar;
       recursive = true;
     };
     ".config/tofi/" = {
-      source = ./dotfiles/.config/tofi/;
+      source = ./dotfiles/.config/tofi;
       recursive = true;
     };
     ".config/waybar/" = {
-      source = ./dotfiles/.config/waybar/;
+      source = ./dotfiles/.config/waybar;
       recursive = true;
     };
     ".config/wlogout/" = {
-      source = ./dotfiles/.config/wlogout/;
+      source = ./dotfiles/.config/wlogout;
       recursive = true;
     };
     # xsettingsd
