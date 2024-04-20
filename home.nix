@@ -70,24 +70,24 @@ in
 
   gtk = {
     enable = true;
-    # theme = {
-    #   package = pkgs.gruvbox-gtk-theme;
-    #   # name = "Gruvbox-gtk-theme";
-    # };
-    #
-    # iconTheme = {
-    #   package = pkgs.gruvbox-plus-icons;
-    #   # name = "Gruvbox-plus-icons";
-    # };
-    #
-    font = {
-      name = "Noto Sans SemiCondensed";
-      size = 11;
+    theme = {
+      package = pkgs.gruvbox-gtk-theme;
+      name = "Gruvbox-Dark-BL";
+    };
+
+    iconTheme = {
+      package = pkgs.gruvbox-plus-icons;
+      name = "Gruvbox-Plus-Dark";
     };
 
     cursorTheme = {
       package = pkgs.whitesur-cursors;
       name = "WhiteSur Cursors";
+    };
+
+    font = {
+      name = "Noto Sans SemiCondensed";
+      size = 11;
     };
   };
 
@@ -119,8 +119,6 @@ in
     gnome.gnome-disk-utility
     gnome.file-roller
     gnome.seahorse
-    gruvbox-gtk-theme
-    gruvbox-plus-icons
     gtk-engine-murrine
     gvfs
     helvum
@@ -180,7 +178,7 @@ in
     ".config/mako/".recursive = ./dotfiles/.config/mako;
     # ".config/nvim/".recursive = ./dotfiles/.config/nvim;
     ".config/starship/".recursive = ./dotfiles/.config/starship;
-    ".config/Thunar/".recursive = ./dotfiles/.config/Thunar;
+    ".config/Thunar/uca.xml".source = ./dotfiles/.config/Thunar/uca.xml;
     ".config/tofi/".recursive = ./dotfiles/.config/tofi;
     ".config/waybar/".recursive = ./dotfiles/.config/waybar;
     ".config/wlogout/".recursive = ./dotfiles/.config/wlogout;
