@@ -21,7 +21,7 @@ in
 
   # Enables ssh-agent for user.
   services.ssh-agent.enable = true;
-  programs.ssh.addKeysToAgent = "confirm";
+  programs.ssh.addKeysToAgent = "ask";
 
   # Shell setup
   programs.bash = {
