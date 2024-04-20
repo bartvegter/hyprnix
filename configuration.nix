@@ -18,18 +18,13 @@
   # Shell setup
   environment.shells = with pkgs; [ bash zsh ];
   users.defaultUserShell = pkgs.zsh;
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    enableBashCompletion = true;
-  };
 
   # User setup
   users.users.bart = {
     isNormalUser = true;
     description = "Bart";
     extraGroups = [ "networkmanager" "wheel" ];
+    useDefaultShell = true;
     packages = with pkgs; [];
   };
 
