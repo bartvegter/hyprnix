@@ -63,10 +63,12 @@ in
   programs.waybar.enable = true;
 
   # GTK
-  # home.pointerCursor = {
-  #   gtk.enable = true;
-  #   package = pkgs.whitesur-cursors;
-  # };
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.whitesur-cursors;
+    name = "WhiteSur Cursors";
+    size = 24;
+  };
 
   gtk = {
     enable = true;
@@ -75,11 +77,11 @@ in
       name = "Gruvbox-Dark-BL";
     };
 
-    # iconTheme = {
-    #   package = pkgs.gruvbox-plus-icons;
-    #   name = "Gruvbox-Plus-Dark";
-    # };
-    #
+    iconTheme = {
+      package = pkgs.gruvbox-plus-icons;
+      name = "Gruvbox-Plus-Dark";
+    };
+
     # cursorTheme = {
     #   package = pkgs.whitesur-cursors;
     #   name = "WhiteSur Cursors";
@@ -139,8 +141,6 @@ in
     obs-studio
     obsidian
     pavucontrol
-    pkgs.gruvbox-plus-icons
-    pkgs.whitesur-cursors
     playerctl
     spotify
     tofi
