@@ -15,11 +15,19 @@ let
   };
 in
 {
+  # Needed by home manager
+  home.username = "bart";
+  home.homeDirectory = "/home/bart";
+
+  # Enables ssh-agent for user.
+  services.ssh-agent.enable = true;
+  programs.ssh.addKeysToAgent = "confirm";
+
+  # Shell setup
   programs.bash = {
     enable = true;
     shellAliases = myAliases;
   };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -33,12 +41,14 @@ in
     };
   };
 
+  # Starship prompt
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
 
+  # Git
   programs.git = {
     enable = true;
     userName = "Bart Vegter";
@@ -48,17 +58,45 @@ in
     };
   };
 
-  # Needed by home manager
-  home.username = "bart";
-  home.homeDirectory = "/home/bart";
-
-  # Enables ssh-agent for user.
-  services.ssh-agent.enable = true;
-  programs.ssh.addKeysToAgent = "confirm";
-
-  # Hyprland stuff
-  wayland.windowManager.hyprland.enable = true;
+  # Hyprland
+  # wayland.windowManager.hyprland.enable = true;
   programs.waybar.enable = true;
+
+  # GTK
+  # home.pointerCursor = {
+  #   gtk.enable = true;
+  #   package = pkgs.whitesur-cursors;
+  # };
+
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.gruvbox-gtk-theme;
+      # name = "Gruvbox-gtk-theme";
+    };
+
+    iconTheme = {
+      package = pkgs.gruvbox-plus-icons;
+      # name = "Gruvbox-plus-icons";
+    };
+
+    font = {
+      name = "Noto Sans SemiCondensed";
+      size = 11;
+    };
+
+    cursorTheme = {
+      package = pkgs.whitesur-cursors;
+      name = "WhiteSur Cursors";
+    };
+  };
+
+  # Makes QT follow GTK theme
+  qt = {
+    enable = true;
+    platformTheme = "gtk2";
+    style.name = "gtk2";
+  };
 
   # Makes fonts installed in home.nix discoverable
   fonts.fontconfig.enable = true;
@@ -78,9 +116,6 @@ in
     exfatprogs
     easyeffects
     firefox
-    gruvbox-dark-gtk
-    gruvbox-dark-icons-gtk
-    gruvbox-gtk-theme
     gtk-engine-murrine
     gnome.gnome-disk-utility
     gnome.file-roller
@@ -113,7 +148,6 @@ in
     vlc
     vulkan-tools
     webcord
-    whitesur-cursors
     wlogout
     wlsunset
     xfce.thunar
@@ -134,6 +168,26 @@ in
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    ".config/alacritty/".recursive = ./dotfiles/.config/alacritty/;
+    ".config/btop/".recursive = ./dotfiles/.config/btop/;
+    ".config/color-scheme/".recursive = ./dotfiles/.config/color-scheme/;
+    # gtk-2,3,4
+    ".config/homepage/".recursive = ./dotfiles/.config/homepage/;
+    ".config/htop/".recursive = ./dotfiles/.config/htop/;
+    ".config/hypr/".recursive = ./dotfiles/.config/hypr/;
+    ".config/mako/".recursive = ./dotfiles/.config/mako/;
+    # ".config/nvim/".recursive = ./dotfiles/.config/nvim/;
+    ".config/starship/".recursive = ./dotfiles/.config/starship/;
+    ".config/Thunar/".recursive = ./dotfiles/.config/Thunar/;
+    ".config/tofi/".recursive = ./dotfiles/.config/tofi/;
+    ".config/waybar/".recursive = ./dotfiles/.config/waybar/;
+    ".config/wlogout/".recursive = ./dotfiles/.config/wlogout/;
+    # xsettingsd
+
+    ".local/bin/nsxiv-themed.sh".source = ./dotfiles/.local/bin/nsxiv-themed.sh;
+    # .icons
+    # .themes
+
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
