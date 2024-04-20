@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, hostname, username, name, ... }:
 let
   myAliases = {
     ls = "ls --color=auto";
@@ -8,7 +8,7 @@ let
     sv = "sudo nvim";
     code = "codium";
     iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
-    rp = "/home/bart/Documents/Pokemon/ROMHacks/.ROMPatcher";
+    rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
     hconf = "cd ~/.config && nvim hypr/hyprland.conf";
     wconf = "cd ~/.config && nvim waybar/config.jsonc";
     dotfiles = "git --git-dir=$HOME/.dotfiles --work-tree=$HOME";
@@ -16,8 +16,10 @@ let
 in
 {
   # Needed by home manager
-  home.username = "bart";
-  home.homeDirectory = "/home/bart";
+  home.username = username;
+  home.homeDirectory = "/home/" + username;
+
+  programs.home-manager.enable = true;
 
   # Enables ssh-agent for user.
   services.ssh-agent.enable = true;
@@ -105,67 +107,74 @@ in
 
   # User defined packages
   nixpkgs.config.allowUnfree = true;
-  home.packages = with pkgs; [
-    alacritty
-    audacity
-    baobab
-    bat
-    blueberry
-    brave
-    btop
-    clinfo
-    dosfstools
-    exfatprogs
-    easyeffects
-    firefox
-    gnome.gnome-disk-utility
-    gnome.file-roller
-    gnome.seahorse
-    gtk-engine-murrine
-    gvfs
-    helvum
-    hyprlock
-    hyprpaper
-    hyprpicker
-    killall
-    libgnome-keyring
-    libreoffice-fresh
-    neovim
-    noto-fonts
-    noto-fonts-lgc-plus
-    noto-fonts-cjk-serif
-    noto-fonts-color-emoji
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    nsxiv
-    nwg-look
-    obs-studio
-    obsidian
-    pavucontrol
-    playerctl
-    spotify
-    tofi
-    trash-cli
-    udiskie
-    viewnior
-    vlc
-    vulkan-tools
-    webcord
-    wlogout
-    wlsunset
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-media-tags-plugin
-    xfce.thunar-volman
-    xfce.tumbler
-    xwaylandvideobridge
+  home.packages =
+    (with pkgs; [
+      alacritty
+      audacity
+      baobab
+      bat
+      blueberry
+      brave
+      btop
+      clinfo
+      dosfstools
+      exfatprogs
+      easyeffects
+      firefox
+      gnome.gnome-disk-utility
+      gnome.file-roller
+      gnome.seahorse
+      gtk-engine-murrine
+      gvfs
+      helvum
+      hyprlock
+      hyprpaper
+      hyprpicker
+      killall
+      libgnome-keyring
+      libreoffice-fresh
+      neovim
+      noto-fonts
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      nsxiv
+      nwg-look
+      obs-studio
+      obsidian
+      pavucontrol
+      playerctl
+      spotify
+      tofi
+      trash-cli
+      udiskie
+      viewnior
+      vlc
+      vulkan-tools
+      webcord
+      wlogout
+      wlsunset
+      xfce.thunar
+      xfce.thunar-archive-plugin
+      xfce.thunar-media-tags-plugin
+      xfce.thunar-volman
+      xfce.tumbler
+      xwaylandvideobridge
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-  ];
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
+    ])
+
+    ++
+
+    (with pkgs-stable; [
+      # If any package breaks, try installing the stable version here
+    ]);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -265,7 +274,4 @@ in
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

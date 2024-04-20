@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, hostname, username, name, ... }:
 
 {
   imports = [
@@ -23,12 +23,12 @@
   programs.zsh.enable = true;
 
   # User setup
-  users.users.bart = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "Bart";
+    description = name;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
 
   # Time & locale
@@ -51,7 +51,7 @@
   };
 
   # Networking
-  networking.hostName = "hyprnix"; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Configure network proxy if necessary
@@ -106,7 +106,7 @@
     driSupport = true;
     driSupport32Bit = true;
     #extraPackages = [
-      #rocmPackages.clr
+    #rocmPackages.clr
     #];
   };
 
@@ -125,17 +125,24 @@
 
   # System packages
   nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    cliphist
-    kitty
-    mako
-    sddm-chili-theme
-    vim
-    wget
-    wl-clip-persist
-    wl-clipboard
-    xdg-desktop-portal-gtk
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      cliphist
+      kitty
+      mako
+      sddm-chili-theme
+      vim
+      wget
+      wl-clip-persist
+      wl-clipboard
+      xdg-desktop-portal-gtk
+    ])
+
+    ++
+
+    (with pkgs-stable; [
+      # If any package breaks, try installing the stable version here
+    ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
