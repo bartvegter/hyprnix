@@ -8,6 +8,8 @@
   # Makes fonts installed in home.nix discoverable
   fonts.fontconfig.enable = true;
 
+  services.ssh-agent.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Bart Vegter";
