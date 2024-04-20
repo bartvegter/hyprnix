@@ -1,14 +1,43 @@
 { config, pkgs, ... }:
-
+let
+  myAliases = {
+    ls = "ls --color=auto";
+    ll = "ls -al --color=auto";
+    grep = "grep --color=auto";
+    v = "nvim";
+    sv = "sudo nvim";
+    code = "codium";
+    iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
+    rp = "/home/bart/Documents/Pokemon/ROMHacks/.ROMPatcher";
+    hconf = "cd ~/.config && nvim hypr/hyprland.conf";
+    wconf = "cd ~/.config && nvim waybar/config.jsonc";
+    dotfiles = "git --git-dir=$HOME/.dotfiles --work-tree=$HOME";
+  };
+in
 {
-  # Home manager defaults
-  home.username = "bart";
-  home.homeDirectory = "/home/bart";
+  programs.bash = {
+    enable = true;
+    shellAliases = myAliases;
+  };
 
-  # Makes fonts installed in home.nix discoverable
-  fonts.fontconfig.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    shellAliases = myAliases;
+    autoSuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    # autocd = true;
+    history = {
+      size = 1000;
+      save = 5000;
+    };
+  };
 
-  services.ssh-agent.enable = true;
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 
   programs.git = {
     enable = true;
@@ -18,6 +47,21 @@
       init.defaultBranch = "main";
     };
   };
+
+  # Needed by home manager
+  home.username = "bart";
+  home.homeDirectory = "/home/bart";
+
+  # Enables ssh-agent for user.
+  services.ssh-agent.enable = true;
+  programs.ssh.addKeysToAgent = "confirm";
+
+  # Hyprland stuff
+  wayland.windowManager.hyprland.enable = true;
+  programs.waybar.enable = true;
+
+  # Makes fonts installed in home.nix discoverable
+  fonts.fontconfig.enable = true;
 
   # User defined packages
   nixpkgs.config.allowUnfree = true;
@@ -61,9 +105,7 @@
     obsidian
     pavucontrol
     playerctl
-    sddm-chili-theme
     spotify
-    starship
     tofi
     trash-cli
     udiskie

@@ -16,15 +16,18 @@
   };
 
   # Shell setup
-  environment.shells = with pkgs; [ bash zsh ];
-  users.defaultUserShell = pkgs.zsh;
+  environment = {
+    shells = with pkgs; [ bashInteractive zsh ];
+    pathsToLink = [ "/share/zsh" ]; # Needed for completion on system packages - see zsh.enableCompletion
+  };
+  programs.zsh.enable = true;
 
   # User setup
   users.users.bart = {
     isNormalUser = true;
     description = "Bart";
     extraGroups = [ "networkmanager" "wheel" ];
-    useDefaultShell = true;
+    shell = pkgs.zsh;
     packages = with pkgs; [];
   };
 
@@ -79,7 +82,7 @@
     #   Autologin = {
     #     Session = "hyprland.desktop";
     #     User = "bart";
-    #   }
+    #   };
     # };
   };
 
@@ -100,7 +103,6 @@
     enable = true;
     portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
-  programs.waybar.enable = true;
 
   # Make QT follow GTK theme
   qt = {
@@ -128,16 +130,12 @@
     };
   };
 
+  # System packages
   nixpkgs.config.allowUnfree = true;
-
-  fonts.packages = with pkgs; [
-  ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     cliphist
     mako
+    sddm-chili-theme
     vim
     wget
     wl-clip-persist
