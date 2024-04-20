@@ -70,16 +70,16 @@ in
 
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.gruvbox-gtk-theme;
-      # name = "Gruvbox-gtk-theme";
-    };
-
-    iconTheme = {
-      package = pkgs.gruvbox-plus-icons;
-      # name = "Gruvbox-plus-icons";
-    };
-
+    # theme = {
+    #   package = pkgs.gruvbox-gtk-theme;
+    #   # name = "Gruvbox-gtk-theme";
+    # };
+    #
+    # iconTheme = {
+    #   package = pkgs.gruvbox-plus-icons;
+    #   # name = "Gruvbox-plus-icons";
+    # };
+    #
     font = {
       name = "Noto Sans SemiCondensed";
       size = 11;
@@ -116,10 +116,12 @@ in
     exfatprogs
     easyeffects
     firefox
-    gtk-engine-murrine
     gnome.gnome-disk-utility
     gnome.file-roller
     gnome.seahorse
+    gruvbox-gtk-theme
+    gruvbox-plus-icons
+    gtk-engine-murrine
     gvfs
     helvum
     hyprlock
