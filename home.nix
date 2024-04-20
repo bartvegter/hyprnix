@@ -168,20 +168,20 @@ in
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/alacritty/".recursive = ./dotfiles/.config/alacritty/;
-    ".config/btop/".recursive = ./dotfiles/.config/btop/;
-    ".config/color-scheme/".recursive = ./dotfiles/.config/color-scheme/;
+    ".config/alacritty/".recursive = ./dotfiles/.config/alacritty;
+    ".config/btop/".recursive = ./dotfiles/.config/btop;
+    ".config/color-scheme/".recursive = ./dotfiles/.config/color-scheme;
     # gtk-2,3,4
-    ".config/homepage/".recursive = ./dotfiles/.config/homepage/;
-    ".config/htop/".recursive = ./dotfiles/.config/htop/;
-    ".config/hypr/".recursive = ./dotfiles/.config/hypr/;
-    ".config/mako/".recursive = ./dotfiles/.config/mako/;
-    # ".config/nvim/".recursive = ./dotfiles/.config/nvim/;
-    ".config/starship/".recursive = ./dotfiles/.config/starship/;
-    ".config/Thunar/".recursive = ./dotfiles/.config/Thunar/;
-    ".config/tofi/".recursive = ./dotfiles/.config/tofi/;
-    ".config/waybar/".recursive = ./dotfiles/.config/waybar/;
-    ".config/wlogout/".recursive = ./dotfiles/.config/wlogout/;
+    ".config/homepage/".recursive = ./dotfiles/.config/homepage;
+    ".config/htop/".recursive = ./dotfiles/.config/htop;
+    ".config/hypr/".recursive = ./dotfiles/.config/hypr;
+    ".config/mako/".recursive = ./dotfiles/.config/mako;
+    # ".config/nvim/".recursive = ./dotfiles/.config/nvim;
+    ".config/starship/".recursive = ./dotfiles/.config/starship;
+    ".config/Thunar/".recursive = ./dotfiles/.config/Thunar;
+    ".config/tofi/".recursive = ./dotfiles/.config/tofi;
+    ".config/waybar/".recursive = ./dotfiles/.config/waybar;
+    ".config/wlogout/".recursive = ./dotfiles/.config/wlogout;
     # xsettingsd
 
     ".local/bin/nsxiv-themed.sh".source = ./dotfiles/.local/bin/nsxiv-themed.sh;
