@@ -75,15 +75,15 @@ in
       name = "Gruvbox-Dark-BL";
     };
 
-    iconTheme = {
-      package = pkgs.gruvbox-plus-icons;
-      name = "Gruvbox-Plus-Dark";
-    };
-
-    cursorTheme = {
-      package = pkgs.whitesur-cursors;
-      name = "WhiteSur Cursors";
-    };
+    # iconTheme = {
+    #   package = pkgs.gruvbox-plus-icons;
+    #   name = "Gruvbox-Plus-Dark";
+    # };
+    #
+    # cursorTheme = {
+    #   package = pkgs.whitesur-cursors;
+    #   name = "WhiteSur Cursors";
+    # };
 
     font = {
       name = "Noto Sans SemiCondensed";
@@ -139,6 +139,8 @@ in
     obs-studio
     obsidian
     pavucontrol
+    pkgs.gruvbox-plus-icons
+    pkgs.whitesur-cursors
     playerctl
     spotify
     tofi
