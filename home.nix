@@ -94,7 +94,7 @@ in
   # Makes QT follow GTK theme
   qt = {
     enable = true;
-    platformTheme = "gtk2";
+    platformTheme = "gtk";
     style.name = "gtk2";
   };
 
