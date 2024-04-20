@@ -21,7 +21,7 @@ in
 
   # Enables ssh-agent for user.
   services.ssh-agent.enable = true;
-  programs.ssh.addKeysToAgent = "confirm";
+  programs.ssh.addKeysToAgent = "ask";
 
   # Shell setup
   programs.bash = {
@@ -63,10 +63,12 @@ in
   programs.waybar.enable = true;
 
   # GTK
-  # home.pointerCursor = {
-  #   gtk.enable = true;
-  #   package = pkgs.whitesur-cursors;
-  # };
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.whitesur-cursors;
+    name = "WhiteSur Cursors";
+    size = 24;
+  };
 
   gtk = {
     enable = true;
@@ -80,10 +82,10 @@ in
       name = "Gruvbox-Plus-Dark";
     };
 
-    cursorTheme = {
-      package = pkgs.whitesur-cursors;
-      name = "WhiteSur Cursors";
-    };
+    # cursorTheme = {
+    #   package = pkgs.whitesur-cursors;
+    #   name = "WhiteSur Cursors";
+    # };
 
     font = {
       name = "Noto Sans SemiCondensed";
