@@ -22,6 +22,9 @@
         version = "unstable";
         system = "x86_64-linux";
         hostname = "hyprnix";
+        bootMode = "uefi";
+        bootMountPath = "/boot";
+        grubDevice = "";
         timezone = "Europe/Amsterdam";
         language = "en_US.UTF-8";
         locale = "nl_NL.UTF-8";
@@ -89,7 +92,7 @@
     in
     {
       nixosConfigurations = {
-        ${systemSettings.hostname} = lib.nixosSystem {
+        system = lib.nixosSystem {
           inherit ${systemSettings.system};
           modules = [ ./system/configuration.nix ];
           specialArgs = {
@@ -101,7 +104,7 @@
       };
 
       homeConfigurations = {
-        ${userSettings.username} = home-manager.lib.homeManagerConfiguration {
+        user = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./user/home.nix ];
           extraSpecialArgs = {
