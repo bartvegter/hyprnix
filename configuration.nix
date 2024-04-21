@@ -99,12 +99,6 @@
     portalPackage = pkgs.xdg-desktop-portal-hyprland;
   };
 
-  # Syncthing
-  # services.syncthing = {
-  #   enable = true;
-  #   openDefaultPorts = true;
-  # };
-
   # Graphics
   hardware.opengl = {
     driSupport = true;

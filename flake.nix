@@ -30,7 +30,6 @@
         email = "contact@bartvegter.com";
         term = "alacritty";
         editor = "nvim";
-        spawnEditor = if ((editor == "nvim") || (editor == "vim") || (editor == "nano")) then "exec " + term + " -e " + editor else editor;
       };
 
       # Library & Package settings

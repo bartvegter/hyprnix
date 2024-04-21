@@ -18,7 +18,7 @@ in
   # Needed by home manager
   home.username = userSettings.username;
   home.homeDirectory = "/home/" + userSettings.username;
-
+  home.stateVersion = "23.11"; # Only edit this if you know what you're doing
   programs.home-manager.enable = true;
 
   # Shell setup
@@ -61,7 +61,10 @@ in
   programs.ssh.addKeysToAgent = "ask";
 
   # Hyprland
-  # wayland.windowManager.hyprland.enable = true;
+  wayland.windowManager.hyprland = {
+    enable = true;
+    systemd.enable = true;
+  };
   programs.waybar.enable = true;
 
   # GTK
@@ -100,6 +103,13 @@ in
     enable = true;
     platformTheme.name = "gtk";
     style.name = "gtk2";
+  };
+
+  # Syncthing
+  services.syncthing = {
+    package = pkgs.syncthing;
+    enable = true;
+    tray.enable = true;
   };
 
   # Makes fonts installed in home.nix discoverable
@@ -237,7 +247,8 @@ in
   };
 
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = userSettings.editor;
+    TERM = userSettings.term;
   };
 
   # This value determines the Home Manager release that your configuration is
@@ -247,5 +258,4 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
 }
