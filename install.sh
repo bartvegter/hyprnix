@@ -16,7 +16,7 @@ nix-shell -p git --command "git clone https://github.com/bartvegter/hyprnix $SCR
 # Generate hardware config for new system
 sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/system/hardware-configuration.nix
 
-git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR/system/hardware-configuration.nix
+git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR
 
 # Check if uefi or bios
 if [ -d /sys/firmware/efi/efivars ]; then
@@ -27,16 +27,22 @@ else
     sed -i "0,/grubDevice.*=.*\".*\";/s//grubDevice = \"\/dev\/$grubDevice\";/" $SCRIPT_DIR/flake.nix
 fi
 
+git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR
+
 # Patch flake.nix with different username/name and remove email by default
 sed -i "0,/bart/s//$(whoami)/" $SCRIPT_DIR/flake.nix
 sed -i "0,/Bart/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" $SCRIPT_DIR/flake.nix
 sed -i "s/contact@bartvegter.com//" $SCRIPT_DIR/flake.nix
+
+git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR
 
 # Open up editor to manually edit flake.nix before install
 if [ -z "$EDITOR" ]; then
     EDITOR=nano;
 fi
 $EDITOR $SCRIPT_DIR/flake.nix;
+
+git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR
 
 # Permissions for files that should be owned by root
 # sudo $SCRIPT_DIR/harden.sh $SCRIPT_DIR;
