@@ -23,7 +23,7 @@
   ],
   // Modules section
   "custom/launcher": {
-    "format": " ",
+    "format": " ",
     "on-click": "tofi-drun | xargs hyprctl dispatch exec --",
     "on-click-right": "tofi-run | xargs hyprctl dispatch exec --",
     "tooltip": false
