@@ -1,50 +1,19 @@
 { config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
-let
-  myAliases = {
-    ls = "ls --color=auto";
-    ll = "ls -al --color=auto";
-    grep = "grep --color=auto";
-    v = "nvim";
-    sv = "sudo nvim";
-    code = "codium";
-    iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
-    rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
-    hconf = "cd ~/.config && nvim hypr/hyprland.conf";
-    wconf = "cd ~/.config && nvim waybar/config.jsonc";
-    dotfiles = "git --git-dir=$HOME/.dotfiles --work-tree=$HOME";
-  };
-in
+
 {
+  imports = [
+    # ./hyprland.nix
+    ./sh.nix
+    ./theme.nix
+  ];
+
   # Needed by home manager
-  home.username = userSettings.username;
-  home.homeDirectory = "/home/" + userSettings.username;
-  home.stateVersion = "23.11"; # Only edit this if you know what you're doing
+  home = {
+    username = userSettings.username;
+    homeDirectory = "/home/" + userSettings.username;
+    stateVersion = "23.11"; # Only edit this if you know what you're doing
+  };
   programs.home-manager.enable = true;
-
-  # Shell setup
-  programs.bash = {
-    enable = true;
-    shellAliases = myAliases;
-  };
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    shellAliases = myAliases;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    # autocd = true;
-    history = {
-      size = 1000;
-      save = 5000;
-    };
-  };
-
-  # Starship prompt
-  programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-  };
 
   # Git
   programs.git = {
@@ -59,51 +28,6 @@ in
   # Enables ssh-agent for user.
   services.ssh-agent.enable = true;
   programs.ssh.addKeysToAgent = "ask";
-
-  # Hyprland
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = true;
-  };
-  programs.waybar.enable = true;
-
-  # GTK
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.whitesur-cursors;
-    name = "WhiteSur Cursors";
-    size = 24;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      package = pkgs.gruvbox-gtk-theme;
-      name = "Gruvbox-Dark-BL";
-    };
-
-    iconTheme = {
-      package = pkgs.gruvbox-plus-icons;
-      name = "Gruvbox-Plus-Dark";
-    };
-
-    # cursorTheme = {
-    #   package = pkgs.whitesur-cursors;
-    #   name = "WhiteSur Cursors";
-    # };
-
-    font = {
-      name = "Noto Sans SemiCondensed";
-      size = 11;
-    };
-  };
-
-  # Makes QT follow GTK theme
-  qt = {
-    enable = true;
-    platformTheme.name = "gtk";
-    style.name = "gtk2";
-  };
 
   # Syncthing
   services.syncthing = {
@@ -186,8 +110,6 @@ in
       # If any package breaks, try installing the stable version here.
     ]);
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
     ".config/alacritty/" = {
       source = ./dotfiles/.config/alacritty;
@@ -201,7 +123,6 @@ in
       source = ./dotfiles/.config/color-scheme;
       recursive = true;
     };
-    # gtk-2,3,4
     ".config/homepage/" = {
       source = ./dotfiles/.config/homepage;
       recursive = true;
@@ -218,7 +139,10 @@ in
       source = ./dotfiles/.config/mako;
       recursive = true;
     };
-    # ".config/nvim/".recursive = ./dotfiles/.config/nvim;
+    # ".config/nvim/" = {
+    #   source = ./dotfiles/.config/nvim;
+    #   recursive = true;
+    # };
     ".config/starship/" = {
       source = ./dotfiles/.config/starship;
       recursive = true;
@@ -239,9 +163,13 @@ in
       source = ./dotfiles/.config/wlogout;
       recursive = true;
     };
+    # gtk-2,3,4
     # xsettingsd
 
-    ".local/bin/nsxiv-themed.sh".source = ./dotfiles/.local/bin/nsxiv-themed.sh;
+    ".local/bin/" = {
+      source = ./dotfiles/.local/bin;
+      recursive = true;
+    };
     # .icons
     # .themes
   };
@@ -250,12 +178,4 @@ in
     EDITOR = userSettings.editor;
     TERM = userSettings.term;
   };
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
 }

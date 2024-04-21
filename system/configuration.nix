@@ -3,15 +3,17 @@
 {
   imports = [
     ./hardware-configuration.nix
+    #./bluetooth.nix
+    ./hyprland.nix
+    ./gaming.nix
+    ./vm-guest.nix
   ];
 
   # Important nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  # Use when running nixos in a VM
-  services.spice-vdagentd.enable = true;
-  services.spice-autorandr.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Bootloader
   boot.loader = {
@@ -24,16 +26,20 @@
     shells = with pkgs; [ bashInteractive zsh ];
     pathsToLink = [ "/share/zsh" ]; # Needed for completion on system packages - see zsh.enableCompletion
   };
-  programs.zsh.enable = true;
+  programs.zsh.enable = if (userSettings.shell == "zsh") then true else false;
 
   # User setup
   users.users.${userSettings.username} = {
     isNormalUser = true;
     description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
+    shell = pkgs.${userSettings.shell};
     # packages = with pkgs; [];
   };
+
+  # Networking
+  networking.hostName = systemSettings.hostname;
+  networking.networkmanager.enable = true;
 
   # Time & locale
   time.timeZone = systemSettings.timezone;
@@ -54,32 +60,6 @@
     variant = systemSettings.keyboardVariant;
   };
 
-  # Networking
-  networking.hostName = systemSettings.hostname;
-  networking.networkmanager.enable = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Bluetooth
-  hardware.bluetooth = {
-    enable = false;
-    powerOnBoot = true;
-  };
-
-  # Pipewire
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    audio.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    #jack.enable = true;
-  };
-
   # SDDM
   services.displayManager.sddm = {
     enable = true;
@@ -91,34 +71,6 @@
     #     User = userSettings.username;
     #   };
     # };
-  };
-
-  # Hyprland
-  programs.hyprland = {
-    enable = true;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;
-  };
-
-  # Graphics
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-    #extraPackages = [
-    #rocmPackages.clr
-    #];
-  };
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-    extest.enable = true;
-    localNetworkGameTransfers.openFirewall = true;
-    remotePlay.openFirewall = true;
-    gamescopeSession = {
-      enable = false;
-      #env = {};
-      #args = [];
-    };
   };
 
   # System packages
@@ -160,11 +112,5 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 }
