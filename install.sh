@@ -44,11 +44,14 @@ $EDITOR $SCRIPT_DIR/flake.nix;
 
 git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR
 
+# Create a symbolic link for neovim dotfiles (might move to nixvim eventually)
+ln -s $SCRIPT_DIR/dotfiles/.config/nvim ~/.config
+
 # Permissions for files that should be owned by root
 # sudo $SCRIPT_DIR/harden.sh $SCRIPT_DIR;
 
 # Rebuild system
-sudo nixos-rebuild switch --flake $SCRIPT_DIR#system;
+sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
 
 # Install and build home-manager configuration
-nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes -- switch --flake $SCRIPT_DIR#user;
+nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
