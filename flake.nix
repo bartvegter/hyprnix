@@ -93,7 +93,7 @@
     {
       nixosConfigurations = {
         system = lib.nixosSystem {
-          inherit ${systemSettings.system};
+          system = systemSettings.system;
           modules = [ ./system/configuration.nix ];
           specialArgs = {
             inherit pkgs-stable;
