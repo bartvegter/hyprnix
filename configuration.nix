@@ -1,9 +1,13 @@
-{ config, lib, pkgs, pkgs-stable, hostname, username, name, ... }:
+{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
+
+  # Important nix settings
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
 
   # Use when running nixos in a VM
   services.spice-vdagentd.enable = true;
@@ -23,35 +27,35 @@
   programs.zsh.enable = true;
 
   # User setup
-  users.users.${username} = {
+  users.users.${userSettings.username} = {
     isNormalUser = true;
-    description = name;
+    description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
     # packages = with pkgs; [];
   };
 
   # Time & locale
-  time.timeZone = "Europe/Amsterdam";
-  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = systemSettings.timezone;
+  i18n.defaultLocale = systemSettings.language;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "nl_NL.UTF-8";
-    LC_IDENTIFICATION = "nl_NL.UTF-8";
-    LC_MEASUREMENT = "nl_NL.UTF-8";
-    LC_MONETARY = "nl_NL.UTF-8";
-    LC_NAME = "nl_NL.UTF-8";
-    LC_NUMERIC = "nl_NL.UTF-8";
-    LC_PAPER = "nl_NL.UTF-8";
-    LC_TELEPHONE = "nl_NL.UTF-8";
-    LC_TIME = "nl_NL.UTF-8";
+    LC_ADDRESS = systemSettings.locale;
+    LC_IDENTIFICATION = systemSettings.locale;
+    LC_MEASUREMENT = systemSettings.locale;
+    LC_MONETARY = systemSettings.locale;
+    LC_NAME = systemSettings.locale;
+    LC_NUMERIC = systemSettings.locale;
+    LC_PAPER = systemSettings.locale;
+    LC_TELEPHONE = systemSettings.locale;
+    LC_TIME = systemSettings.locale;
   };
   services.xserver.xkb = {
-    layout = "us";
-    variant = "altgr-intl";
+    layout = systemSettings.keyboardLayout;
+    variant = systemSettings.keyboardVariant;
   };
 
   # Networking
-  networking.hostName = hostname; # Define your hostname.
+  networking.hostName = systemSettings.hostname;
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # Configure network proxy if necessary
@@ -64,19 +68,6 @@
     powerOnBoot = true;
   };
 
-  # SDDM
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    theme = "chili";
-    # settings = {
-    #   Autologin = {
-    #     Session = "hyprland.desktop";
-    #     User = "bart";
-    #   };
-    # };
-  };
-
   # Pipewire
   security.rtkit.enable = true;
   services.pipewire = {
@@ -87,6 +78,19 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     #jack.enable = true;
+  };
+
+  # SDDM
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    theme = "chili";
+    # settings = {
+    #   Autologin = {
+    #     Session = "hyprland.desktop";
+    #     User = userSettings.username;
+    #   };
+    # };
   };
 
   # Hyprland
@@ -124,7 +128,6 @@
   };
 
   # System packages
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages =
     (with pkgs; [
       cliphist
@@ -141,7 +144,7 @@
     ++
 
     (with pkgs-stable; [
-      # If any package breaks, try installing the stable version here
+      # If any package breaks, try installing the stable version here.
     ]);
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -170,7 +173,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 }

@@ -12,26 +12,43 @@
 
   outputs = { self, nixpkgs, nixpkgs-stable, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      lib = nixpkgs.lib;
-      pkgs = nixpkgs.legacyPackages.${system};
-      lib-stable = nixpkgs-stable.lib;
-      pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+      # System settings
+      systemSettings = {
+        arch = "x86_64-linux";
+        hostname = "hyprnix";
+        timezone = "Europe/Amsterdam";
+        language = "en_US.UTF-8";
+        locale = "nl_NL.UTF-8";
+        keyboardLayout = "us";
+        keyboardVariant = "altgr-intl";
+      };
 
-      hostname = "hyprnix";
-      username = "bart";
-      name = "Bart";
+      # User settings
+      userSettings = rec {
+        username = "bart";
+        name = "Bart";
+        email = "contact@bartvegter.com";
+        term = "alacritty";
+        editor = "nvim";
+        spawnEditor = if ((editor == "nvim") || (editor == "vim") || (editor == "nano")) then "exec " + term + " -e " + editor else editor;
+      };
+
+      # Library & Package settings
+      lib = nixpkgs.lib;
+      pkgs = nixpkgs.legacyPackages.${systemSettings.arch};
+      lib-stable = nixpkgs-stable.lib;
+      pkgs-stable = nixpkgs-stable.legacyPackages.${systemSettings.arch};
+
     in
     {
       nixosConfigurations = {
         hyprnix = lib.nixosSystem {
-          inherit system;
+          inherit ${systemSettings.arch};
           modules = [ ./configuration.nix ];
           specialArgs = {
-            inherit hostname;
-            inherit username;
-            inherit name;
             inherit pkgs-stable;
+            inherit systemSettings;
+            inherit userSettings;
           };
         };
       };
@@ -41,10 +58,9 @@
           inherit pkgs;
           modules = [ ./home.nix ];
           extraSpecialArgs = {
-            inherit hostname;
-            inherit username;
-            inherit name;
             inherit pkgs-stable;
+            inherit systemSettings;
+            inherit userSettings;
           };
         };
       };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, hostname, username, name, ... }:
+{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
 let
   myAliases = {
     ls = "ls --color=auto";
@@ -16,14 +16,10 @@ let
 in
 {
   # Needed by home manager
-  home.username = username;
-  home.homeDirectory = "/home/" + username;
+  home.username = userSettings.username;
+  home.homeDirectory = "/home/" + userSettings.username;
 
   programs.home-manager.enable = true;
-
-  # Enables ssh-agent for user.
-  services.ssh-agent.enable = true;
-  programs.ssh.addKeysToAgent = "ask";
 
   # Shell setup
   programs.bash = {
@@ -53,12 +49,16 @@ in
   # Git
   programs.git = {
     enable = true;
-    userName = "Bart Vegter";
-    userEmail = "mail@bartvegter.com";
+    userName = userSettings.name;
+    userEmail = userSettings.email;
     extraConfig = {
       init.defaultBranch = "main";
     };
   };
+
+  # Enables ssh-agent for user.
+  services.ssh-agent.enable = true;
+  programs.ssh.addKeysToAgent = "ask";
 
   # Hyprland
   # wayland.windowManager.hyprland.enable = true;
@@ -173,7 +173,7 @@ in
     ++
 
     (with pkgs-stable; [
-      # If any package breaks, try installing the stable version here
+      # If any package breaks, try installing the stable version here.
     ]);
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -234,36 +234,10 @@ in
     ".local/bin/nsxiv-themed.sh".source = ./dotfiles/.local/bin/nsxiv-themed.sh;
     # .icons
     # .themes
-
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/bart/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # This value determines the Home Manager release that your configuration is
