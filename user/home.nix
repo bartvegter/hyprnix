@@ -25,6 +25,8 @@
     TERM = userSettings.term;
   };
 
+  programs.waybar.enable = true;
+
   # Enables ssh-agent for user.
   services.ssh-agent.enable = true;
   programs.ssh.addKeysToAgent = "ask";
