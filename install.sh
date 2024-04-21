@@ -16,6 +16,8 @@ nix-shell -p git --command "git clone https://github.com/bartvegter/hyprnix $SCR
 # Generate hardware config for new system
 sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/system/hardware-configuration.nix
 
+git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR/system/hardware-configuration.nix
+
 # Check if uefi or bios
 if [ -d /sys/firmware/efi/efivars ]; then
     sed -i "0,/bootMode.*=.*\".*\";/s//bootMode = \"uefi\";/" $SCRIPT_DIR/flake.nix
