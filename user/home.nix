@@ -37,7 +37,7 @@
   nixpkgs.config.allowUnfree = true;
   home.packages =
     (with pkgs; [
-      ${userSettings.term}
+      alacritty
       audacity
       baobab
       bat
@@ -61,7 +61,7 @@
       killall
       libgnome-keyring
       libreoffice-fresh
-      ${userSettings.editor}
+      neovim
       nsxiv
       nwg-look
       obs-studio
