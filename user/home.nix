@@ -21,8 +21,10 @@
   };
 
   home.sessionVariables = {
+    NIX_CONF_DIR = userSettings.dotfilesPath;
     TERM = userSettings.term;
     EDITOR = if (userSettings.editor == "neovim") then "nvim" else userSettings.editor;
+    VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init/lua";
   };
 
   programs.waybar.enable = true;
