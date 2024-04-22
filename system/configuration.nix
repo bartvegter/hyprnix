@@ -27,13 +27,13 @@
     pathsToLink = [ "/share/bash-completion" "/share/zsh" ]; # Needed for completion on system packages - see [bash/zsh].enableCompletion for home manager
   };
   programs.zsh.enable = if (userSettings.shell == "zsh") then true else false;
-  users.users.${userSettings.username}.shell = if (userSettings.shell == "zsh") then pkgs.zsh else pkgs.bashInteractive;
 
   # User setup
   users.users.${userSettings.username} = {
     isNormalUser = true;
     description = userSettings.name;
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = if (userSettings.shell == "zsh") then pkgs.zsh else pkgs.bashInteractive;
     # packages = with pkgs; [];
   };
 
