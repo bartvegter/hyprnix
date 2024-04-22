@@ -24,7 +24,7 @@
     NIX_CONF_DIR = systemSettings.dotfilesPath;
     TERM = userSettings.term;
     EDITOR = userSettings.editor;
-    VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init/lua";
+    #VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init/lua";
   };
 
   programs.waybar.enable = true;
