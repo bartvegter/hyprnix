@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
+{ config, lib, pkgs, pkgs-stable, userSettings, ... }:
 
 {
   imports = [
@@ -21,8 +21,8 @@
   };
 
   home.sessionVariables = {
-    EDITOR = userSettings.editor;
     TERM = userSettings.term;
+    EDITOR = if (userSettings.editor == "neovim") then "nvim" else userSettings.editor;
   };
 
   programs.waybar.enable = true;
@@ -35,7 +35,7 @@
   nixpkgs.config.allowUnfree = true;
   home.packages =
     (with pkgs; [
-      alacritty
+      ${userSettings.term}
       audacity
       baobab
       bat
@@ -59,7 +59,7 @@
       killall
       libgnome-keyring
       libreoffice-fresh
-      neovim
+      ${userSettings.editor}
       nsxiv
       nwg-look
       obs-studio

@@ -39,7 +39,7 @@
         email = "contact@bartvegter.com";
         shell = "zsh";
         term = "alacritty";
-        editor = "nvim";
+        editor = "neovim";
       };
 
       # Library & Package definitions
