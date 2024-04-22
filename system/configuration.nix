@@ -27,7 +27,6 @@
     pathsToLink = [ "/share/bash-completion" "/share/zsh" ]; # Needed for completion on system packages - see [bash/zsh].enableCompletion for home manager
   };
   programs.zsh.enable = if (userSettings.shell == "zsh") then true else false;
-  users.users.${userSettings.username}.
 
   # User setup
   users.users.${userSettings.username} = {
