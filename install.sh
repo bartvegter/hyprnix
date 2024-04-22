@@ -3,7 +3,7 @@
 # Automated script for installing my dotfiles on NixOS.
 # Shout-out to @LibrePhoenix for showing how to set this up using a flake.
 
-if [
+# if [
   # Set script directory
   if [ $# -gt 0 ]
     then
@@ -185,7 +185,7 @@ if [
 
   echo && echo ":: Home configuration rebuild complete" && echo
 
-]; then
+# ]; then
 
   # Prompt for rebooting
   echo && echo ":: Hyprnix installed successfully" && echo
@@ -211,7 +211,7 @@ if [
 
   echo ":: When ready, run 'systemctl reboot' to reboot into Hyprland"
   exit
-else
-  echo && echo ":: Hyprnix failed to install. See error log above"
-  exit 1
-fi
+# else
+#   echo && echo ":: Hyprnix failed to install. See error log above"
+#   exit 1
+# fi
