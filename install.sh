@@ -183,7 +183,7 @@
   nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
   gitAdd
 
-  echo && echo ":: Home configuration rebuild complete" && echo
+  echo && echo ":: Home configuration rebuild complete"
 
 # ]; then
 
@@ -205,6 +205,7 @@
 
       *)
         echo && echo ":: Invalid input, exiting..."
+        break
         ;;
     esac
   done
