@@ -55,3 +55,21 @@ sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
 
 # Install and build home-manager configuration
 nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
+
+# Prompt for rebooting
+echo :: Hyprnix installed successfully
+
+while true; do
+  read -p ":: Would you like to reboot into Hyprland? [Y/n] " yn
+
+  if [ -z $yn ] || [ $yn == "Y" ] || [ $yn == "y" ]; then
+    echo :: Rebooting system...
+    systemctl reboot
+    exit
+  elif [ $yn == "N" ] || [ $yn == "n" ]; then
+    echo :: When ready, run \'systemctl reboot\' to reboot into Hyprland
+    exit
+  else
+    echo :: Invalid input, please try again...
+  fi
+done
