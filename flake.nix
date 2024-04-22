@@ -22,7 +22,7 @@
         version = "unstable";
         system = "x86_64-linux";
         hostname = "hyprnix";
-        dotfilesPath = "~/." + ${hostname};
+        dotfilesPath = "~/." + hostname;
         bootMode = "uefi";
         bootMountPath = "/boot";
         grubDevice = "";
