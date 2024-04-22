@@ -182,22 +182,23 @@ if install; then
     read -p ":: Would you like to reboot into Hyprland? [Y/n]: " ynReboot
     case $ynReboot in
       "" | "Y" | "y")
-        echo && echo ":: Rebooting system..." && echo
+        echo && echo ":: Rebooting system..."
         systemctl reboot
         exit
         ;;
 
       "N" | "n")
-        echo && echo ":: When ready, run 'systemctl reboot' to reboot into Hyprland" && echo
-        exit
+        break
         ;;
 
       *)
-        echo ":: Invalid input, please try again..." && echo
-        echo ":: Valid values are [Y] or [n] (case insensitive), or press [return] for default (Y)"
+        echo && echo ":: Invalid input, exiting..."
         ;;
     esac
   done
+
+  echo ":: When ready, run 'systemctl reboot' to reboot into Hyprland" && echo
+  exit
 else
   echo ":: Hyprnix failed to install. See error log above"
   exit 1
