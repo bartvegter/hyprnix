@@ -92,7 +92,7 @@
           read -p ">> (5/5) Please choose a default editor [ neovim | vim | nano | [vscode] / [vscodium] (both will use nano during install) ]: " editor
           case $editor in
             "neovim" | "nvim")
-              $editor = "nvim"
+              $editor="nvim";
               break
               ;;
 
@@ -103,7 +103,7 @@
 
             "vscode" | "vscodium")
               sed -i "0,/nvim/s//$editor/" $SCRIPT_DIR/flake.nix
-              $editor = nano
+              $editor="nano";
               break
               ;;
 
@@ -140,9 +140,9 @@
   gitAdd
 
   if [ "$editor" == "nvim" ] || [ "$editor" == "vim" ]; then
-    EDITOR = "vim";
+    EDITOR=vim;
   else
-    EDITOR = "nano";
+    EDITOR=nano;
   fi
 
   # Open up editor to manually edit flake.nix before install
