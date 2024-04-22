@@ -41,13 +41,13 @@ if [
 
   # systemSettings & userSettings setup
   while true; do
-    read -p " > Would you like to change the default configuration? (recommended) [Y/n]: " ynConf
+    read -p ">> Would you like to change the default configuration? (recommended) [Y/n]: " ynConf
     case $ynConf in
       "" | "Y" | "y")
 
         echo
         while true; do
-          read -p " > (1/5) Please enter your username as in /home/{username}/ (ex. 'bart'): " username
+          read -p ">> (1/5) Please enter your username as in /home/{username}/ (ex. 'bart'): " username
           if [ -z $username ]; then
             echo ":: Username cannot be empty, try again..." && echo
           else
@@ -57,7 +57,7 @@ if [
 
         echo
         while true; do
-          read -p " > (2/5) Please enter your name for user description and git commits (ex. 'Bart'): " name
+          read -p ">> (2/5) Please enter your name for user description and git commits (ex. 'Bart'): " name
           if [ -z $name ]; then
             echo ":: Name cannot be empty, try again..." && echo
           else
@@ -65,11 +65,11 @@ if [
           fi
         done
 
-        echo && read -p " > (3/5) Please enter your email address for git commits (optional, ex. 'example@example.com'): " email
+        echo && read -p ">> (3/5) Please enter your email address for git commits (optional, ex. 'example@example.com'): " email
 
         echo
         while true; do
-          read -p " > (4/5) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
+          read -p ">> (4/5) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
           case $ynShell in
             "" | "Y" | "y")
               break
@@ -89,19 +89,20 @@ if [
 
         echo
         while true; do
-          read -p " > (5/5) Please choose a default editor [ neovim | vim | nano | [vscode]/[vscodium] (will use nano during install) ]: " editor
+          read -p ">> (5/5) Please choose a default editor [ neovim | vim | nano | [vscode] / [vscodium] (both will use nano during install) ]: " editor
           case $editor in
             "neovim" | "nvim")
+              $editor = "nvim"
               break
               ;;
 
             "vim" | "nano")
-              sed -i "0,/neovim/s//$editor/" $SCRIPT_DIR/flake.nix
+              sed -i "0,/nvim/s//$editor/" $SCRIPT_DIR/flake.nix
               break
               ;;
 
             "vscode" | "vscodium")
-              sed -i "0,/neovim/s//$editor/" $SCRIPT_DIR/flake.nix
+              sed -i "0,/nvim/s//$editor/" $SCRIPT_DIR/flake.nix
               $editor = nano
               break
               ;;
@@ -138,7 +139,7 @@ if [
   done
   gitAdd
 
-  if [ $editor == "neovim" ] || [ $editor == "vim" ]; then
+  if [ "$editor" == "nvim" ] || [ "$editor" == "vim" ]; then
     EDITOR = "vim";
   else
     EDITOR = "nano";
@@ -147,7 +148,7 @@ if [
   # Open up editor to manually edit flake.nix before install
   echo
   while true; do
-    read -p " > Would you like to manually edit flake.nix for further configuration? [y/N]: " ynManual
+    read -p ">> Would you like to manually edit flake.nix for further configuration? [y/N]: " ynManual
     case $ynManual in
       "Y" | "y")
         $EDITOR $SCRIPT_DIR/flake.nix;
@@ -190,7 +191,7 @@ if [
   echo && echo ":: Hyprnix installed successfully" && echo
 
   while true; do
-    read -p " > Would you like to reboot into Hyprland? [Y/n]: " ynReboot
+    read -p ">> Would you like to reboot into Hyprland? [Y/n]: " ynReboot
     case $ynReboot in
       "" | "Y" | "y")
         echo && echo ":: Rebooting system..."
