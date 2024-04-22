@@ -188,7 +188,7 @@ if install; then
         ;;
 
       "N" | "n")
-        echo && echo ":: When ready, run \'systemctl reboot\' to reboot into Hyprland" && echo
+        echo && echo ":: When ready, run 'systemctl reboot' to reboot into Hyprland" && echo
         exit
         ;;
 
