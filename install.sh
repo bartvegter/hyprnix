@@ -19,7 +19,7 @@ function install {
   # Clone dotfiles
   nix-shell -p git --command "git clone https://github.com/bartvegter/hyprnix $SCRIPT_DIR"
 
-  echo && echo ":: The system will ask for your sudo password, which is required for generating the hardware config."
+  echo && echo ":: The system will ask for your sudo password, which is required for generating the hardware config and for rebuilding the system configuration."
   echo ":: Feel free to check out the install script at https://github.com/bartvegter/hyprnix/blob/main/install.sh"
 
   # Generate hardware config for new system
@@ -169,27 +169,18 @@ function install {
 
   echo && echo ":: Starting system rebuild..."
 
-  function system-rebuild {
-    # Rebuild system
-    sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
-    gitAdd
-  }
+  # Rebuild system
+  sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
+  gitAdd
 
-  function home-rebuild {
-    # Install and build home-manager configuration
-    nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
-    gitAdd
-  }
-
-  success = $(system-rebuild && home-rebuild)
-
-  if [ ! success ]; then
-    echo && echo ":: Installation failed at system rebuild. See error log above"
-    exit 1
-  fi
+  # Install and build home-manager configuration
+  nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
+  gitAdd
 }
 
-if [ install ]; then
+success = $(install)
+
+if success; then
   # Prompt for rebooting
   echo && echo ":: Hyprnix installed successfully" && echo
 
