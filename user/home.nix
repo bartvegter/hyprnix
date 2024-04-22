@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, userSettings, ... }:
+{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
 
 {
   imports = [
@@ -21,7 +21,7 @@
   };
 
   home.sessionVariables = {
-    NIX_CONF_DIR = userSettings.dotfilesPath;
+    NIX_CONF_DIR = systemSettings.dotfilesPath;
     TERM = userSettings.term;
     EDITOR = if (userSettings.editor == "neovim") then "nvim" else userSettings.editor;
     VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init/lua";
