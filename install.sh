@@ -139,9 +139,9 @@ if [
   gitAdd
 
   if [ $editor == "neovim" ] || [ $editor == "vim" ]; then
-    tmpEditor = "vim";
+    EDITOR = "vim";
   else
-    tmpEditor = "nano";
+    EDITOR = "nano";
   fi
 
   # Open up editor to manually edit flake.nix before install
@@ -150,7 +150,7 @@ if [
     read -p " > Would you like to manually edit flake.nix for further configuration? [y/N]: " ynManual
     case $ynManual in
       "Y" | "y")
-        $tmpEditor $SCRIPT_DIR/flake.nix;
+        $EDITOR $SCRIPT_DIR/flake.nix;
         gitAdd
         break
         ;;
