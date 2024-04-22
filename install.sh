@@ -3,8 +3,7 @@
 # Automated script for installing my dotfiles on NixOS.
 # Shout-out to @LibrePhoenix for showing how to set this up using a flake.
 
-function install {
-
+if [
   # Set script directory
   if [ $# -gt 0 ]
     then
@@ -176,11 +175,7 @@ function install {
   # Install and build home-manager configuration
   nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
   gitAdd
-}
-
-success = $(install)
-
-if success; then
+  ]; then
   # Prompt for rebooting
   echo && echo ":: Hyprnix installed successfully" && echo
 
