@@ -40,15 +40,14 @@ if [
   gitAdd
 
   # systemSettings & userSettings setup
-  echo
   while true; do
-    read -p ":: Would you like to change the default configuration? (recommended) [Y/n]: " ynConf
+    read -p " > Would you like to change the default configuration? (recommended) [Y/n]: " ynConf
     case $ynConf in
       "" | "Y" | "y")
 
         echo
         while true; do
-          read -p ":: (1/5) Please enter your username as in /home/{username}/ (ex. 'bart'): " username
+          read -p " > (1/5) Please enter your username as in /home/{username}/ (ex. 'bart'): " username
           if [ -z $username ]; then
             echo ":: Username cannot be empty, try again..." && echo
           else
@@ -58,7 +57,7 @@ if [
 
         echo
         while true; do
-          read -p ":: (2/5) Please enter your name for user description and git commits (ex. 'Bart'): " name
+          read -p " > (2/5) Please enter your name for user description and git commits (ex. 'Bart'): " name
           if [ -z $name ]; then
             echo ":: Name cannot be empty, try again..." && echo
           else
@@ -66,11 +65,11 @@ if [
           fi
         done
 
-        echo && read -p ":: (3/5) Please enter your email address for git commits (optional, ex. 'example@example.com'): " email
+        echo && read -p " > (3/5) Please enter your email address for git commits (optional, ex. 'example@example.com'): " email
 
         echo
         while true; do
-          read -p ":: (4/5) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
+          read -p " > (4/5) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
           case $ynShell in
             "" | "Y" | "y")
               break
@@ -90,7 +89,7 @@ if [
 
         echo
         while true; do
-          read -p ":: (5/5) Please choose a default editor [neovim|vim|nano|vscode/vscodium(will use nano in terminal)]: " editor
+          read -p " > (5/5) Please choose a default editor [ neovim | vim | nano | [vscode]/[vscodium] (will use nano during install) ]: " editor
           case $editor in
             "neovim" | "nvim")
               break
@@ -109,7 +108,7 @@ if [
 
             *)
               echo ":: Invalid input, please try again..." && echo
-              echo ":: Valid values are listed below in between [], enter value in lower case"
+              echo ":: Supported editors are listed below in between [], enter value in lower case"
               ;;
           esac
         done
@@ -118,14 +117,16 @@ if [
         sed -i "0,/bart/s//$username/" $SCRIPT_DIR/flake.nix
         sed -i "0,/Bart/s//$name/" $SCRIPT_DIR/flake.nix
         sed -i "0,/contact@bartvegter.com/s//$email/" $SCRIPT_DIR/flake.nix
+        echo && echo ":: Applied user settings"
         break
         ;;
 
       "N" | "n")
-        echo && echo ":: Setting system defaults..."
+        echo && echo ":: Applying system defaults..."
         sed -i "0,/bart/s//$(whoami)/" $SCRIPT_DIR/flake.nix
         sed -i "0,/Bart/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" $SCRIPT_DIR/flake.nix
         sed -i "s/contact@bartvegter.com//" $SCRIPT_DIR/flake.nix
+        echo && echo ":: Applied system defaults"
         break
         ;;
 
@@ -137,17 +138,19 @@ if [
   done
   gitAdd
 
-  if [ -z $EDITOR ]; then
-    EDITOR = $editor
+  if [ $editor == "neovim" ] || [ $editor == "vim" ]; then
+    tmpEditor = "vim";
+  else
+    tmpEditor = "nano";
   fi
 
   # Open up editor to manually edit flake.nix before install
   echo
   while true; do
-    read -p ":: Would you like to manually edit flake.nix for further configuration? [y/N]: " ynManual
+    read -p " > Would you like to manually edit flake.nix for further configuration? [y/N]: " ynManual
     case $ynManual in
       "Y" | "y")
-        $EDITOR $SCRIPT_DIR/flake.nix;
+        $tmpEditor $SCRIPT_DIR/flake.nix;
         gitAdd
         break
         ;;
@@ -166,21 +169,28 @@ if [
   # Permissions for files that should be owned by root
   # sudo $SCRIPT_DIR/harden.sh $SCRIPT_DIR;
 
-  echo && echo ":: Starting system rebuild..."
+  echo && echo ":: Starting system configuration rebuild..." && echo
 
   # Rebuild system
   sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
   gitAdd
 
+  echo && echo ":: System configuration rebuild complete"
+  echo && echo ":: Starting home configuration rebuild..." && echo
+
   # Install and build home-manager configuration
   nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
   gitAdd
-  ]; then
+
+  echo && echo ":: Home configuration rebuild complete" && echo
+
+]; then
+
   # Prompt for rebooting
   echo && echo ":: Hyprnix installed successfully" && echo
 
   while true; do
-    read -p ":: Would you like to reboot into Hyprland? [Y/n]: " ynReboot
+    read -p " > Would you like to reboot into Hyprland? [Y/n]: " ynReboot
     case $ynReboot in
       "" | "Y" | "y")
         echo && echo ":: Rebooting system..."
