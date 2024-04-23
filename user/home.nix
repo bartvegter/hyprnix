@@ -2,13 +2,14 @@
 
 {
   imports = [
-    ./sh.nix
-    ./git.nix
-    # ./hyprland.nix
     ./file-links.nix
     ./fonts.nix
-    ./theme.nix
+    ./git.nix
+    # ./hyprland.nix
+    ./nvim.nix
+    ./sh.nix
     # ./syncthing.nix
+    ./theme.nix
   ];
 
   # Needed by home manager
@@ -16,15 +17,15 @@
 
   home = {
     username = userSettings.username;
-    homeDirectory = "/home/" + userSettings.username;
+    homeDirectory = "/home" + "/${userSettings.username}";
     stateVersion = "23.11"; # Only edit this if you know what you're doing
   };
 
   home.sessionVariables = {
-    NIX_CONF_DIR = systemSettings.dotfilesPath;
-    TERM = userSettings.term;
     EDITOR = userSettings.editor;
-    #VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init/lua";
+    TERM = userSettings.term;
+    # NIX_CONF_DIR = systemSettings.dotfilesPath;
+    # VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init.lua";
   };
 
   programs.waybar.enable = true;
@@ -33,7 +34,7 @@
   services.ssh-agent.enable = true;
   programs.ssh.addKeysToAgent = "ask";
 
-  # User defined packages
+  # User-specific packages
   nixpkgs.config.allowUnfree = true;
   home.packages =
     (with pkgs; [
@@ -84,13 +85,6 @@
       xfce.thunar-volman
       xfce.tumbler
       xwaylandvideobridge
-
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
     ])
 
     ++

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, systemSettings, ... }:
 
 let
   myAliases = {
@@ -12,7 +12,7 @@ let
     rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
     hconf = "cd ~/.config && nvim hypr/hyprland.conf";
     wconf = "cd ~/.config && nvim waybar/config.jsonc";
-    dotfiles = "git --git-dir=$HOME/.dotfiles --work-tree=$HOME";
+    n = "cd " + "${systemSettings.dotfilesPath}";
   };
 in
 {
@@ -36,4 +36,13 @@ in
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
+
+  home.packages = with pkgs; [
+    cargo
+    cmake
+    gnumake
+    python3
+    unzip
+    zip
+  ];
 }

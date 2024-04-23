@@ -22,7 +22,7 @@
         version = "unstable";
         system = "x86_64-linux";
         hostname = "hyprnix";
-        dotfilesPath = "/home/bart/.hyprnix";
+        dotfilesPath = "/home" + "/${username}" + "/.${hostname}";
         bootMode = "uefi";
         bootMountPath = "/boot";
         grubDevice = "";
