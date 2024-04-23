@@ -180,7 +180,7 @@
   echo && echo ":: Starting home configuration rebuild..." && echo
 
   # Install and build home-manager configuration
-  nix run home-manager/master --extra-experimental-features nix-command --extra-experimental-features flakes --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
+  nix run home-manager/master --extra-experimental-features 'nix-command flakes' --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
   gitAdd
 
   echo && echo ":: Home configuration rebuild complete"
