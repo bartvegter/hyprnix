@@ -10,9 +10,13 @@
   ];
 
   # Important nix settings
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
   nixpkgs.config.allowUnfree = true;
 
+  # Kernel settings
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Bootloader

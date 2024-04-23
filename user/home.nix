@@ -6,7 +6,7 @@
     ./fonts.nix
     ./git.nix
     # ./hyprland.nix
-    ./nvim.nix
+    # ./nvim.nix
     ./sh.nix
     # ./syncthing.nix
     ./theme.nix
@@ -14,6 +14,12 @@
 
   # Needed by home manager
   programs.home-manager.enable = true;
+
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+  nixpkgs.config.allowUnfree = true;
 
   home = {
     username = userSettings.username;
@@ -35,7 +41,6 @@
   programs.ssh.addKeysToAgent = "ask";
 
   # User-specific packages
-  nixpkgs.config.allowUnfree = true;
   home.packages =
     (with pkgs; [
       alacritty
