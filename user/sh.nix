@@ -22,7 +22,7 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = myAliases;
-    # autocd = true;
+    autocd = true;
   };
 
   programs.bash = {
