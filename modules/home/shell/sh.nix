@@ -10,9 +10,7 @@ let
     code = "codium";
     iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
     rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
-    hconf = "cd ~/.config && nvim hypr/hyprland.conf";
-    wconf = "cd ~/.config && nvim waybar/config.jsonc";
-    n = "cd " + "${systemSettings.dotfilesPath}";
+    h = "cd " + "${systemSettings.dotfilesPath}";
   };
 in
 {
