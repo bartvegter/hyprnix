@@ -97,7 +97,7 @@
       nixosConfigurations = {
         default = lib.nixosSystem {
           system = systemSettings.system;
-          modules = [ ./hosts + ("/" + systemSettings.host) + /configuration.nix ];
+          modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix") ];
           specialArgs = {
             inherit pkgs-stable;
             inherit systemSettings;
@@ -109,7 +109,7 @@
       homeConfigurations = {
         default = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./hosts + ("/" + systemSettings.host) + /home.nix ];
+          modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
           extraSpecialArgs = {
             inherit pkgs-stable;
             inherit systemSettings;

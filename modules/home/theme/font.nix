@@ -2,10 +2,10 @@
 
 {
   options = {
-    fonts.enable = lib.mkEnableOption "Enables fonts";
+    font.enable = lib.mkEnableOption "Enables fonts";
   };
 
-  config = lib.mkIf config.fonts.enable {
+  config = lib.mkIf config.font.enable {
 
     fonts.fontconfig.enable = true;
 
