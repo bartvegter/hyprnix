@@ -50,7 +50,6 @@
       hyprpicker
       killall
       libreoffice-fresh
-      neovim
       nsxiv
       nwg-look
       obs-studio
