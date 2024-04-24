@@ -2,30 +2,22 @@
 
 {
   imports = [
-    ./file-links.nix
-    ./fonts.nix
-    ./git.nix
-    # ./hyprland.nix
-    # ./nvim.nix
-    ./sh.nix
-    # ./syncthing.nix
-    ./theme.nix
+    ../../modules/homeModules.nix
   ];
 
-  # Needed by home manager
-  programs.home-manager.enable = true;
+  git.enable = true;
+  nvim.enable = true;
+  syncthing.enable = true;
 
-  nix.package = pkgs.nixFlakes;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-  nixpkgs.config.allowUnfree = true;
+  dotfiles.enable = true;
+  hyprland.enable = false;
+  programs.waybar.enable = true;
 
-  home = {
-    username = userSettings.username;
-    homeDirectory = "/home" + "/${userSettings.username}";
-    stateVersion = "23.11"; # Only edit this if you know what you're doing
-  };
+  sh.enable = true;
+  ssh.enable = true;
+
+  font.enable = true;
+  gtkTheme.enable = true;
 
   home.sessionVariables = {
     EDITOR = userSettings.editor;
@@ -33,12 +25,6 @@
     # NIX_CONF_DIR = systemSettings.dotfilesPath;
     # VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init.lua";
   };
-
-  programs.waybar.enable = true;
-
-  # Enables ssh-agent for user.
-  services.ssh-agent.enable = true;
-  programs.ssh.addKeysToAgent = "ask";
 
   # User-specific packages
   home.packages =
@@ -51,8 +37,6 @@
       brave
       btop
       clinfo
-      dosfstools
-      exfatprogs
       easyeffects
       firefox
       gnome.gnome-disk-utility
@@ -65,7 +49,6 @@
       hyprpaper
       hyprpicker
       killall
-      libgnome-keyring
       libreoffice-fresh
       neovim
       nsxiv
@@ -76,6 +59,7 @@
       playerctl
       spotify
       tofi
+      tree
       trash-cli
       udiskie
       viewnior
@@ -95,6 +79,23 @@
     ++
 
     (with pkgs-stable; [
-      # If any package breaks, try installing the stable version here.
+      #
     ]);
+
+  # Home manager settings
+  programs.home-manager.enable = true;
+  home = {
+    username = userSettings.username;
+    homeDirectory = "/home" + "/${userSettings.username}";
+  };
+
+  # nix.package = pkgs.nixFlakes;
+  # nix.extraOptions = ''
+  #   experimental-features = nix-command flakes
+  # '';
+
+  nixpkgs.config.allowUnfree = true;
+
+  home.stateVersion = "23.11"; # Only edit this if you know what you're doing
+
 }

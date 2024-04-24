@@ -21,6 +21,8 @@
       systemSettings = {
         version = "unstable";
         system = "x86_64-linux";
+        systemType = "hardware";
+        host = "default";
         hostname = "hyprnix";
         dotfilesPath = "/home" + "/" + userSettings.username + "/." + systemSettings.hostname;
         bootMode = "uefi";
@@ -93,9 +95,9 @@
     in
     {
       nixosConfigurations = {
-        system = lib.nixosSystem {
+        default = lib.nixosSystem {
           system = systemSettings.system;
-          modules = [ ./system/configuration.nix ];
+          modules = [ ./hosts + ("/" + systemSettings.host) + /configuration.nix ];
           specialArgs = {
             inherit pkgs-stable;
             inherit systemSettings;
@@ -105,9 +107,9 @@
       };
 
       homeConfigurations = {
-        user = home-manager.lib.homeManagerConfiguration {
+        default = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./user/home.nix ];
+          modules = [ ./hosts + ("/" + systemSettings.host) + /home.nix ];
           extraSpecialArgs = {
             inherit pkgs-stable;
             inherit systemSettings;
