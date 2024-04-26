@@ -29,6 +29,7 @@
   # User-specific packages
   home.packages =
     (with pkgs; [
+      neovim
       alacritty
       audacity
       baobab
@@ -88,10 +89,10 @@
     homeDirectory = "/home" + "/${userSettings.username}";
   };
 
-  # nix.package = pkgs.nixFlakes;
-  # nix.extraOptions = ''
-  #   experimental-features = nix-command flakes
-  # '';
+  nix.package = pkgs.nixFlakes;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
   nixpkgs.config.allowUnfree = true;
 

@@ -2,10 +2,10 @@
 
 {
   options = {
-    kernel.enable = lib.mkEnableOption "Enables kernel";
+    zenKernel.enable = lib.mkEnableOption "Enables zenKernel";
   };
 
-  config = lib.mkIf config.kernel.enable {
+  config = lib.mkIf config.zenKernel.enable {
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
 

@@ -6,22 +6,9 @@
     ../../modules/systemModules.nix
   ];
 
-  bootloader.enable = true;
-  networkSetup.enable = true;
-  sh.enable = true;
-  timeLocale.enable = true;
-  userSetup.enable = true;
-
   bluetooth.enable = true;
-  kernel.enable = true;
-  opengl.enable = true;
-  vmGuest.enable = if (systemSettings.systemType == "vm") then true else false;
-
+  zenKernel.enable = true;
   hyprland.enable = true;
-  pipewire.enable = true;
-  sddm.enable = true;
-
-  gamemode.enable = true;
   steam.enable = true;
 
   environment.systemPackages =

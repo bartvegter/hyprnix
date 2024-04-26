@@ -8,7 +8,7 @@
   config = lib.mkIf config.nvim.enable {
 
     programs.neovim = {
-      enable = true;
+      enable = false;
       extraConfig = lib.fileContents ../hyprland/dotfiles/.config/nvim/init.lua;
     };
 
