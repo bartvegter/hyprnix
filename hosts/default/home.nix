@@ -12,6 +12,7 @@
   dotfiles.enable = true;
   hyprland.enable = false;
   programs.waybar.enable = true;
+  wlogout.enable = true;
 
   sh.enable = true;
   sshAgent.enable = true;
@@ -66,7 +67,6 @@
       vlc
       vulkan-tools
       webcord
-      wlogout
       wlsunset
       xfce.thunar
       xfce.thunar-archive-plugin

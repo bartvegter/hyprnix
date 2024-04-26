@@ -56,10 +56,11 @@
         source = ./dotfiles/.config/waybar;
         recursive = true;
       };
-      ".config/wlogout/" = {
-        source = ./dotfiles/.config/wlogout;
-        recursive = true;
-      };
+      # ".config/wlogout/" = {
+      #   source = ./dotfiles/.config/wlogout;
+      #   recursive = true;
+      # };
+
       # gtk-2,3,4
       # xsettingsd
 
