@@ -11,7 +11,7 @@
     ./home/hyprland/hyprland.nix
 
     ./home/shell/sh.nix
-    ./home/shell/ssh.nix
+    ./home/shell/sshAgent.nix
 
     ./home/theme/font.nix
     ./home/theme/gtkTheme.nix

@@ -14,7 +14,7 @@
   programs.waybar.enable = true;
 
   sh.enable = true;
-  ssh.enable = true;
+  sshAgent.enable = true;
 
   font.enable = true;
   gtkTheme.enable = true;
