@@ -58,6 +58,7 @@
       obsidian
       pavucontrol
       playerctl
+      protonvpn-gui
       spotify
       tofi
       tree
