@@ -45,7 +45,6 @@
       gnome.file-roller
       gnome.seahorse
       gtk-engine-murrine
-      gvfs
       helvum
       hyprlock
       hyprpaper
@@ -73,6 +72,7 @@
       xfce.thunar-media-tags-plugin
       xfce.thunar-volman
       xfce.tumbler
+      xorg.xrdb
       xwaylandvideobridge
     ])
 

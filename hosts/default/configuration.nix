@@ -15,6 +15,7 @@
     (with pkgs; [
       dosfstools
       exfatprogs
+      gvfs
       vim
       wget
     ])

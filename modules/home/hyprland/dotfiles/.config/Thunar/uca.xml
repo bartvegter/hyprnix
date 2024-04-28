@@ -12,4 +12,14 @@
 	<startup-notify/>
 	<directories/>
 </action>
+<action>
+	<icon></icon>
+	<name>Open random subdirectory</name>
+	<submenu></submenu>
+	<unique-id>1714174963523291-1</unique-id>
+	<command>/home/bart/.config/Thunar/nsxivRandom.sh %f</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
+</action>
 </actions>
