@@ -45,7 +45,6 @@ in
       cargo
       cmake
       gnumake
-      python3
       unzip
       zip
     ];
