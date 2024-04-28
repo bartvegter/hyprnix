@@ -8,7 +8,6 @@
   config = lib.mkIf config.java.enable {
 
     home.packages = with pkgs; [
-      jre_minimal
       zulu
     ];
 
