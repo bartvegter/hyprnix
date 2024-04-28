@@ -52,10 +52,10 @@
         source = ./dotfiles/.config/tofi;
         recursive = true;
       };
-      ".config/waybar/" = {
-        source = ./dotfiles/.config/waybar;
-        recursive = true;
-      };
+      # ".config/waybar/" = {
+      #   source = ./dotfiles/.config/waybar;
+      #   recursive = true;
+      # };
       # ".config/wlogout/" = {
       #   source = ./dotfiles/.config/wlogout;
       #   recursive = true;
