@@ -42,8 +42,8 @@
     lib.mkIf config.nvim.enable true;
   java.enable =
     lib.mkIf config.nvim.enable true;
-  nodejs.enable =
-    lib.mkIf config.nvim.enable true;
+  # nodejs.enable =
+  #   lib.mkIf config.nvim.enable true;
   php.enable =
     lib.mkIf config.nvim.enable true;
   python.enable =
