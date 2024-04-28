@@ -11,7 +11,7 @@
 
   dotfiles.enable = true;
   hyprland.enable = false;
-  programs.waybar.enable = true;
+  waybar.enable = true;
   wlogout.enable = true;
 
   sh.enable = true;
