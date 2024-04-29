@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, systemSettings, userSettings, ... }:
+{ pkgs, pkgs-stable, userSettings, ... }:
 
 {
   imports = [
@@ -9,16 +9,10 @@
   nvim.enable = true;
   syncthing.enable = true;
 
-  dotfiles.enable = true;
-  hyprland.enable = false;
-  waybar.enable = true;
-  wlogout.enable = true;
+  hyprland.enable = true;
 
   sh.enable = true;
   sshAgent.enable = true;
-
-  font.enable = true;
-  gtkTheme.enable = true;
 
   home.sessionVariables = {
     EDITOR = userSettings.editor;
@@ -44,6 +38,7 @@
       gnome.gnome-disk-utility
       gnome.file-roller
       gnome.seahorse
+      grimblast
       gtk-engine-murrine
       helvum
       hyprlock
