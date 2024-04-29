@@ -45,27 +45,25 @@
   opengl.enable =
     lib.mkDefault true;
   vmGuest.enable =
-    if (systemSettings.systemType == "vm") then 
-      lib.mkDefault true
-    else false;
+    lib.mkIf (systemSettings.systemType == "vm") (lib.mkDefault true);
 
 
   # --- Hyprland --- #
   hyprland.enable =
     lib.mkDefault true;
   pipewire.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   polkitGnome.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   sddm.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   xdgPortal.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 
   # --- Steam --- #
   steam.enable =
     lib.mkDefault true;
   gamemode.enable =
-    lib.mkIf config.steam.enable true;
+    lib.mkIf (config.steam.enable) (lib.mkDefault true);
 }

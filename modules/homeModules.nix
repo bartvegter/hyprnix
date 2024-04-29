@@ -38,17 +38,17 @@
   hyprland.enable =
     lib.mkDefault true;
   dotfiles.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   font.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   gtkTheme.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   waybar.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   wlogout.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   wlsunset.enable =
-    lib.mkIf config.hyprland.enable true;
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 
   # --- Apps --- #
@@ -64,13 +64,13 @@
   nvim.enable =
     lib.mkDefault true;
   go.enable =
-    lib.mkIf config.nvim.enable true;
+    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
   java.enable =
-    lib.mkIf config.nvim.enable true;
+    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
   # nodejs.enable =
-  #   lib.mkIf config.nvim.enable true;
+  #   lib.mkIf (config.nvim.enable) (lib.mkDefault true);
   php.enable =
-    lib.mkIf config.nvim.enable true;
+    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
   python.enable =
-    lib.mkIf config.nvim.enable true;
+    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
 }
