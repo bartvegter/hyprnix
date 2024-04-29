@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options = {
@@ -7,146 +7,142 @@
 
   config = lib.mkIf config.waybar.enable {
 
-    programs.waybar = {
-      enable = true;
-      systemd = {
+    programs.waybar = { enable = true; systemd = {
         enable = true;
         target = "hyprland-session.target";
       };
       settings = [
         {
-          mainBar = {
-            "layer" = "top";
-            "position" = "top";
-            "margin" = 0;
-            "gtk-layer-shell" = true;
-            "modules-left" = [
-              "custom/launcher"
-              "custom/updates"
-              "hyprland/workspaces"
-              "custom/spotify"
+          "layer" = "top";
+          "position" = "top";
+          "margin" = "0";
+          "gtk-layer-shell" = true;
+          "modules-left" = [
+            "custom/launcher"
+            "custom/updates"
+            "hyprland/workspaces"
+            "custom/spotify"
+          ];
+          "modules-center" = [
+            "hyprland/window"
+          ];
+          "modules-right" = [
+            "tray"
+            "bluetooth"
+            "network"
+            "pulseaudio"
+            "clock"
+            "custom/power-menu"
+          ];
+          "custom/launcher" = {
+            "format" = " ";
+            "on-click" = "tofi-drun | xargs hyprctl dispatch exec --";
+            "on-click-right" = "tofi-run | xargs hyprctl dispatch exec --";
+            "tooltip" = false;
+          };
+          "hyprland/workspaces" = {
+            "active-only" = false;
+            "all-outputs" = true;
+            "disable-scroll" = false;
+            "on-scroll-up" = "hyprctl dispatch workspace -1";
+            "on-scroll-down" = "hyprctl dispatch workspace +1";
+            "format" = "{icon}";
+            "on-click" = "activate";
+            "format-icons" = {
+              "active" = "";
+              "default" = "";
+              "sort-by-number" = true;
+            };
+          };
+          "cpu" = {
+            "interval" = 5;
+            "format" = "  {}%";
+            "max-length" = 10;
+            "on-click" = "";
+          };
+          "memory" = {
+            "interval" = 5;
+            "format" = " {used:0.1f}GB";
+            "format-alt" = "  {}%";
+            "max-length" = 10;
+          };
+          "custom/spotify" = {
+            "exec" = "~/.config/waybar/scripts/spotify.sh";
+            "format" = "  {}";
+            "on-click" = "playerctl --player=spotify play-pause";
+            "on-click-right" = "hyprctl dispatch focuswindow Spotify";
+            "on-scroll-up" = "playerctl --player=spotify next";
+            "on-scroll-down" = "playerctl --player=spotify previous";
+            "tooltip" = false;
+          };
+          "hyprland/window" = {
+            "max-length" = 100;
+            "seperate-outputs" = true;
+          };
+          "tray" = {
+            "spacing" = 10;
+          };
+          "bluetooth" = {
+            "format" = "";
+            "on-click" = "blueberry";
+            "on-click-right" = "bluetoothctl disconnect";
+          };
+          "network" = {
+            "format-wifi" = "{icon}";
+            "format-ethernet" = "󰈀";
+            "format-disconnected" = "󰖪";
+            "tooltip-format" = "{essid}";
+            "on-click" = "$TERM -e nmtui";
+            "format-icons" = [
+              "󰤯"
+              "󰤟"
+              "󰤢"
+              "󰤥"
+              "󰤨"
             ];
-            "modules-center" = [
-              "hyprland/window"
-            ];
-            "modules-right" = [
-              "tray"
-              "bluetooth"
-              "network"
-              "pulseaudio"
-              "clock"
-              "custom/power-menu"
-            ];
-            "custom/launcher" = {
-              "format" = " ";
-              "on-click" = "tofi-drun | xargs hyprctl dispatch exec --";
-              "on-click-right" = "tofi-run | xargs hyprctl dispatch exec --";
-              "tooltip" = false;
-            };
-            "hyprland/workspaces" = {
-              "active-only" = false;
-              "all-outputs" = true;
-              "disable-scroll" = false;
-              "on-scroll-up" = "hyprctl dispatch workspace -1";
-              "on-scroll-down" = "hyprctl dispatch workspace +1";
-              "format" = "{icon}";
-              "on-click" = "activate";
-              "format-icons" = {
-                "active" = "";
-                "default" = "";
-                "sort-by-number" = true;
-              };
-            };
-            "cpu" = {
-              "interval" = 5;
-              "format" = "  {}%";
-              "max-length" = 10;
-              "on-click" = "";
-            };
-            "memory" = {
-              "interval" = 5;
-              "format" = " {used:0.1f}GB";
-              "format-alt" = "  {}%";
-              "max-length" = 10;
-            };
-            "custom/spotify" = {
-              "exec" = "~/.config/waybar/scripts/spotify.sh";
-              "format" = "  {}";
-              "on-click" = "playerctl --player=spotify play-pause";
-              "on-click-right" = "hyprctl dispatch focuswindow Spotify";
-              "on-scroll-up" = "playerctl --player=spotify next";
-              "on-scroll-down" = "playerctl --player=spotify previous";
-              "tooltip" = false;
-            };
-            "hyprland/window" = {
-              "max-length" = 100;
-              "seperate-outputs" = true;
-            };
-            "tray" = {
-              "spacing" = 10;
-            };
-            "bluetooth" = {
-              "format" = "";
-              "on-click" = "blueberry";
-              "on-click-right" = "bluetoothctl disconnect";
-            };
-            "network" = {
-              "format-wifi" = "{icon}";
-              "format-ethernet" = "󰈀";
-              "format-disconnected" = "󰖪";
-              "tooltip-format" = "{essid}";
-              "on-click" = "$TERM -e nmtui";
-              "format-icons" = [
-                "󰤯"
-                "󰤟"
-                "󰤢"
-                "󰤥"
-                "󰤨"
+          };
+          "pulseaudio" = {
+            "format" = "{icon}";
+            "format-muted" = "󰸈";
+            "format-icons" = {
+              "default" = [
+                ""
+                ""
+                "󰕾"
               ];
             };
-            "pulseaudio" = {
-              "format" = "{icon}";
-              "format-muted" = "󰸈";
-              "format-icons" = {
-                "default" = [
-                  ""
-                  ""
-                  "󰕾"
-                ];
-              };
-              "on-click" = "pavucontrol";
-              "on-click-right" = "pamixer -t";
-              "scroll-step" = 5;
-              "on-scroll-up" = "~/.config/waybar/scripts/volume.sh --inc";
-              "on-scroll-down" = "~/.config/waybar/scripts/volume.sh --dec";
+            "on-click" = "pavucontrol";
+            "on-click-right" = "pamixer -t";
+            "scroll-step" = 5;
+            "on-scroll-up" = "~/.config/waybar/scripts/volume.sh --inc";
+            "on-scroll-down" = "~/.config/waybar/scripts/volume.sh --dec";
+          };
+          "clock" = {
+            "interval" = 60;
+            "align" = 0;
+            "rotate" = 0;
+            "tooltip" = true;
+            "tooltip-format" = "{calendar}";
+            "format" = "{:%d %b, %H:%M}";
+            "format-alt" = "{:%a %b %d, %G}";
+            "timezone" = "Europe/Amsterdam";
+            "locale" = "nl_NL.UTF-8";
+            "calendar" = {
+              "on-click-right" = "mode";
+              "mode" = "month";
+              "mode-mon-col" = 3;
+              "on-scroll" = 1;
             };
-            "clock" = {
-              "interval" = 60;
-              "align" = 0;
-              "rotate" = 0;
-              "tooltip" = true;
-              "tooltip-format" = "{calendar}";
-              "format" = "{:%d %b, %H:%M}";
-              "format-alt" = "{:%a %b %d, %G}";
-              "timezone" = "Europe/Amsterdam";
-              "locale" = "nl_NL.UTF-8";
-              "calendar" = {
-                "on-click-right" = "mode";
-                "mode" = "month";
-                "mode-mon-col" = 3;
-                "on-scroll" = 1;
-              };
-              "actions" = {
-                "on-click-right" = "mode";
-                "on-scroll-up" = "shift_down";
-                "on-scroll-down" = "shift_up";
-              };
+            "actions" = {
+              "on-click-right" = "mode";
+              "on-scroll-up" = "shift_down";
+              "on-scroll-down" = "shift_up";
             };
-            "custom/power-menu" = {
-              "format" = " ⏻ ";
-              "on-click" = "wlogout";
-              "tooltip" = false;
-            };
+          };
+          "custom/power-menu" = {
+            "format" = " ⏻ ";
+            "on-click" = "wlogout";
+            "tooltip" = false;
           };
         }
       ];
@@ -221,16 +217,11 @@
           color: @color4;
           margin: 0;
           padding: 6px 9px 6px 6px;
-          box-shadow: inset 0 -3px transparent;
         }
 
         #workspaces button.active {
           color: @color2a;
           transition: color 0.25s ease
-        }
-
-        #workspaces button.urgent {
-          /* color: @color2a; */
         }
 
         #custom-spotify {

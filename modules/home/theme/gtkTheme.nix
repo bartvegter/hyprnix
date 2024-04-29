@@ -44,5 +44,11 @@
       style.name = "gtk2";
     };
 
+    # home.sessionVariables = {
+      # XCURSOR_SIZE = 24;
+      # GDK_BACKEND = "wayland, x11";
+      # QT_QPA_PLATFORM = "wayland";
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
+    # };
   };
 }

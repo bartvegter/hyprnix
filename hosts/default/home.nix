@@ -2,26 +2,25 @@
 
 {
   imports = [
+    # The module imported here imports all other modules from [modules/home/] and enables most by default.
+    # See the overrides section below if you want to change the default config.
     ../../modules/homeModules.nix
   ];
 
-  git.enable = true;
-  nvim.enable = true;
-  syncthing.enable = true;
+  # --- Module overrides section --- #
+  # If you want to change any module defaults set in [modules/homeModules.nix], it is recommended to change them here.
+  # E.g. for syncthing, use:
+  # syncthing.enable = false;
 
-  hyprland.enable = true;
-
-  sh.enable = true;
-  sshAgent.enable = true;
-
+  # --- User specific variables --- #
+  # System-wide variables can be set in configuration.nix.
   home.sessionVariables = {
     EDITOR = userSettings.editor;
     TERM = userSettings.term;
-    # NIX_CONF_DIR = systemSettings.dotfilesPath;
-    # VIMINIT = "$NIX_CONF_DIR/user/dotfiles/.config/nvim/init.lua";
+    XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots/";
   };
 
-  # User-specific packages
+  # --- User specific packages --- #
   home.packages =
     (with pkgs; [
       neovim
@@ -74,23 +73,22 @@
     ++
 
     (with pkgs-stable; [
-      #
+      # If any package breaks: try installing the stable version here, or revert you flake.lock update using git and rebuild.
     ]);
 
-  # Home manager settings
+  # --- Home manager settings --- #
+  # Recommended to leave these as they are. Changing anything here might brick your system.
   programs.home-manager.enable = true;
-  home = {
-    username = userSettings.username;
-    homeDirectory = "/home" + "/${userSettings.username}";
-  };
+  home.username = userSettings.username;
+  home.homeDirectory = "/home" + "/${userSettings.username}";
+  # Only edit this if you know what you're doing.
+  home.stateVersion = "23.11";
 
+  # --- Nix settings --- #
+  # Ensures nix command and flakes are enabled && Enables packages with unfree license.
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-
   nixpkgs.config.allowUnfree = true;
-
-  home.stateVersion = "23.11"; # Only edit this if you know what you're doing
-
 }

@@ -28,10 +28,17 @@
         source = ./dotfiles/.config/htop;
         recursive = true;
       };
-      ".config/hypr/" = {
-        source = ./dotfiles/.config/hypr;
+      ".config/hypr/scripts" = {
+        source = ./dotfiles/.config/hypr/scripts;
         recursive = true;
       };
+      ".config/hypr/wallpapers" = {
+        source = ./dotfiles/.config/hypr/wallpapers;
+        recursive = true;
+      };
+      ".config/hypr/hyprlock.conf".source = ./dotfiles/.config/hypr/hyprlock.conf;
+      ".config/hypr/hyprpaper.conf".source = ./dotfiles/.config/hypr/hyprpaper.conf;
+
       ".config/mako/" = {
         source = ./dotfiles/.config/mako;
         recursive = true;
@@ -52,24 +59,14 @@
         source = ./dotfiles/.config/tofi;
         recursive = true;
       };
-      # ".config/waybar/" = {
-      #   source = ./dotfiles/.config/waybar;
-      #   recursive = true;
-      # };
-      # ".config/wlogout/" = {
-      #   source = ./dotfiles/.config/wlogout;
-      #   recursive = true;
-      # };
-
-      # gtk-2,3,4
-      # xsettingsd
-
+      ".config/waybar/scripts/" = {
+        source = ./dotfiles/.config/waybar/scripts;
+        recursive = true;
+      };
       ".local/bin/" = {
         source = ./dotfiles/.local/bin;
         recursive = true;
       };
-      # .icons
-      # .themes
     };
 
   };

@@ -1,7 +1,6 @@
 { config, lib, systemSettings, ... }:
 
 {
-
   imports = [
     ./system/app/gamemode.nix
     ./system/app/steam.nix
@@ -21,12 +20,11 @@
     ./system/hyprland/pipewire.nix
     ./system/hyprland/polkitGnome.nix
     ./system/hyprland/sddm.nix
+    ./system/hyprland/xdgPortal.nix
   ];
 
-  # System defaults defined here.
-  # Set moduleName.enable = true / false; in configuration.nix to override.
 
-  # Core // enabled by default.
+  # --- Core --- #
   bootloader.enable =
     lib.mkDefault true;
   networkSetup.enable =
@@ -38,22 +36,36 @@
   userSetup.enable =
     lib.mkDefault true;
 
-  # VM defaults
+
+  # --- Hardware --- #
+  bluetooth.enable =
+    lib.mkDefault true;
+  zenKernel.enable =
+    lib.mkDefault true;
+  opengl.enable =
+    lib.mkDefault true;
   vmGuest.enable =
     if (systemSettings.systemType == "vm") then 
       lib.mkDefault true
     else false;
 
-  # Hyprland // Will be enabled automatically when using Hyprland module.
+
+  # --- Hyprland --- #
+  hyprland.enable =
+    lib.mkDefault true;
   pipewire.enable =
+    lib.mkIf config.hyprland.enable true;
+  polkitGnome.enable =
     lib.mkIf config.hyprland.enable true;
   sddm.enable =
     lib.mkIf config.hyprland.enable true;
+  xdgPortal.enable =
+    lib.mkIf config.hyprland.enable true;
 
-  # Steam // Will be enabled automatically when using Steam module.
+
+  # --- Steam --- #
+  steam.enable =
+    lib.mkDefault true;
   gamemode.enable =
     lib.mkIf config.steam.enable true;
-  opengl.enable =
-    lib.mkIf config.steam.enable true;
-
 }

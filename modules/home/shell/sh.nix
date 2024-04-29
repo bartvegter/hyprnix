@@ -49,5 +49,9 @@ in
       zip
     ];
 
+    home.sessionVariables = {
+      STARSHIP_CONFIG = "$HOME/.config/starship/starship.toml";
+    };
+
   };
 }
