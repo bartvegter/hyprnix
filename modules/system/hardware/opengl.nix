@@ -18,7 +18,7 @@
 
     environment.sessionVariables = {
       RADV_PERFTEST = "aco";
-      mesa_glthread = true;
+      mesa_glthread = "true";
     };
 
   };

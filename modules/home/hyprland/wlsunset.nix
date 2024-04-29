@@ -18,8 +18,8 @@
         day = 6500;
         night = 3000;
       };
-      latitude = 52.2;
-      longitude = 6.2;
+      latitude = "52.2";
+      longitude = "6.2";
     };
 
   };
