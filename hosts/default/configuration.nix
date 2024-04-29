@@ -16,6 +16,7 @@
       dosfstools
       exfatprogs
       gvfs
+      libnotify
       vim
       wget
     ])
