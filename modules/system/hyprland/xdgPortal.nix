@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options = {
@@ -9,7 +9,7 @@
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ "xdg-desktop-portal-hyprland" "xdg-desktop-portal-gtk" ];
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
       xdgOpenUsePortal = true;
     };
 
