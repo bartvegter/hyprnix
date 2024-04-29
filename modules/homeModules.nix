@@ -12,6 +12,7 @@
     ./home/hyprland/waybar.nix
     ./home/hyprland/wlogout.nix
     ./home/hyprland/wlsunset.nix
+    ./home/hyprland/xdgSetup.nix
 
     ./home/lang/go.nix
     ./home/lang/java.nix
@@ -48,6 +49,8 @@
   wlogout.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   wlsunset.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  xdgSetup.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 

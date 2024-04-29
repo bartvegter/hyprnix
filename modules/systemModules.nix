@@ -20,7 +20,6 @@
     ./system/hyprland/pipewire.nix
     ./system/hyprland/polkitGnome.nix
     ./system/hyprland/sddm.nix
-    ./system/hyprland/xdgPortal.nix
   ];
 
 
@@ -56,8 +55,6 @@
   polkitGnome.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   sddm.enable =
-    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  xdgPortal.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 
