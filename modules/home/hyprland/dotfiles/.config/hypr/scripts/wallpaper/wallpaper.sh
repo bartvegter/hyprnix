@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 hyprDir=$HOME/.config/hypr
 
@@ -12,11 +12,11 @@ cp -f $hyprpaper $hyprpaperTmp
 # While loop checks for an active session titled "wayland"; should exit script after logout.
 while [ $($hyprDir/scripts/sessions.sh wayland) ]; do
 
-	if [[ $(diff $hyprpaper $hyprpaperTmp) ]]; then
-		cp -f $hyprpaper $hyprpaperTmp \
-		&& killall hyprpaper && hyprctl dispatch exec hyprpaper \
-		&& notify-send --app-name="hyprpaper" --icon=$hyprIcon "Hyprpaper" "Wallpaper loaded successfully"
-	fi
+  if [ $(diff $hyprpaper $hyprpaperTmp) ]; then
+    cp -f $hyprpaper $hyprpaperTmp \
+      && killall hyprpaper && hyprctl dispatch exec hyprpaper \
+      && notify-send --app-name="hyprpaper" --icon=$hyprIcon "Hyprpaper" "Wallpaper loaded successfully"
+  fi
 
-	sleep 1
+  sleep 1
 done
