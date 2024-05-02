@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 {
   options = {
@@ -63,6 +63,7 @@
         source = ./dotfiles/.config/waybar/scripts;
         recursive = true;
       };
+
       ".local/bin/" = {
         source = ./dotfiles/.local/bin;
         recursive = true;
