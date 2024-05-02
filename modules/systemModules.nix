@@ -3,6 +3,7 @@
 {
   imports = [
     ./system/app/gaming.nix
+    ./system/app/samba.nix
 
     ./system/core/bootloader.nix
     ./system/core/networkSetup.nix
