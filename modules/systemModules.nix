@@ -2,8 +2,7 @@
 
 {
   imports = [
-    ./system/app/gamemode.nix
-    ./system/app/steam.nix
+    ./system/app/gaming.nix
 
     ./system/core/bootloader.nix
     ./system/core/networkSetup.nix
@@ -59,8 +58,6 @@
 
 
   # --- Steam --- #
-  steam.enable =
+  gaming.enable =
     lib.mkDefault true;
-  gamemode.enable =
-    lib.mkIf (config.steam.enable) (lib.mkDefault true);
 }
