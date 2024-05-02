@@ -56,6 +56,20 @@
               "sort-by-number" = true;
             };
           };
+          # "custom/spotify" = {
+          #   "format" = "  {}";
+          #   "escape" = true;
+          #   "return-type" = "json";
+          #   "max-length" = 40;
+          #   "interval" = 30;
+          #   "on-click" = "playerctl -p spotify play-pause";
+          #   "on-click-right" = "killall spotify";
+          #   "smooth-scrolling-threshold" = 10;
+          #   "on-scroll-up"  = "playerctl -p spotify next";
+          #   "on-scroll-down"  = "playerctl -p spotify previous";
+          #   "exec" = "$HOME/.config/waybar/mediaplayer.py";
+          #   "exec-if" = "pgrep spotify";
+          # };
           "custom/spotify" = {
             "exec" = "$HOME/.config/waybar/scripts/spotify.sh";
             "exec-if" = "pgrep spotify";
