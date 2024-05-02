@@ -8,9 +8,7 @@
   config = lib.mkIf config.hyprland.enable {
 
     home.sessionVariables = {
-        # XDG_CURRENT_DESKTOP = "Hyprland";
         # XDG_SESSION_DESKTOP = "Hyprland";
-        # XDG_SESSION_TYPE = "wayland";
     };
 
     wayland.windowManager.hyprland = {
@@ -158,11 +156,14 @@
         exec-once = $scripts/wallpaper/wallpaper.sh
         exec-once = hyprpaper
 
+        # - Status bar
+        exec-once = .waybar-wrapped
+
         # - Applications
         exec-once = [workspace 1 silent] brave
-        exec-once = webcord
-        exec-once = steam
         exec-once = spotify
+        exec-once = steam
+        exec-once = webcord
 
 
         # ---------------------------------------- #
