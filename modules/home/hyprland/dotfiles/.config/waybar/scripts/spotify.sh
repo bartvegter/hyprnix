@@ -1,18 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-while [ $($HOME/.config/hypr/scripts/sessions.sh wayland) ]; do
+while true; do
 
-	spotifyctl="playerctl --player=spotify"
-	player_status=$($spotifyctl status 2>/dev/null)
+  spotifyctl="playerctl --player=spotify"
+  playerStatus=$($spotifyctl status 2>/dev/null)
 
-	if [ "$player_status" = "Playing" ]; then
-		echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
-	elif [ "$player_status" = "Paused" ]; then
-		echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
-	else
-		echo ""
-	fi
+  if [[ "$playerStatus" == "Playing" ]]; then
+    echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
+    elif [[ "$playerStatus" == "Paused" ]]; then
+    echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
+  else
+    echo ""
+  fi
 
-	sleep 0.1
+  sleep 0.1
 
 done
