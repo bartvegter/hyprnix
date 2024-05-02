@@ -9,6 +9,10 @@
 
     networking.hostName = systemSettings.hostname;
     networking.networkmanager.enable = true;
+    networking.firewall = {
+      enable = true;
+      allowPing = true;
+    };
 
   };
 }
