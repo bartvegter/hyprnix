@@ -3,16 +3,16 @@
 hyprDir=$HOME/.config/hypr
 
 hyprpaper=$hyprDir/hyprpaper.conf
-hyprpaperTmp=$hyprDir/scripts/reloadhyprpaper/hyprpaper.conf.tmp
+hyprpaperTmp=$hyprDir/scripts/wallpaper/hyprpaper.conf.tmp
 
-hyprIcon=$hyprDir/scripts/reloadhyprpaper/hyprlandIcon.png
+hyprIcon=$hyprDir/scripts/wallpaper/hyprlandIcon.png
 
 cp -f $hyprpaper $hyprpaperTmp
 
-# While loop checks for an active session titled "wayland"; should exit script after logout.
-while [ $($hyprDir/scripts/sessions.sh wayland) ]; do
+# While loop checks for an active session in the environment variable $XDG_CURRENT_DESKTOP. This variable gets set automatically when using the Home Manager Hyprland module.
+while [[ -z $XDG_CURRENT_DESKTOP ]]; do
 
-  if [ $(diff $hyprpaper $hyprpaperTmp) ]; then
+  if [[ $(diff $hyprpaper $hyprpaperTmp) ]]; then
     cp -f $hyprpaper $hyprpaperTmp \
       && killall hyprpaper && hyprctl dispatch exec hyprpaper \
       && notify-send --app-name="hyprpaper" --icon=$hyprIcon "Hyprpaper" "Wallpaper loaded successfully"
