@@ -7,8 +7,10 @@
 
   config = lib.mkIf config.waybar.enable {
 
-    programs.waybar = { enable = true; systemd = {
-        enable = true;
+    programs.waybar = {
+      enable = true;
+      systemd = {
+        enable = false;
         target = "hyprland-session.target";
       };
       settings = [
@@ -35,9 +37,9 @@
             "custom/power-menu"
           ];
           "custom/launcher" = {
-            "format" = " ";
-            "on-click" = "tofi-drun | xargs hyprctl dispatch exec --";
-            "on-click-right" = "tofi-run | xargs hyprctl dispatch exec --";
+            "format" = "";
+            "on-click" = "hyprctl dispatch exec tofi-drun";
+            "on-click-right" = "hyprctl dispatch exec tofi-run";
             "tooltip" = false;
           };
           "hyprland/workspaces" = {
@@ -54,6 +56,16 @@
               "sort-by-number" = true;
             };
           };
+          "custom/spotify" = {
+            "exec" = "$HOME/.config/waybar/scripts/spotify.sh";
+            "exec-if" = "pgrep spotify";
+            "format" = "  {}";
+            "on-click" = "playerctl --player=spotify play-pause";
+            "on-click-right" = "hyprctl dispatch focuswindow Spotify";
+            "on-scroll-up" = "playerctl --player=spotify next";
+            "on-scroll-down" = "playerctl --player=spotify previous";
+            "tooltip" = false;
+          };
           "cpu" = {
             "interval" = 5;
             "format" = "  {}%";
@@ -65,15 +77,6 @@
             "format" = " {used:0.1f}GB";
             "format-alt" = "  {}%";
             "max-length" = 10;
-          };
-          "custom/spotify" = {
-            "exec" = "~/.config/waybar/scripts/spotify.sh";
-            "format" = "  {}";
-            "on-click" = "playerctl --player=spotify play-pause";
-            "on-click-right" = "hyprctl dispatch focuswindow Spotify";
-            "on-scroll-up" = "playerctl --player=spotify next";
-            "on-scroll-down" = "playerctl --player=spotify previous";
-            "tooltip" = false;
           };
           "hyprland/window" = {
             "max-length" = 100;
@@ -217,11 +220,12 @@
           color: @color4;
           margin: 0;
           padding: 6px 9px 6px 6px;
+          box-shadow: inset 0 -3px transparent;
         }
 
         #workspaces button.active {
           color: @color2a;
-          transition: color 0.25s ease
+          transition: color 0.25s ease;
         }
 
         #custom-spotify {
