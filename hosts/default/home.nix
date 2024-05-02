@@ -55,12 +55,10 @@
       tofi
       tree
       trash-cli
-      udiskie
       viewnior
       vlc
       vulkan-tools
       webcord
-      wlsunset
       xfce.thunar
       xfce.thunar-archive-plugin
       xfce.thunar-media-tags-plugin
