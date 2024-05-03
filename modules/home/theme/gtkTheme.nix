@@ -7,6 +7,13 @@
 
   config = lib.mkIf config.gtkTheme.enable {
 
+    home.file = {
+      ".config/color-scheme/" = {
+        source = ../hyprland/dotfiles/.config/color-scheme;
+        recursive = true;
+      };
+    };
+
     home.pointerCursor = {
       gtk.enable = true;
       package = pkgs.whitesur-cursors;
@@ -26,11 +33,6 @@
         name = "Gruvbox-Plus-Dark";
       };
 
-      # cursorTheme = {
-      #   package = pkgs.whitesur-cursors;
-      #   name = "WhiteSur Cursors";
-      # };
-
       font = {
         name = "Noto Sans SemiCondensed";
         size = 11;
@@ -44,11 +46,21 @@
       style.name = "gtk2";
     };
 
-    # home.sessionVariables = {
-      # XCURSOR_SIZE = 24;
-      # GDK_BACKEND = "wayland, x11";
-      # QT_QPA_PLATFORM = "wayland";
+    home.sessionVariables = {
+      XCURSOR_SIZE = 24;
+      GDK_BACKEND = "wayland, x11";
+      QT_QPA_PLATFORM = "wayland";
       # QT_QPA_PLATFORMTHEME = "qt5ct";
-    # };
+    };
+
+    home.packages = with pkgs; [
+      gruvbox-gtk-theme
+      gruvbox-plus-icons
+      gtk-engine-murrine
+      nwg-look
+      whitesur-cursors
+      xorg.xrdb
+    ];
   };
+
 }

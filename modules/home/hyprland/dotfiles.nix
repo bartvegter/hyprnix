@@ -8,16 +8,8 @@
   config = lib.mkIf config.dotfiles.enable {
 
     home.file = {
-      ".config/color-scheme/" = {
-        source = ./dotfiles/.config/color-scheme;
-        recursive = true;
-      };
       ".config/homepage/" = {
         source = ./dotfiles/.config/homepage;
-        recursive = true;
-      };
-      ".config/htop/" = {
-        source = ./dotfiles/.config/htop;
         recursive = true;
       };
 

@@ -32,11 +32,9 @@
       easyeffects
       firefox
       gnome.gnome-disk-utility
-      gtk-engine-murrine
       helvum
       libreoffice-fresh
       nsxiv
-      nwg-look
       obs-studio
       obsidian
       pavucontrol
@@ -49,7 +47,6 @@
       vlc
       vulkan-tools
       webcord
-      xorg.xrdb
       xwaylandvideobridge
     ])
 
