@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, ... }:
+{ pkgs, pkgs-alt, ... }:
 
 {
   imports = [
@@ -33,8 +33,8 @@
 
     ++
 
-    (with pkgs-stable; [
-      # If any package breaks: try installing the stable version here, or revert you flake.lock update using git and rebuild.
+    (with pkgs-alt; [
+      # If any package breaks: try installing the alternate (stable/unstable) version here, or revert you flake.lock update using git and rebuild.
     ]);
 
   # --- NixOS settings --- #

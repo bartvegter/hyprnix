@@ -2,29 +2,30 @@
   description = "Hyprnix config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
   outputs = { self, ... }@inputs:
     let
-      # System settings
+
       systemSettings = {
         version = "unstable";
         system = "x86_64-linux";
         systemType = "hardware";
         host = "default";
         hostname = "hyprnix";
-        dotfilesPath = "/home" + "/" + userSettings.username + "/." + systemSettings.hostname;
+        hyprnixPath = "/home" + "/${userSettings.username}" + "/.hyprnix";
         bootMode = "uefi";
         bootMountPath = "/boot";
         grubDevice = "";
@@ -35,7 +36,6 @@
         keyboardVariant = "altgr-intl";
       };
 
-      # User settings
       userSettings = rec {
         username = "bart";
         name = "Bart";
@@ -45,32 +45,19 @@
         editor = "nvim";
       };
 
-      # Library & Package definitions
-      lib = (if (systemSettings.version == "stable")
-      then
-        inputs.nixpkgs-stable.lib
-      else
-        inputs.nixpkgs.lib
-      );
 
       home-manager = (if (systemSettings.version == "stable")
       then
         inputs.home-manager-stable
       else
-        inputs.home-manager
+        inputs.home-manager-unstable
       );
 
-      pkgs = (if (systemSettings.version == "stable")
+      lib = (if (systemSettings.version == "stable")
       then
-        pkgs-stable
+        inputs.nixpkgs-stable.lib
       else
-        (import inputs.nixpkgs {
-          system = systemSettings.system;
-          config = {
-            allowUnfree = true;
-            allowUnfreePredicate = (_: true);
-          };
-        })
+        inputs.nixpkgs-unstable.lib
       );
 
       pkgs-stable = import inputs.nixpkgs-stable {
@@ -80,6 +67,28 @@
           allowUnfreePredicate = (_: true);
         };
       };
+
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        system = systemSettings.system;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
+        };
+      };
+
+      pkgs = (if (systemSettings.version == "stable")
+      then
+        pkgs-stable
+      else
+        pkgs-unstable
+      );
+
+      pkgs-alt = (if (systemSettings.version == "stable")
+      then
+        pkgs-unstable
+      else
+        pkgs-stable
+      );
 
 
       # The following was yoinked from pjones/plasma-manager, with thanks to @LibrePhoenix on YT for referring to this.
@@ -91,7 +100,8 @@
 
       # Attribute set of nixpkgs for each system:
       nixpkgsFor = forAllSystems (system:
-        import inputs.nixpkgs { inherit system; });
+        pkgs { inherit system; });
+
     in
     {
       nixosConfigurations = {
@@ -99,7 +109,8 @@
           system = systemSettings.system;
           modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix") ];
           specialArgs = {
-            inherit pkgs-stable;
+            inherit inputs;
+            inherit pkgs-alt;
             inherit systemSettings;
             inherit userSettings;
           };
@@ -111,7 +122,8 @@
           inherit pkgs;
           modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
           extraSpecialArgs = {
-            inherit pkgs-stable;
+            inherit inputs;
+            inherit pkgs-alt;
             inherit systemSettings;
             inherit userSettings;
           };
@@ -126,7 +138,7 @@
 
           install = pkgs.writeShellApplication {
             name = "install";
-            runtimeInputs = with pkgs; [ git ]; # I could make this fancier by adding other deps
+            runtimeInputs = with pkgs; [ git vim ];
             text = ''${./install.sh} "$@"'';
           };
         });

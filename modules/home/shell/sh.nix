@@ -10,7 +10,7 @@ let
     code = "codium";
     iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
     rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
-    h = "cd " + "${systemSettings.dotfilesPath}";
+    h = "cd " + "${systemSettings.hyprnixPath}";
   };
 in
 {
