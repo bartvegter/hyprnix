@@ -26,11 +26,7 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = false;
       localNetworkGameTransfers.openFirewall = true;
-      gamescopeSession = {
-        enable = true;
-        # env = {};
-        # args = [];
-      };
+      gamescopeSession.enable = true;
     };
 
 
