@@ -23,7 +23,6 @@
     environment.systemPackages = with pkgs; [
       cliphist
       kitty
-      mako
       wl-clip-persist
       wl-clipboard
       xdg-desktop-portal-gtk

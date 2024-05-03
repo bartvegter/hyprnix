@@ -4,6 +4,7 @@
   imports = [
     ./home/app/alacritty.nix
     ./home/app/git.nix
+    ./home/app/mako.nix
     ./home/app/nvim.nix
     ./home/app/syncthing.nix
     ./home/app/udiskie.nix
@@ -44,6 +45,8 @@
   font.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   gtkTheme.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  mako.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   waybar.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
