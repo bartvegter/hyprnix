@@ -8,8 +8,13 @@
   config = lib.mkIf config.nvim.enable {
 
     programs.neovim = {
-      enable = false;
-      extraConfig = lib.fileContents ../hyprland/dotfiles/.config/nvim/init.lua;
+      enable = true;
+      coc.enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
+      withPython3 = true;
+      extraLuaConfig = lib.fileContents ../hyprland/dotfiles/.config/nvim/init.lua;
     };
 
     home.packages = with pkgs; [

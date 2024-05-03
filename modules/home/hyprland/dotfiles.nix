@@ -35,10 +35,6 @@
       ".config/hypr/hyprlock.conf".source = ./dotfiles/.config/hypr/hyprlock.conf;
       ".config/hypr/hyprpaper.conf".source = ./dotfiles/.config/hypr/hyprpaper.conf;
 
-      # ".config/nvim/" = {
-      #   source = ./dotfiles/.config/nvim;
-      #   recursive = true;
-      # };
       ".config/starship/" = {
         source = ./dotfiles/.config/starship;
         recursive = true;
