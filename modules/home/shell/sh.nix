@@ -8,7 +8,8 @@ let
     v = "nvim";
     sv = "sudo nvim";
     code = "codium";
-    iv = "xrdb -load $HOME/.Xresources && nsxiv -tars f";
+    iv = "xrdb -load $HOME/.Xresources && nsxiv -ftars f";
+    iv-random = "xrdb -load $HOME/.Xresources && find . -type f | shuf | nsxiv -ifars f";
     rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
     h = "cd " + "${systemSettings.hyprnixPath}";
   };
