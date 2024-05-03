@@ -9,5 +9,7 @@
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
 
+    boot.kernelParams = [ "video=DP-3:2560x1440@165" ];
+
   };
 }
