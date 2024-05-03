@@ -3,6 +3,7 @@
 {
   imports = [
     ./home/app/alacritty.nix
+    ./home/app/btop.nix
     ./home/app/git.nix
     ./home/app/mako.nix
     ./home/app/nvim.nix
@@ -61,6 +62,8 @@
   # --- Apps --- #
   alacritty.enable =
     lib.mkIf (userSettings.term == "alacritty") (lib.mkDefault true);
+  btop.enable =
+    lib.mkDefault true;
   git.enable =
     lib.mkDefault true;
   syncthing.enable =
