@@ -14,6 +14,7 @@
     };
 
     services.gnome.gnome-keyring.enable = true;
+    programs.seahorse.enable = true;
 
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
@@ -22,7 +23,14 @@
 
     environment.systemPackages = with pkgs; [
       cliphist
+      grimblast
+      hyprcursor
+      hyprlock
+      hyprpaper
+      hyprpicker
+      killall
       kitty
+      libnotify
       wl-clip-persist
       wl-clipboard
       xdg-desktop-portal-gtk

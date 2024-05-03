@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, systemSettings, ... }:
 
 {
   options = {
@@ -11,372 +11,347 @@
         # XDG_SESSION_DESKTOP = "Hyprland";
     };
 
+    home.file = {
+      ".config/hypr/scripts" = {
+        source = ./dotfiles/.config/hypr/scripts;
+        recursive = true;
+      };
+      ".config/hypr/wallpapers" = {
+        source = ./dotfiles/.config/hypr/wallpapers;
+        recursive = true;
+      };
+      ".config/hypr/hyprlock.conf".source = ./dotfiles/.config/hypr/hyprlock.conf;
+      ".config/hypr/hyprpaper.conf".source = ./dotfiles/.config/hypr/hyprpaper.conf;
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
       settings = {
-        #
-      };
-      extraConfig = ''
-        # ---------------------------------------- #
-        # --- Hyprland dotfiles by @bartvegter --- #
-        # ---------------- @ 2024 ---------------- #
-        # --- ref @ https://wiki.hyprland.org/ --- #
-        # ---------------------------------------- #
 
+        "$scriptDir" = "~/.config/hypr/scripts";
 
-        # - Setting variables - #
-
-        $hyprc = ~/.config/hypr
-        $scripts = ~/.config/hypr/scripts
-
-
-        # - Sourcing other config files - #
-
-        # source = $hyprc/startup.conf
-        # source = $hyprc/envvar.conf
-        # source = $hyprc/keybinds.conf
-        # source = $hyprc/windowrule.conf
-
-        source = ~/.config/color-scheme/active/colors-hyprland.conf
-
+        source = "~/.config/color-scheme/active/colors-hyprland.conf";
 
         # - Monitor setup (hyprctl monitors) - #
 
-        monitor=DP-3, 2560x1440@165, 0x0,1, vrr,0
+        monitor = "DP-3, 2560x1440@165, 0x0,1, vrr,0";
 
 
         # - Keyboard and mouse & touchpad - #
 
-        input {
-          kb_layout = us
-          kb_variant = altgr-intl
-          follow_mouse = 1
+        input = {
+          kb_layout = "${systemSettings.keyboardLayout}";
+          kb_variant = "${systemSettings.keyboardVariant}";
 
-          touchpad {
-            natural_scroll = true
-          }
+          follow_mouse = 1;
+          sensitivity = 0;
+          accel_profile = "flat";
+          force_no_accel = false;
+          left_handed = false;
 
-          sensitivity = 0 
-          accel_profile = flat
-          force_no_accel = false
-          left_handed = false
-        }
+          touchpad = {
+            natural_scroll = true;
+          };
+        };
 
-        gestures {
-          workspace_swipe = true
-          workspace_swipe_fingers = 3
-          workspace_swipe_create_new = true
-        }
+        gestures = {
+          workspace_swipe = true;
+          workspace_swipe_fingers = 3;
+          workspace_swipe_create_new = true;
+        };
 
 
         # - Layout and styling - #
 
-        general {
-          gaps_in = 5
-          gaps_out = 10
-          border_size = 1
-          col.active_border = $foreground
-          col.inactive_border = $background
-
-          layout = dwindle
-        }
-
-        dwindle {
-          pseudotile = yes
-          preserve_split = yes
-        }
-
-        master {
-          new_is_master = true
-        }
-
-        decoration {
-          rounding = 10
-          active_opacity = 1.0 
-          inactive_opacity = 1.0
-          fullscreen_opacity = 1.0
-
-          drop_shadow = false
-          shadow_range = 4
-          shadow_render_power = 3
-          shadow_ignore_window = true
-          col.shadow = rgba(282828aa)
-
-          blur {
-            enabled = true
-            size = 4
-            passes = 3
-            ignore_opacity = false
-            new_optimizations = true
-            xray = false
-            noise = 0.05
-          }
-        }
-
-        animations {
-          enabled = yes
-
-          bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-          animation = windows, 1, 7, myBezier
-          animation = windowsOut, 1, 7, default, popin 80%
-          animation = border, 1, 10, default
-          animation = borderangle, 1, 8, default
-          animation = fade, 1, 7, default
-          animation = workspaces, 1, 6, default
-        }
-
-        misc {
-          disable_hyprland_logo = true
-          disable_splash_rendering = true
-          mouse_move_enables_dpms = false
-          key_press_enables_dpms = false
-          always_follow_on_dnd = true
-          #vrr = true	    # Global toggle; can also be set on per-monitor basis (see monitor setup above)
-          vfr = true
-        }
-
-
-        # ---------------------------------------- #
-        # --- Hyprland dotfiles by @bartvegter --- #
-        # ---------------- @ 2024 ---------------- #
-        # ------------- Startup file ------------- #
-        # ---------------------------------------- #
-
-
-        # - Clipboard initialisation
-        exec-once = wl-paste --type text --watch cliphist store
-        exec-once = wl-paste --type image --watch cliphist store
-
-        # - Notification deamon
-        exec-once = mako
-
-        # - Automatic disk mounting utility
-        exec-once = $scripts/wallpaper/wallpaper.sh
-        exec-once = hyprpaper
-
-        # - Status bar
-        exec-once = .waybar-wrapped
-
-        # - Applications
-        exec-once = [workspace 1 silent] brave
-        exec-once = spotify
-        exec-once = steam
-        exec-once = webcord
-
-
-        # ---------------------------------------- #
-        # --- Hyprland dotfiles by @bartvegter --- #
-        # ---------------- @ 2024 ---------------- #
-        # ----------- Windowrules file ----------- #
-        # ---------------------------------------- #
-
-
-        # - Window opacity - #
-
-        #windowrulev2 = opacity 0.90 0.90, class:(Brave-browser)$
-        #windowrulev2 = opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$
-        #windowrulev2 = opacity 0.90 0.90, class:^(VSCodium)$
-        #windowrulev2 = opacity 0.90 0.90, class:^(obsidian)$
-        #windowrulev2 = opacity 0.85 0.85, class:^(WebCord)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(steam)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(steamwebhelper)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(Spotify)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(thunar)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(file-roller)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(nwg-look)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(qt5ct)$
-        #windowrulev2 = opacity 0.80 0.80, class:^(qt6ct)$
-        #windowrulev2 = opacity 0.80 0.70, class:^(pavucontrol)$
-        #windowrulev2 = opacity 0.80 0.70, class:^(org.kde.polkit-kde-authentication-agent-1)$
-
-
-        # - Window position - #
-
-        windowrulev2 = float, title:^(Friends List)$
-        windowrulev2 = float, title:^(Steam Settings)$
-        windowrulev2 = float, title:^(Bluetooth)$
-        windowrulev2 = float, class:^(gedit)$
-        windowrulev2 = float, class:^(org.kde.polkit-kde-authentication-agent-1)$
-        windowrulev2 = float, class:^(nwg-look)$
-        windowrulev2 = float, class:^(pavucontrol)$
-        windowrulev2 = float, class:^(Viewnior)$
-        windowrulev2 = float, title:^(Confirm to replace files)
-        windowrulev2 = float, title:^(File Operation Progress)
-        windowrulev2 = float, title:^(Media viewer)$
-        windowrulev2 = float, title:^(Picture in picture)$
-        windowrulev2 = float, title:^(Picture-in-Picture)$
-        windowrulev2 = float, class:^(soffice)$
-        windowrulev2 = move 100%-652 100%-372, title:^(Picture in picture)$
-        windowrulev2 = move 100%-652 100%-372, title:^(Picture-in-Picture)$
-        windowrulev2 = pin, title:^(Picture in picture)$
-        windowrulev2 = pin, title:^(Picture-in-Picture)$
+        general = {
+          gaps_in = 5;
+          gaps_out = 10;
+          border_size = 1;
+          "col.active_border" = "$foreground";
+          "col.inactive_border" = "$background";
+
+          layout = "dwindle";
+        };
+
+        dwindle = {
+          pseudotile = true;
+          preserve_split = true;
+        };
+
+        master = {
+          new_is_master = true;
+        };
+
+        decoration = {
+          rounding = 10;
+          active_opacity = 1.0;
+          inactive_opacity = 1.0;
+          fullscreen_opacity = 1.0;
+
+          drop_shadow = false;
+          shadow_range = 4;
+          shadow_render_power = 3;
+          shadow_ignore_window = true;
+          "col.shadow" = "rgba(282828aa)";
+
+          blur = {
+            enabled = true;
+            size = 4;
+            passes = 3;
+            ignore_opacity = false;
+            new_optimizations = true;
+            xray = false;
+            noise = 0.05;
+          };
+        };
+
+        animations = {
+          enabled = true;
+          bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+          animation = [
+            "windows, 1, 7, myBezier"
+            "windowsOut, 1, 7, default, popin 80%"
+            "border, 1, 10, default"
+            "borderangle, 1, 8, default"
+            "fade, 1, 7, default"
+            "workspaces, 1, 6, default"
+          ];
+        };
+
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+          mouse_move_enables_dpms = false;
+          key_press_enables_dpms = false;
+          always_follow_on_dnd = true;
+          #vrr = true;	    # Global toggle; can also be set on per-monitor basis (see monitor setup above)
+          vfr = true;
+        };
+
+
+        exec-once = [
+          # - Clipboard initialisation
+          "wl-paste --type text --watch cliphist store"
+          "wl-paste --type image --watch cliphist store"
+
+          # - Notification deamon
+          "mako"
+
+          # - Automatic disk mounting utility
+          "$scriptDir/wallpaper/wallpaper.sh"
+          "hyprpaper"
+
+          # - Status bar
+          ".waybar-wrapped"
+
+          # - Applications
+          # "[workspace 1 silent] brave"
+          "spotify"
+          "steam"
+          "webcord"
+        ];
+
+        windowrulev2 = [
+          # - Window opacity - #
+
+          "opacity 0.90 0.90, class:(Brave-browser)$"
+          "opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$"
+          "opacity 0.90 0.90, class:^(VSCodium)$"
+          "opacity 0.90 0.90, class:^(obsidian)$"
+          "opacity 0.85 0.85, class:^(WebCord)$"
+          "opacity 0.80 0.80, class:^(steam)$"
+          "opacity 0.80 0.80, class:^(steamwebhelper)$"
+          "opacity 0.80 0.80, class:^(Spotify)$"
+          "opacity 0.80 0.80, class:^(thunar)$"
+          "opacity 0.80 0.80, class:^(file-roller)$"
+          "opacity 0.80 0.80, class:^(nwg-look)$"
+          "opacity 0.80 0.80, class:^(qt5ct)$"
+          "opacity 0.80 0.80, class:^(qt6ct)$"
+          "opacity 0.80 0.70, class:^(pavucontrol)$"
+          "opacity 0.80 0.70, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+
+
+          # - Window position - #
+
+          "float, title:^(Friends List)$"
+          "float, title:^(Steam Settings)$"
+          "float, title:^(Bluetooth)$"
+          "float, class:^(gedit)$"
+          "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+          "float, class:^(nwg-look)$"
+          "float, class:^(pavucontrol)$"
+          "float, class:^(Viewnior)$"
+          "float, title:^(Confirm to replace files)"
+          "float, title:^(File Operation Progress)"
+          "float, title:^(Media viewer)$"
+          "float, title:^(Picture in picture)$"
+          "float, title:^(Picture-in-Picture)$"
+          "float, class:^(soffice)$"
+          "move 100%-652 100%-372, title:^(Picture in picture)$"
+          "move 100%-652 100%-372, title:^(Picture-in-Picture)$"
+          "pin, title:^(Picture in picture)$"
+          "pin, title:^(Picture-in-Picture)$"
 
 
-        # - Workspace rules - #
+          # - Workspace rules - #
 
-        windowrulev2 = workspace 5 silent, title:^(Spotify Premium)$
-        windowrulev2 = workspace 4 silent, class:^(WebCord)$
-        windowrulev2 = workspace 4 silent, class:^(steam)$
-        windowrulev2 = workspace 6, class:^(steam_app_)(.*)$
-        windowrulev2 = workspace 6, title:^(worldoftanks.exe)$
+          "workspace 5 silent, title:^(Spotify Premium)$"
+          "workspace 4 silent, class:^(WebCord)$"
+          "workspace 4 silent, class:^(steam)$"
+          "workspace 6, class:^(steam_app_)(.*)$"
+          "workspace 6, title:^(worldoftanks.exe)$"
 
 
-        # - Window size - #
+          # - Window size - #
 
-        windowrulev2 = size 640 360, title:^(Picture in picture)$
-        windowrulev2 = size 640 360, title:^(Picture-in-Picture)$
-        windowrulev2 = size 800 600, title:^(Volume Control)$
-        windowrulev2 = size 800 600, class:^(nwg-look)$
-        windowrulev2 = keepaspectratio, title:^(Picture in picture)$
-        windowrulev2 = keepaspectratio, title:^(Picture-in-Picture)$
-        windowrulev2 = fullscreen, class:^(Nsxiv)$
+          "size 640 360, title:^(Picture in picture)$"
+          "size 640 360, title:^(Picture-in-Picture)$"
+          "size 800 600, title:^(Volume Control)$"
+          "size 800 600, class:^(nwg-look)$"
+          "keepaspectratio, title:^(Picture in picture)$"
+          "keepaspectratio, title:^(Picture-in-Picture)$"
+          "fullscreen, class:^(Nsxiv)$"
 
 
-        # - Focus & Behaviour - #
+          # - Focus & Behaviour - #
 
-        windowrulev2 = nofocus, class:^(steam)$, title:^()$
-        windowrulev2 = noinitialfocus, title:^(Picture in picture)$
-        windowrulev2 = noinitialfocus, title:^(Picture-in-Picture)$
-        windowrulev2 = stayfocused, class:(tofi)$
-        windowrulev2 = stayfocused, class:(soffice)$
-        #windowrulev2 = stayfocused, class:(file-roller)$
-        windowrulev2 = stayfocused, class:(thunar), title:(Attention)$
-        windowrulev2 = stayfocused, class:(thunar), title:(Rename)(.*)$
-        windowrulev2 = stayfocused, class:(thunar), title:(Create New Folder)$
-        #windowrulev2 = stayfocused, class:^(firefox), title:^(Save)(.*)$
-        windowrulev2 = suppressevent maximize, class:^(VSCodium)$
-        windowrulev2 = suppressevent maximize, class:^(libreoffice)(.*)$
+          "nofocus, class:^(steam)$, title:^()$"
+          "noinitialfocus, title:^(Picture in picture)$"
+          "noinitialfocus, title:^(Picture-in-Picture)$"
+          "stayfocused, class:(tofi)$"
+          "stayfocused, class:(soffice)$"
+          # "stayfocused, class:(file-roller)$"
+          "stayfocused, class:(thunar), title:(Attention)$"
+          "stayfocused, class:(thunar), title:(Rename)(.*)$"
+          "stayfocused, class:(thunar), title:(Create New Folder)$"
+          # "stayfocused, class:^(firefox), title:^(Save)(.*)$"
+          "suppressevent maximize, class:^(VSCodium)$"
+          "suppressevent maximize, class:^(libreoffice)(.*)$"
 
 
-        # - xwaylandvideobridge - #
+          # - xwaylandvideobridge - #
 
-        windowrulev2 = opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$
-        windowrulev2 = noanim,class:^(xwaylandvideobridge)$
-        windowrulev2 = noinitialfocus,class:^(xwaylandvideobridge)$
-        windowrulev2 = maxsize 1 1,class:^(xwaylandvideobridge)$
-        windowrulev2 = noblur,class:^(xwaylandvideobridge)$
+          "opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$"
+          "noanim,class:^(xwaylandvideobridge)$"
+          "noinitialfocus,class:^(xwaylandvideobridge)$"
+          "maxsize 1 1,class:^(xwaylandvideobridge)$"
+          "noblur,class:^(xwaylandvideobridge)$"
+        ];
 
 
-        # ---------------------------------------- #
-        # --- Hyprland dotfiles by @bartvegter --- #
-        # ---------------- @ 2024 ---------------- #
-        # ----------- Keybindings file ----------- #
-        # ---------------------------------------- #
+        "$mod" = "SUPER";
 
+        bind = [
+          # - Launching applications - #
 
-        $mainMod = SUPER
-        bind = $mainMod, U, exec, alacritty -e nvim
+          "$mod, B, exec, brave"
+          "$mod, T, exec, firefox"
+          "$mod, Y, exec, obsidian"
+          "$mod, C, exec, vscodium"
+          "$mod, E, exec, thunar"
+          "$mod, RETURN, exec, alacritty"
+          "$mod SHIFT, RETURN, exec, alacritty -e ranger"
+          "$mod, W, exec, $scriptDir/logactivewindow.sh"
+          "$mod SHIFT, W, exec, systemctl --user restart waybar.service"
+          "$mod, HOME, exec, thunar ~/Documents/Pokemon/ROMHacks/.ROMPatcher"
 
 
-        # - Launching applications - #
+          # - Launching menus - #
 
-        bind = $mainMod, B, exec, brave
-        bind = $mainMod, T, exec, firefox
-        bind = $mainMod, Y, exec, obsidian
-        bind = $mainMod, C, exec, vscodium
-        bind = $mainMod, E, exec, thunar
-        bind = $mainMod, RETURN, exec, alacritty
-        bind = $mainMod SHIFT, RETURN, exec, alacritty -e ranger
-        bind = $mainMod, W, exec, $scripts/logactivewindow.sh
-        bind = $mainMod SHIFT, W, exec, systemctl --user restart waybar.service
-        bind = $mainMod, HOME, exec, thunar ~/Documents/Pokemon/ROMHacks/.ROMPatcher
+          "$mod, N, exec, hyprlock"
+          "$mod, M, exec, wlogout"
+          "$mod, D, exec, tofi-drun | xargs hyprctl dispatch exec --"
+          "$mod SHIFT, D, exec, tofi-run | xargs hyprctl dispatch exec --"
+          "$mod, V, exec, cliphist list | tofi | cliphist decode | wl-copy"
 
 
-        # - Launching menus - #
+          # - Taking screenshots - #
 
-        bind = $mainMod, N, exec, hyprlock
-        bind = $mainMod, M, exec, wlogout
-        bind = $mainMod, D, exec, tofi-drun | xargs hyprctl dispatch exec --
-        bind = $mainMod SHIFT, D, exec, tofi-run | xargs hyprctl dispatch exec --
-        bind = $mainMod, V, exec, cliphist list | tofi | cliphist decode | wl-copy
+          "$mod, S, exec, grimblast --notify copysave area"
+          "$mod SHIFT, S, exec, grimblast --notify copysave active"
+          "$mod CTRL, S, exec, grimblast --notify copysave screen"
 
 
-        # - Taking screenshots - #
+          # - Color picker - #
 
-        bind = $mainMod, S, exec, grimblast --notify copysave area
-        bind = $mainMod SHIFT, S, exec, grimblast --notify copysave active
-        bind = $mainMod CTRL, S, exec, grimblast --notify copysave screen
+          "$mod, X, exec, hyprpicker -f hex --autocopy"
+          "$mod SHIFT, X, exec, hyprpicker -f rgb --autocopy"
 
 
-        # - Color picker - #
+          # - Window commands - #
 
-        bind = $mainMod, X, exec, hyprpicker -f hex --autocopy
-        bind = $mainMod SHIFT, X, exec, hyprpicker -f rgb --autocopy
+          "$mod, Q, killactive"
+          "$mod, F, fullscreen"
+          "$mod, I, togglesplit"
+          "$mod, O, pseudo"
+          "$mod, SPACE, togglefloating"
 
 
-        # - Window commands - #
+          # - Moving focus across windows - #
 
-        bind = $mainMod, Q, killactive
-        bind = $mainMod, F, fullscreen
-        bind = $mainMod, I, togglesplit
-        bind = $mainMod, O, pseudo
-        bind = $mainMod, SPACE, togglefloating
+          "$mod, H, movefocus, l"
+          "$mod, J, movefocus, d"
+          "$mod, K, movefocus, u"
+          "$mod, L, movefocus, r"
 
 
-        # - Moving focus across windows - #
+          # - Moving focus between workspaces (relative) - #
 
-        bind = $mainMod, H, movefocus, l
-        bind = $mainMod, J, movefocus, d
-        bind = $mainMod, K, movefocus, u
-        bind = $mainMod, L, movefocus, r
+          "$mod, bracketleft, workspace, e-1"
+          "$mod, bracketright, workspace, e+1"
+          "$mod, mouse_up, workspace, e-1"
+          "$mod, mouse_down, workspace, e+1"
 
 
-        # - Moving focus between workspaces (relative) - #
+          # - Moving focus between workspaces (absolute) - #
 
-        bind = $mainMod, bracketleft, workspace, e-1
-        bind = $mainMod, bracketright, workspace, e+1
-        bind = $mainMod, mouse_up, workspace, e-1
-        bind = $mainMod, mouse_down, workspace, e+1
+          "$mod, 1, workspace, 1"
+          "$mod, 2, workspace, 2"
+          "$mod, 3, workspace, 3"
+          "$mod, 4, workspace, 4"
+          "$mod, 5, workspace, 5"
+          "$mod, 6, workspace, 6"
+          "$mod, 8, workspace, 8"
+          "$mod, 9, workspace, 9"
+          "$mod, 0, workspace, 10"
 
 
-        # - Moving focus between workspaces (absolute) - #
+          # - Moving window left/down/up/right - #
 
-        bind = $mainMod, 1, workspace, 1
-        bind = $mainMod, 2, workspace, 2
-        bind = $mainMod, 3, workspace, 3
-        bind = $mainMod, 4, workspace, 4
-        bind = $mainMod, 5, workspace, 5
-        bind = $mainMod, 6, workspace, 6
-        bind = $mainMod, 8, workspace, 8
-        bind = $mainMod, 9, workspace, 9
-        bind = $mainMod, 0, workspace, 10
+          "$mod SHIFT, H, movewindow, l"
+          "$mod SHIFT, J, movewindow, d"
+          "$mod SHIFT, K, movewindow, u"
+          "$mod SHIFT, L, movewindow, r"
 
 
-        # - Moving window left/down/up/right - #
+          # - Moving window between workspaces - #
 
-        bind = $mainMod SHIFT, H, movewindow, l
-        bind = $mainMod SHIFT, J, movewindow, d
-        bind = $mainMod SHIFT, K, movewindow, u
-        bind = $mainMod SHIFT, L, movewindow, r
+          "$mod SHIFT, 1, movetoworkspace, 1"
+          "$mod SHIFT, 2, movetoworkspace, 2"
+          "$mod SHIFT, 3, movetoworkspace, 3"
+          "$mod SHIFT, 4, movetoworkspace, 4"
+          "$mod SHIFT, 5, movetoworkspace, 5"
+          "$mod SHIFT, 6, movetoworkspace, 6"
+          "$mod SHIFT, 7, movetoworkspace, 7"
+          "$mod SHIFT, 8, movetoworkspace, 8"
+          "$mod SHIFT, 9, movetoworkspace, 9"
+          "$mod SHIFT, 0, movetoworkspace, 10"
 
+          # - Resizing current window - #
 
-        # - Moving window between workspaces - #
+          "$mod CTRL, H, resizeactive, -100 0"
+          "$mod CTRL, J, resizeactive, 0 100"
+          "$mod CTRL, K, resizeactive, 0 -100"
+          "$mod CTRL, L, resizeactive, 100 0"
+        ];
+        bindm = [
+          # - Using the mouse - #
 
-        bind = $mainMod SHIFT, 1, movetoworkspace, 1
-        bind = $mainMod SHIFT, 2, movetoworkspace, 2
-        bind = $mainMod SHIFT, 3, movetoworkspace, 3
-        bind = $mainMod SHIFT, 4, movetoworkspace, 4
-        bind = $mainMod SHIFT, 5, movetoworkspace, 5
-        bind = $mainMod SHIFT, 6, movetoworkspace, 6
-        bind = $mainMod SHIFT, 7, movetoworkspace, 7
-        bind = $mainMod SHIFT, 8, movetoworkspace, 8
-        bind = $mainMod SHIFT, 9, movetoworkspace, 9
-        bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-        # - Resizing current window - #
-
-        bind = $mainMod CTRL, H, resizeactive, -100 0
-        bind = $mainMod CTRL, J, resizeactive, 0 100
-        bind = $mainMod CTRL, K, resizeactive, 0 -100
-        bind = $mainMod CTRL, L, resizeactive, 100 0
-
-        # - Using the mouse - #
-
-        bindm = $mainMod, mouse:272, movewindow
-        bindm = $mainMod, mouse:273, resizewindow
-      '';
+          "$mod, mouse:272, movewindow"
+          "$mod, mouse:273, resizewindow"
+        ];
+      };
     };
 
   };

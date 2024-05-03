@@ -20,16 +20,6 @@
         source = ./dotfiles/.config/htop;
         recursive = true;
       };
-      ".config/hypr/scripts" = {
-        source = ./dotfiles/.config/hypr/scripts;
-        recursive = true;
-      };
-      ".config/hypr/wallpapers" = {
-        source = ./dotfiles/.config/hypr/wallpapers;
-        recursive = true;
-      };
-      ".config/hypr/hyprlock.conf".source = ./dotfiles/.config/hypr/hyprlock.conf;
-      ".config/hypr/hyprpaper.conf".source = ./dotfiles/.config/hypr/hyprpaper.conf;
 
       ".config/starship/" = {
         source = ./dotfiles/.config/starship;
@@ -39,13 +29,9 @@
         source = ./dotfiles/.config/Thunar;
         recursive = true;
       };
+
       ".config/tofi/" = {
         source = ./dotfiles/.config/tofi;
-        recursive = true;
-      };
-
-      ".local/bin/" = {
-        source = ./dotfiles/.local/bin;
         recursive = true;
       };
     };

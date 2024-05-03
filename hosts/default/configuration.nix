@@ -12,7 +12,6 @@
   # If you want to change any module defaults set in [modules/systemModules.nix], it is recommended to change them here.
   # E.g. for bluetooth, use:
   # bluetooth.enable = false;
-  polkitGnome.enable = false;
 
   # --- System-wide variables --- #
   # User specific variables can be set in home.nix.
@@ -25,7 +24,6 @@
     (with pkgs; [
       dosfstools
       exfatprogs
-      libnotify
       vim
       wget
     ])

@@ -23,25 +23,17 @@
   # --- User specific packages --- #
   home.packages =
     (with pkgs; [
-      neovim
       audacity
       baobab
       bat
       blueberry
       brave
-      btop
       clinfo
       easyeffects
       firefox
       gnome.gnome-disk-utility
-      gnome.seahorse
-      grimblast
       gtk-engine-murrine
       helvum
-      hyprlock
-      hyprpaper
-      hyprpicker
-      killall
       libreoffice-fresh
       nsxiv
       nwg-look
