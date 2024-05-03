@@ -16,12 +16,17 @@
       ];
     };
 
-    services.xserver.videoDrivers = ["amdgpu"];
+    services.xserver.videoDrivers = [ "amdgpu" ];
 
     environment.sessionVariables = {
       RADV_PERFTEST = "aco";
       mesa_glthread = "true";
     };
+
+    environment.systemPackages = with pkgs; [
+      clinfo
+      vulkan-tools
+    ];
 
   };
 }

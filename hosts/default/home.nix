@@ -28,7 +28,6 @@
       bat
       blueberry
       brave
-      clinfo
       easyeffects
       firefox
       gnome.gnome-disk-utility
@@ -45,7 +44,6 @@
       trash-cli
       viewnior
       vlc
-      vulkan-tools
       webcord
       xwaylandvideobridge
     ])
