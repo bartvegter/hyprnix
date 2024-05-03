@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options = {
@@ -6,6 +6,11 @@
   };
 
   config = lib.mkIf config.waybar.enable {
+
+    home.file.".config/waybar/scripts/" = {
+      source = ./dotfiles/.config/waybar/scripts;
+      recursive = true;
+    };
 
     programs.waybar = {
       enable = true;
@@ -67,7 +72,7 @@
           #   "smooth-scrolling-threshold" = 10;
           #   "on-scroll-up"  = "playerctl -p spotify next";
           #   "on-scroll-down"  = "playerctl -p spotify previous";
-          #   "exec" = "$HOME/.config/waybar/mediaplayer.py";
+          #   "exec" = "$HOME/.config/waybar/scripts/mediaplayer.py";
           #   "exec-if" = "pgrep spotify";
           # };
           "custom/spotify" = {

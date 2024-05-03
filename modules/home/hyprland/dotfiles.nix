@@ -47,11 +47,6 @@
         source = ./dotfiles/.config/tofi;
         recursive = true;
       };
-      ".config/waybar/mediaplayer.py".source = ./dotfiles/.config/waybar/mediaplayer.py;
-      ".config/waybar/scripts/" = {
-        source = ./dotfiles/.config/waybar/scripts;
-        recursive = true;
-      };
 
       ".local/bin/" = {
         source = ./dotfiles/.local/bin;
