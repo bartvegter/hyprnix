@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, userSettings, ... }:
 
 {
   imports = [
+    ./home/app/alacritty.nix
     ./home/app/git.nix
     ./home/app/nvim.nix
     ./home/app/syncthing.nix
@@ -55,6 +56,8 @@
 
 
   # --- Apps --- #
+  alacritty.enable =
+    lib.mkIf (userSettings.term == "alacritty") (lib.mkDefault true);
   git.enable =
     lib.mkDefault true;
   syncthing.enable =

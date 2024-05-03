@@ -24,7 +24,6 @@
   home.packages =
     (with pkgs; [
       neovim
-      alacritty
       audacity
       baobab
       bat

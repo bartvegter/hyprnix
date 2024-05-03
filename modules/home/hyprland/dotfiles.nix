@@ -8,10 +8,6 @@
   config = lib.mkIf config.dotfiles.enable {
 
     home.file = {
-      ".config/alacritty/" = {
-        source = ./dotfiles/.config/alacritty;
-        recursive = true;
-      };
       ".config/btop/" = {
         source = ./dotfiles/.config/btop;
         recursive = true;
