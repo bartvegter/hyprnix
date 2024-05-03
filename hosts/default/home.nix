@@ -28,10 +28,8 @@
       bat
       blueberry
       brave
-      easyeffects
       firefox
       gnome.gnome-disk-utility
-      helvum
       libreoffice-fresh
       nsxiv
       obs-studio

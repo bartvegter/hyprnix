@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options = {
@@ -17,6 +17,11 @@
       pulse.enable = true;
       #jack.enable = true;
     };
+
+    environment.systemPackages = with pkgs; [
+      easyeffects
+      helvum
+    ];
 
   };
 }
