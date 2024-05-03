@@ -39,6 +39,16 @@ in
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
+      settings = {
+        "$schema" = "https://starship.rs/config-schema.json";
+        add_newline = true;
+        character = {
+          success_symbol = "[➜](bold green)";
+        };
+        package = {
+          disabled = true;
+        };
+      };
     };
 
     home.packages = with pkgs; [
@@ -48,10 +58,6 @@ in
       unzip
       zip
     ];
-
-    home.sessionVariables = {
-      STARSHIP_CONFIG = "$HOME/.config/starship/starship.toml";
-    };
 
   };
 }

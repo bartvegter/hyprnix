@@ -13,10 +13,6 @@
         recursive = true;
       };
 
-      ".config/starship/" = {
-        source = ./dotfiles/.config/starship;
-        recursive = true;
-      };
       ".config/Thunar/" = {
         source = ./dotfiles/.config/Thunar;
         recursive = true;
