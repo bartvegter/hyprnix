@@ -12,6 +12,12 @@
       recursive = true;
     };
 
+    home.packages = with pkgs; [
+      blueberry
+      pavucontrol
+      playerctl
+    ];
+
     programs.waybar = {
       enable = true;
       systemd = {

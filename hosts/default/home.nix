@@ -25,7 +25,6 @@
     (with pkgs; [
       audacity
       baobab
-      blueberry
       brave
       firefox
       gnome.gnome-disk-utility
@@ -33,8 +32,6 @@
       nsxiv
       obs-studio
       obsidian
-      pavucontrol
-      playerctl
       spotify
       tofi
       viewnior
