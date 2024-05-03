@@ -4,6 +4,7 @@
   imports = [
     ./system/app/gaming.nix
     ./system/app/samba.nix
+    ./system/app/thunar.nix
 
     ./system/core/bootloader.nix
     ./system/core/networkSetup.nix
@@ -55,6 +56,8 @@
   polkitGnome.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   sddm.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  thunar.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 

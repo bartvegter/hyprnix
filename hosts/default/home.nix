@@ -34,7 +34,6 @@
       easyeffects
       firefox
       gnome.gnome-disk-utility
-      gnome.file-roller
       gnome.seahorse
       grimblast
       gtk-engine-murrine
@@ -58,11 +57,6 @@
       vlc
       vulkan-tools
       webcord
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
-      xfce.thunar-volman
-      xfce.tumbler
       xorg.xrdb
       xwaylandvideobridge
     ])
