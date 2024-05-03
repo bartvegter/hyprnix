@@ -51,10 +51,15 @@ in
       };
     };
 
+    programs.autojump.enable = true;
+
     home.packages = with pkgs; [
+      bat
       cargo
       cmake
       gnumake
+      trash-cli
+      tree
       unzip
       zip
     ];

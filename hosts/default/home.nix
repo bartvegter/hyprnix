@@ -25,7 +25,6 @@
     (with pkgs; [
       audacity
       baobab
-      bat
       blueberry
       brave
       firefox
@@ -38,8 +37,6 @@
       playerctl
       spotify
       tofi
-      tree
-      trash-cli
       viewnior
       vlc
       webcord
