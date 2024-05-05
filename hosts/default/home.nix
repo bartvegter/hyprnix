@@ -33,7 +33,6 @@
       obs-studio
       obsidian
       spotify
-      tofi
       viewnior
       vlc
       webcord
@@ -51,6 +50,7 @@
   programs.home-manager.enable = true;
   home.username = userSettings.username;
   home.homeDirectory = "/home" + "/${userSettings.username}";
+
   # Only edit this if you know what you're doing.
   home.stateVersion = "23.11";
 
@@ -60,5 +60,6 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
   nixpkgs.config.allowUnfree = true;
 }

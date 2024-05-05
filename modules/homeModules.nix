@@ -8,6 +8,7 @@
     ./home/app/mako.nix
     ./home/app/nvim.nix
     ./home/app/syncthing.nix
+    ./home/app/tofi.nix
     ./home/app/udiskie.nix
 
     ./home/hyprland/dotfiles.nix
@@ -48,6 +49,8 @@
   gtkTheme.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   mako.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  tofi.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   waybar.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
