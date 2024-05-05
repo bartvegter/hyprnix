@@ -7,10 +7,6 @@
 
   config = lib.mkIf config.hyprland.enable {
 
-    home.sessionVariables = {
-        # XDG_SESSION_DESKTOP = "Hyprland";
-    };
-
     home.file = {
       ".config/hypr/scripts" = {
         source = ./dotfiles/.config/hypr/scripts;
@@ -147,7 +143,7 @@
 
           # - Applications
           # "[workspace 1 silent] brave"
-          "spotify"
+          "[fullscreen] spotify"
           "steam"
           "webcord"
         ];
@@ -155,21 +151,21 @@
         windowrulev2 = [
           # - Window opacity - #
 
-          "opacity 0.90 0.90, class:(Brave-browser)$"
-          "opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$"
-          "opacity 0.90 0.90, class:^(VSCodium)$"
-          "opacity 0.90 0.90, class:^(obsidian)$"
-          "opacity 0.85 0.85, class:^(WebCord)$"
-          "opacity 0.80 0.80, class:^(steam)$"
-          "opacity 0.80 0.80, class:^(steamwebhelper)$"
-          "opacity 0.80 0.80, class:^(Spotify)$"
-          "opacity 0.80 0.80, class:^(thunar)$"
-          "opacity 0.80 0.80, class:^(file-roller)$"
-          "opacity 0.80 0.80, class:^(nwg-look)$"
-          "opacity 0.80 0.80, class:^(qt5ct)$"
-          "opacity 0.80 0.80, class:^(qt6ct)$"
-          "opacity 0.80 0.70, class:^(pavucontrol)$"
-          "opacity 0.80 0.70, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+          # "opacity 0.90 0.90, class:(Brave-browser)$"
+          # "opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$"
+          # "opacity 0.90 0.90, class:^(VSCodium)$"
+          # "opacity 0.90 0.90, class:^(obsidian)$"
+          # "opacity 0.85 0.85, class:^(WebCord)$"
+          # "opacity 0.80 0.80, class:^(steam)$"
+          # "opacity 0.80 0.80, class:^(steamwebhelper)$"
+          # "opacity 0.80 0.80, class:^(Spotify)$"
+          # "opacity 0.80 0.80, class:^(thunar)$"
+          # "opacity 0.80 0.80, class:^(file-roller)$"
+          # "opacity 0.80 0.80, class:^(nwg-look)$"
+          # "opacity 0.80 0.80, class:^(qt5ct)$"
+          # "opacity 0.80 0.80, class:^(qt6ct)$"
+          # "opacity 0.80 0.70, class:^(pavucontrol)$"
+          # "opacity 0.80 0.70, class:^(org.kde.polkit-kde-authentication-agent-1)$"
 
 
           # - Window position - #
@@ -196,11 +192,12 @@
 
           # - Workspace rules - #
 
-          "workspace 5 silent, title:^(Spotify Premium)$"
+          "workspace 6 silent, title:^(Spotify Premium)$"
           "workspace 4 silent, class:^(WebCord)$"
           "workspace 4 silent, class:^(steam)$"
-          "workspace 6, class:^(steam_app_)(.*)$"
-          "workspace 6, title:^(worldoftanks.exe)$"
+          "workspace 5, class:^(steam_app_)(.*)$"
+          "workspace 5, title:^(worldoftanks.exe)$"
+          "workspace 5, class:^(cs2)$"
 
 
           # - Window size - #
