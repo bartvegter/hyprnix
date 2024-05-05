@@ -7,8 +7,8 @@
 
   config = lib.mkIf config.waybar.enable {
 
-    home.file.".config/waybar/scripts/" = {
-      source = ./dotfiles/.config/waybar/scripts;
+    home.file.".config/waybar/" = {
+      source = ./dotfiles/.config/waybar;
       recursive = true;
     };
 
@@ -78,15 +78,15 @@
           #   "smooth-scrolling-threshold" = 10;
           #   "on-scroll-up"  = "playerctl -p spotify next";
           #   "on-scroll-down"  = "playerctl -p spotify previous";
-          #   "exec" = "$HOME/.config/waybar/scripts/mediaplayer.py";
+          #   "exec" = "$HOME/.config/waybar/mediaplayer.py";
           #   "exec-if" = "pgrep spotify";
           # };
           "custom/spotify" = {
-            "exec" = "$HOME/.config/waybar/scripts/spotify.sh";
+            "exec" = "$HOME/.config/waybar/spotify.sh";
             "exec-if" = "pgrep spotify";
             "format" = "  {}";
             "on-click" = "playerctl --player=spotify play-pause";
-            "on-click-right" = "hyprctl dispatch focuswindow Spotify";
+            "on-click-right" = "hyprctl dispatch workspace 6";
             "on-scroll-up" = "playerctl --player=spotify next";
             "on-scroll-down" = "playerctl --player=spotify previous";
             "tooltip" = false;
@@ -142,8 +142,8 @@
             "on-click" = "pavucontrol";
             "on-click-right" = "pamixer -t";
             "scroll-step" = 5;
-            "on-scroll-up" = "~/.config/waybar/scripts/volume.sh --inc";
-            "on-scroll-down" = "~/.config/waybar/scripts/volume.sh --dec";
+            "on-scroll-up" = "~/.config/waybar/volume.sh --inc";
+            "on-scroll-down" = "~/.config/waybar/volume.sh --dec";
           };
           "clock" = {
             "interval" = 60;
