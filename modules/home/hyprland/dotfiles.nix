@@ -17,11 +17,6 @@
         source = ./dotfiles/.config/Thunar;
         recursive = true;
       };
-
-      ".config/tofi/" = {
-        source = ./dotfiles/.config/tofi;
-        recursive = true;
-      };
     };
 
   };
