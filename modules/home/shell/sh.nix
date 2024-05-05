@@ -12,6 +12,8 @@ let
     iv-random = "xrdb -load $HOME/.Xresources && find . -type f | shuf | nsxiv -ifars f";
     rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
     h = "cd " + "${systemSettings.hyprnixPath}";
+    hl = "lazygit --path=${systemSettings.hyprnixPath}";
+    hv = "cd ${systemSettings.hyprnixPath} && $EDITOR";
   };
 in
 {
