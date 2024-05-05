@@ -18,6 +18,7 @@
     ./system/hardware/opengl.nix
     ./system/hardware/vmGuest.nix
 
+    ./system/hyprland/gnome-keyring.nix
     ./system/hyprland/hyprland.nix
     ./system/hyprland/pipewire.nix
     ./system/hyprland/polkitGnome.nix
@@ -54,6 +55,8 @@
   # --- Hyprland --- #
   hyprland.enable =
     lib.mkDefault true;
+  gnome-keyring.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   pipewire.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   polkitGnome.enable =
