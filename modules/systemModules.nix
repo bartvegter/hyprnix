@@ -5,6 +5,7 @@
     ./system/app/gaming.nix
     ./system/app/samba.nix
     ./system/app/thunar.nix
+    ./system/app/wireguard.nix
 
     ./system/core/bootloader.nix
     ./system/core/networkSetup.nix
@@ -36,6 +37,8 @@
   userSetup.enable =
     lib.mkDefault true;
 
+  wireguard.enable =
+    lib.mkDefault true;
 
   # --- Hardware --- #
   bluetooth.enable =
