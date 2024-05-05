@@ -7,14 +7,12 @@
 
   config = lib.mkIf config.xdgSetup.enable {
 
-    xdg = {
+    xdg.enable = true;
+    xdg.portal = {
       enable = true;
-      portal = {
-        enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-        configPackages = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-        xdgOpenUsePortal = true;
-      };
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+      configPackages = [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+      xdgOpenUsePortal = true;
     };
 
   };
