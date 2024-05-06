@@ -14,7 +14,7 @@
     ./system/core/userSetup.nix
 
     ./system/hardware/bluetooth.nix
-    ./system/hardware/zenKernel.nix
+    ./system/hardware/kernelSetup.nix
     ./system/hardware/opengl.nix
     ./system/hardware/vmGuest.nix
 
@@ -44,7 +44,7 @@
   # --- Hardware --- #
   bluetooth.enable =
     lib.mkDefault true;
-  zenKernel.enable =
+  kernelSetup.enable =
     lib.mkDefault true;
   opengl.enable =
     lib.mkDefault true;
