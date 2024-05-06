@@ -13,7 +13,7 @@
 
     home.file = {
       ".config/tofi/" = {
-        source = ./dotfiles/.config/tofi;
+        source = ../hyprland/dotfiles/.config/tofi;
         recursive = true;
       };
     };
