@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-killall .waybar-wrapped && hyprctl dispatch exec waybar
+killall .waybar-wrapped && hyprctl dispatch exec .waybar-wrapped

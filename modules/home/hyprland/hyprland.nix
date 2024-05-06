@@ -250,7 +250,7 @@
           "$mod, RETURN, exec, alacritty"
           "$mod SHIFT, RETURN, exec, alacritty -e ranger"
           "$mod, W, exec, $scriptDir/logactivewindow.sh"
-          "$mod SHIFT, W, exec, systemctl --user restart waybar.service"
+          "$mod SHIFT, W, exec, $scriptDir/reloadWaybar.sh"
           "$mod, HOME, exec, thunar ~/Documents/Pokemon/ROMHacks/.ROMPatcher"
 
 
