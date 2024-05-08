@@ -1,8 +1,8 @@
-{ pkgs, pkgs-alt, ... }:
+{ lib, pkgs, pkgs-alt, systemSettings, ... }:
 
 {
   imports = [
-    ./hardware-configuration.nix
+    # ./hardware-configuration.nix
     # The module imported here imports all other modules from [modules/system/] and enables most by default.
     # See the overrides section below if you want to change the default config.
     ../../modules/systemModules.nix
@@ -37,6 +37,7 @@
   # --- NixOS settings --- #
   # Only edit this if you know what you're doing
   system.stateVersion = "23.11";
+  nixpkgs.hostPlatform = lib.mkDefault systemSettings.system;
 
   # --- Nix settings --- #
   # Ensures nix command and flakes are enabled and enables packages with unfree license

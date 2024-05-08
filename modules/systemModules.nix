@@ -7,14 +7,17 @@
     ./system/app/thunar.nix
     ./system/app/wireguard.nix
 
+    ./system/core/amdCPU.nix
     ./system/core/bootloader.nix
+    ./system/core/filesystemSetup.nix
+    ./system/core/kernel.nix
     ./system/core/networkSetup.nix
     ./system/core/sh.nix
     ./system/core/timeLocale.nix
     ./system/core/userSetup.nix
 
     ./system/hardware/bluetooth.nix
-    ./system/hardware/kernelSetup.nix
+    ./system/hardware/zenKernel.nix
     ./system/hardware/opengl.nix
     ./system/hardware/vmGuest.nix
 
@@ -27,8 +30,15 @@
 
 
   # --- Core --- #
+  # Need to add if statements which check for the existence of hardware-configuration.nix.
+  amdCPU.enable =
+    lib.mkDefault true;
   bootloader.enable =
     lib.mkDefault true;
+  filesystemSetup.enable =
+    lib.mkDefault true;
+  kernel.enable =
+    lib.mkDefault true; 
   networkSetup.enable =
     lib.mkDefault true;
   sh.enable =
@@ -44,7 +54,7 @@
   # --- Hardware --- #
   bluetooth.enable =
     lib.mkDefault true;
-  kernelSetup.enable =
+  zenKernel.enable =
     lib.mkDefault true;
   opengl.enable =
     lib.mkDefault true;
