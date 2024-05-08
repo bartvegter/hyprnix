@@ -31,7 +31,7 @@
 
         # - Monitor setup (hyprctl monitors) - #
 
-        monitor = "DP-3, 2560x1440@165, 0x0,1, vrr,0";
+        monitor = "DP-3, 2560x1440@165, 0x0,1, vrr,2";
 
 
         # - Keyboard and mouse & touchpad - #
