@@ -12,10 +12,12 @@ if [ $# -gt 0 ]
 fi
 
 # Function for adding changes made during install to working tree. Changes won't be included in rebuild otherwise
-function gitAdd { git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR; }
+gitAdd() { 
+  git --git-dir=$SCRIPT_DIR/.git --work-tree=$SCRIPT_DIR add $SCRIPT_DIR;
+}
 
 # Makes it easier to set options defined in systemSettings and userSettings in flake.nix
-function setOption {
+setOption() {
   if [ $# -le 1 ]; then
     echo ":: Error: Invalid usage of setOption. Not enough arguments given."
     echo ":: Valid usage looks like: setOption [option] [setting], e.g. setOption hostname hyprnix"
@@ -37,6 +39,7 @@ echo ":: Feel free to check out the install script at https://github.com/bartveg
 
 # Generate hardware config for new system
 sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/system/hardware-configuration.nix
+
 gitAdd
 
 # Set UEFI or BIOS bootMode
@@ -54,6 +57,7 @@ else
     setOption grubDevice \/dev\/$grubDevice
     # sed -i "0,/grubDevice.*=.*\".*\";/s//grubDevice = \"\/dev\/$grubDevice\";/" $SCRIPT_DIR/flake.nix
 fi
+
 gitAdd
 
 echo
@@ -184,6 +188,7 @@ while true; do
       ;;
   esac
 done
+
 gitAdd
 
 if [ "$editor" == "nvim" ] || [ "$editor" == "vim" ]; then
@@ -221,6 +226,7 @@ echo && echo ":: Starting system configuration rebuild..." && echo
 
 # Rebuild system
 sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
+
 gitAdd
 
 echo && echo ":: System configuration rebuild complete"
@@ -228,6 +234,7 @@ echo && echo ":: Starting home configuration rebuild..." && echo
 
 # Install and build home-manager configuration
 nix run home-manager/master --extra-experimental-features 'nix-command flakes' --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
+
 gitAdd
 
 echo && echo ":: Home configuration rebuild complete"
