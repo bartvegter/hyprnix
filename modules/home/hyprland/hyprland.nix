@@ -172,6 +172,7 @@
 
           "float, title:^(Friends List)$"
           "float, title:^(Steam Settings)$"
+          "float, title:^(Game Servers)$"
           "float, title:^(Bluetooth)$"
           "float, class:^(gedit)$"
           "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
@@ -192,12 +193,17 @@
 
           # - Workspace rules - #
 
-          "workspace 6 silent, title:^(Spotify Premium)$"
           "workspace 4 silent, class:^(vesktop)$"
           "workspace 4 silent, class:^(steam)$"
           "workspace 5, class:^(steam_app_)(.*)$"
+          "workspace 5, title:^(Game Servers)$"
           "workspace 5, title:^(worldoftanks.exe)$"
           "workspace 5, class:^(cs2)$"
+          "fullscreen, class:^(steam_app_)(.*)$"
+          "fullscreen, title:^(Game Servers)$"
+          "fullscreen, title:^(worldoftanks.exe)$"
+          "fullscreen, class:^(cs2)$"
+          "workspace 6 silent, title:^(Spotify Premium)$"
 
 
           # - Window size - #
@@ -218,11 +224,9 @@
           "noinitialfocus, title:^(Picture-in-Picture)$"
           "stayfocused, class:(tofi)$"
           "stayfocused, class:(soffice)$"
-          # "stayfocused, class:(file-roller)$"
           "stayfocused, class:(thunar), title:(Attention)$"
           "stayfocused, class:(thunar), title:(Rename)(.*)$"
           "stayfocused, class:(thunar), title:(Create New Folder)$"
-          # "stayfocused, class:^(firefox), title:^(Save)(.*)$"
           "suppressevent maximize, class:^(VSCodium)$"
           "suppressevent maximize, class:^(libreoffice)(.*)$"
 
