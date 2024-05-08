@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, userSettings, ... }:
 
 {
   options = {
@@ -9,6 +9,8 @@
 
     services.syncthing = {
       enable = true;
+      # user = userSettings.username;
+      openDefaultPorts = true;
     };
 
   };

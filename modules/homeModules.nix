@@ -7,7 +7,6 @@
     ./home/app/git.nix
     ./home/app/mako.nix
     ./home/app/nvim.nix
-    ./home/app/syncthing.nix
     ./home/app/tofi.nix
     ./home/app/udiskie.nix
 
@@ -68,8 +67,6 @@
   btop.enable =
     lib.mkDefault true;
   git.enable =
-    lib.mkDefault true;
-  syncthing.enable =
     lib.mkDefault true;
   udiskie.enable =
     lib.mkDefault true;
