@@ -145,7 +145,7 @@
           # "[workspace 1 silent] brave"
           "[fullscreen] spotify"
           "steam"
-          "webcord"
+          "vesktop"
         ];
 
         windowrulev2 = [
@@ -155,7 +155,7 @@
           # "opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$"
           # "opacity 0.90 0.90, class:^(VSCodium)$"
           # "opacity 0.90 0.90, class:^(obsidian)$"
-          # "opacity 0.85 0.85, class:^(WebCord)$"
+          # "opacity 0.85 0.85, class:^(vesktop)$"
           # "opacity 0.80 0.80, class:^(steam)$"
           # "opacity 0.80 0.80, class:^(steamwebhelper)$"
           # "opacity 0.80 0.80, class:^(Spotify)$"
@@ -193,7 +193,7 @@
           # - Workspace rules - #
 
           "workspace 6 silent, title:^(Spotify Premium)$"
-          "workspace 4 silent, class:^(WebCord)$"
+          "workspace 4 silent, class:^(vesktop)$"
           "workspace 4 silent, class:^(steam)$"
           "workspace 5, class:^(steam_app_)(.*)$"
           "workspace 5, title:^(worldoftanks.exe)$"

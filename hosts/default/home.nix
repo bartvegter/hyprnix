@@ -35,8 +35,8 @@
       spotify
       viewnior
       vlc
-      webcord
       xwaylandvideobridge
+      vesktop
     ])
 
     ++
