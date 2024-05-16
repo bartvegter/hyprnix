@@ -105,7 +105,7 @@
     in
     {
       nixosConfigurations = {
-        default = lib.nixosSystem {
+        ${systemSettings.hostname} = lib.nixosSystem {
           system = systemSettings.system;
           modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix") ];
           specialArgs = {
@@ -118,7 +118,7 @@
       };
 
       homeConfigurations = {
-        default = home-manager.lib.homeManagerConfiguration {
+        ${userSettings.username} = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
           extraSpecialArgs = {
