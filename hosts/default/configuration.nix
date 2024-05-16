@@ -5,11 +5,11 @@
     # ./hardware-configuration.nix
     # The module imported here imports all other modules from [modules/system/] and enables most by default.
     # See the overrides section below if you want to change the default config.
-    ../../modules/systemModules.nix
+    ../../modules/system
   ];
 
   # --- Module overrides section --- #
-  # If you want to change any module defaults set in [modules/systemModules.nix], it is recommended to change them here.
+  # If you want to change any module defaults set in [modules/system/default.nix], it is recommended to override them here.
   # E.g. for bluetooth, use:
   # bluetooth.enable = false;
 

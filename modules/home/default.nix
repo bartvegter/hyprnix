@@ -2,32 +2,32 @@
 
 {
   imports = [
-    ./home/app/alacritty.nix
-    ./home/app/btop.nix
-    ./home/app/git.nix
-    ./home/app/mako.nix
-    ./home/app/nvim.nix
-    ./home/app/tofi.nix
-    ./home/app/udiskie.nix
+    ./app/alacritty.nix
+    ./app/btop.nix
+    ./app/git.nix
+    ./app/mako.nix
+    ./app/nvim.nix
+    ./app/tofi.nix
+    ./app/udiskie.nix
 
-    ./home/hyprland/dotfiles.nix
-    ./home/hyprland/hyprland.nix
-    ./home/hyprland/waybar.nix
-    ./home/hyprland/wlogout.nix
-    ./home/hyprland/wlsunset.nix
-    ./home/hyprland/xdgSetup.nix
+    ./hyprland/dotfiles.nix
+    ./hyprland/hyprland.nix
+    ./hyprland/waybar.nix
+    ./hyprland/wlogout.nix
+    ./hyprland/wlsunset.nix
+    ./hyprland/xdgSetup.nix
 
-    ./home/lang/go.nix
-    ./home/lang/java.nix
-    ./home/lang/nodejs.nix
-    ./home/lang/php.nix
-    ./home/lang/python.nix
+    ./lang/go.nix
+    ./lang/java.nix
+    ./lang/nodejs.nix
+    ./lang/php.nix
+    ./lang/python.nix
 
-    ./home/shell/sh.nix
-    ./home/shell/sshAgent.nix
+    ./shell/sh.nix
+    ./shell/sshAgent.nix
 
-    ./home/theme/font.nix
-    ./home/theme/gtkTheme.nix
+    ./theme/font.nix
+    ./theme/gtkTheme.nix
   ];
 
 

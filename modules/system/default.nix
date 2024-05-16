@@ -2,31 +2,31 @@
 
 {
   imports = [
-    ./system/app/gaming.nix
-    ./system/app/samba.nix
-    ./system/app/syncthing.nix
-    ./system/app/thunar.nix
-    ./system/app/wireguard.nix
+    ./app/gaming.nix
+    ./app/samba.nix
+    ./app/syncthing.nix
+    ./app/thunar.nix
+    ./app/wireguard.nix
 
-    ./system/core/amdCPU.nix
-    ./system/core/bootloader.nix
-    ./system/core/filesystemSetup.nix
-    ./system/core/kernel.nix
-    ./system/core/networkSetup.nix
-    ./system/core/sh.nix
-    ./system/core/timeLocale.nix
-    ./system/core/userSetup.nix
+    ./core/amdCPU.nix
+    ./core/bootloader.nix
+    ./core/filesystemSetup.nix
+    ./core/kernel.nix
+    ./core/networkSetup.nix
+    ./core/sh.nix
+    ./core/timeLocale.nix
+    ./core/userSetup.nix
 
-    ./system/hardware/bluetooth.nix
-    ./system/hardware/zenKernel.nix
-    ./system/hardware/opengl.nix
-    ./system/hardware/vmGuest.nix
+    ./hardware/bluetooth.nix
+    ./hardware/zenKernel.nix
+    ./hardware/opengl.nix
+    ./hardware/vmGuest.nix
 
-    ./system/hyprland/gnome-keyring.nix
-    ./system/hyprland/hyprland.nix
-    ./system/hyprland/pipewire.nix
-    ./system/hyprland/polkitGnome.nix
-    ./system/hyprland/sddm.nix
+    ./hyprland/gnome-keyring.nix
+    ./hyprland/hyprland.nix
+    ./hyprland/pipewire.nix
+    ./hyprland/polkitGnome.nix
+    ./hyprland/sddm.nix
   ];
 
 

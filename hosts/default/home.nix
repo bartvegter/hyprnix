@@ -4,11 +4,11 @@
   imports = [
     # The module imported here imports all other modules from [modules/home/] and enables most by default.
     # See the overrides section below if you want to change the default config.
-    ../../modules/homeModules.nix
+    ../../modules/home
   ];
 
   # --- Module overrides section --- #
-  # If you want to change any module defaults set in [modules/homeModules.nix], it is recommended to change them here.
+  # If you want to change any module defaults set in [modules/home/default.nix], it is recommended to override them here.
   # E.g. for syncthing, use:
   # syncthing.enable = false;
 
