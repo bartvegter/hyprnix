@@ -60,6 +60,12 @@
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
-
   nixpkgs.config.allowUnfree = true;
+
+  # --- Garbage collection --- #
+  nix.gc = {
+    automatic = true;
+    frequency = "weekly";
+    options = "--delete-older-than 14d";
+  };
 }
