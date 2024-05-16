@@ -89,7 +89,17 @@ while true; do
 
       echo
       while true; do
-        read -p ">> (1/5) Please enter your username as in /home/{username}/ (e.g.. 'bart'): " username
+        read -p ">> (1/6) Please enter your preferred system hostname (e.g. 'nixos'): " hostname
+        if [ -z $hostname ]; then
+          echo ":: Hostname cannot be empty, try again..." && echo
+        else
+          break
+        fi
+      done
+
+      echo
+      while true; do
+        read -p ">> (2/6) Please enter your username as in /home/{username}/ (e.g. 'john'): " username
         if [ -z $username ]; then
           echo ":: Username cannot be empty, try again..." && echo
         else
@@ -99,7 +109,7 @@ while true; do
 
       echo
       while true; do
-        read -p ">> (2/5) Please enter your name for user description and git commits (e.g.. 'Bart'): " name
+        read -p ">> (3/6) Please enter your name for user description and git commits (e.g. 'John Smith'): " name
         if [ -z $name ]; then
           echo ":: Name cannot be empty, try again..." && echo
         else
@@ -107,11 +117,11 @@ while true; do
         fi
       done
 
-      echo && read -p ">> (3/5) Please enter your email address for git commits (optional, e.g.. 'example@example.com'): " email
+      echo && read -p ">> (4/6) Please enter your email address for git commits (optional, e.g. 'example@example.com'): " email
 
       echo
       while true; do
-        read -p ">> (4/5) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
+        read -p ">> (5/6) Would you like to use zsh as your default shell, instead of bash? [Y/n]: " ynShell
         case $ynShell in
           "" | "Y" | "y")
             break
@@ -132,7 +142,7 @@ while true; do
 
       echo
       while true; do
-        read -p ">> (5/5) Please choose a default editor [ neovim | vim | nano | [vscode / vscodium] (both will use nano during install) ]: " editor
+        read -p ">> (6/6) Please choose a default editor [ neovim | vim | nano | [vscode / vscodium] (both will use nano during install) ]: " editor
         case $editor in
           "neovim" | "nvim")
             $editor="nvim";
@@ -160,6 +170,7 @@ while true; do
       done
 
       echo && echo ":: Applying user settings..."
+      setOption hostname $hostname
       setOption username $username
       # sed -i "0,/bart/s//$username/" $SCRIPT_DIR/flake.nix
       # setOption name $name
@@ -172,6 +183,7 @@ while true; do
 
     "N" | "n")
       echo && echo ":: Applying system defaults..."
+      setOption hostname $(hostname)
       setOption username $(whoami)
       # sed -i "0,/bart/s//$(whoami)/" $SCRIPT_DIR/flake.nix
       # setOption name $(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)
