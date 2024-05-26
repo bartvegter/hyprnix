@@ -247,7 +247,6 @@
           # - Launching applications - #
 
           "$mod, B, exec, brave"
-          "$mod, T, exec, firefox"
           "$mod, Y, exec, obsidian"
           "$mod, C, exec, vscodium"
           "$mod, E, exec, thunar"
@@ -255,7 +254,6 @@
           "$mod SHIFT, RETURN, exec, alacritty -e ranger"
           "$mod, W, exec, $scriptDir/logactivewindow.sh"
           "$mod SHIFT, W, exec, $scriptDir/reloadWaybar.sh"
-          "$mod, HOME, exec, thunar ~/Documents/Pokemon/ROMHacks/.ROMPatcher"
 
 
           # - Launching menus - #

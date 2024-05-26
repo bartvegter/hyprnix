@@ -8,15 +8,8 @@
   config = lib.mkIf config.dotfiles.enable {
 
     home.file = {
-      ".config/homepage/" = {
-        source = ./dotfiles/.config/homepage;
-        recursive = true;
-      };
-
-      ".config/Thunar/" = {
-        source = ./dotfiles/.config/Thunar;
-        recursive = true;
-      };
+      ".config/Thunar/uca.xml".source = ./dotfiles/.config/Thunar/uca.xml;
+      ".Xresources".source = ./dotfiles/.Xresources;
     };
 
   };
