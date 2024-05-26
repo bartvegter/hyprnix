@@ -37,7 +37,6 @@
             "custom/spotify"
           ];
           "modules-center" = [
-            "hyprland/window"
           ];
           "modules-right" = [
             "tray"
