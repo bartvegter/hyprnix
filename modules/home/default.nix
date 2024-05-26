@@ -4,18 +4,15 @@
   imports = [
     ./app/alacritty.nix
     ./app/btop.nix
-    ./app/git.nix
-    ./app/mako.nix
     ./app/nvim.nix
     ./app/tofi.nix
-    ./app/udiskie.nix
 
     ./hyprland/dotfiles.nix
     ./hyprland/hyprland.nix
     ./hyprland/waybar.nix
     ./hyprland/wlogout.nix
     ./hyprland/wlsunset.nix
-    ./hyprland/xdgSetup.nix
+    ./hyprland/xdgPortals.nix
 
     ./lang/go.nix
     ./lang/java.nix
@@ -23,11 +20,15 @@
     ./lang/php.nix
     ./lang/python.nix
 
+    ./service/mako.nix
+    ./service/syncthing.nix
+    ./service/udiskie.nix
+
+    ./shell/git.nix
     ./shell/sh.nix
     ./shell/sshAgent.nix
 
-    ./theme/font.nix
-    ./theme/gtkTheme.nix
+    ./theme/theming.nix
   ];
 
 
@@ -43,9 +44,7 @@
     lib.mkDefault true;
   dotfiles.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  font.enable =
-    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  gtkTheme.enable =
+  theming.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   mako.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
@@ -57,7 +56,7 @@
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   wlsunset.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  xdgSetup.enable =
+  xdgPortals.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 
@@ -67,6 +66,8 @@
   btop.enable =
     lib.mkDefault true;
   git.enable =
+    lib.mkDefault true;
+  syncthing.enable =
     lib.mkDefault true;
   udiskie.enable =
     lib.mkDefault true;

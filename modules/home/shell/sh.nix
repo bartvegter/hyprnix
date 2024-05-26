@@ -3,14 +3,13 @@
 let
   myAliases = {
     ls = "ls --color=auto";
-    ll = "ls -al --color=auto";
+    ll = "ls -alh --color=auto";
     grep = "grep --color=auto";
     v = "nvim";
     sv = "sudo nvim";
     code = "codium";
     iv = "xrdb -load $HOME/.Xresources && nsxiv -ftars f";
     iv-random = "xrdb -load $HOME/.Xresources && find . -type f | shuf | nsxiv -ifars f";
-    rp = "$HOME/Documents/Pokemon/ROMHacks/.ROMPatcher";
     h = "cd " + "${systemSettings.hyprnixPath}";
     hl = "lazygit --path=${systemSettings.hyprnixPath}";
     hv = "cd ${systemSettings.hyprnixPath} && $EDITOR";
@@ -61,6 +60,7 @@ in
       cargo
       cmake
       gnumake
+      tldr
       trash-cli
       tree
       unzip

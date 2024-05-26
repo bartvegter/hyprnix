@@ -2,10 +2,10 @@
 
 {
   options = {
-    xdgSetup.enable = lib.mkEnableOption "Enables xdgSetup";
+    xdgPortals.enable = lib.mkEnableOption "Enables xdgPortals";
   };
 
-  config = lib.mkIf config.xdgSetup.enable {
+  config = lib.mkIf config.xdgPortals.enable {
 
     xdg.enable = true;
     xdg.portal = {

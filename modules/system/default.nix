@@ -4,7 +4,6 @@
   imports = [
     ./app/gaming.nix
     ./app/samba.nix
-    ./app/syncthing.nix
     ./app/thunar.nix
     ./app/wireguard.nix
 
@@ -49,8 +48,6 @@
   userSetup.enable =
     lib.mkDefault true;
 
-  syncthing.enable =
-    lib.mkDefault true;
   wireguard.enable =
     lib.mkDefault true;
 

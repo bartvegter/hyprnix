@@ -2,10 +2,10 @@
 
 {
   options = {
-    gtkTheme.enable = lib.mkEnableOption "Enables gtkTheme";
+    theming.enable = lib.mkEnableOption "Enables theming";
   };
 
-  config = lib.mkIf config.gtkTheme.enable {
+  config = lib.mkIf config.theming.enable {
 
     home.file = {
       ".config/color-scheme/" = {
@@ -14,29 +14,34 @@
       };
     };
 
-    home.pointerCursor = {
-      gtk.enable = true;
-      package = pkgs.whitesur-cursors;
-      name = "WhiteSur Cursors";
-      size = 24;
-    };
-
     gtk = {
       enable = true;
       theme = {
         package = pkgs.gruvbox-gtk-theme;
         name = "Gruvbox-Dark-BL";
       };
-
       iconTheme = {
         package = pkgs.gruvbox-plus-icons;
         name = "Gruvbox-Plus-Dark";
       };
+      # cursorTheme = {
+      #   package = pkgs.whitesur-cursors;
+      #   name = "WhiteSur-cursors";
+      # };
+    };
 
-      font = {
-        name = "Noto Sans SemiCondensed";
-        size = 11;
-      };
+    home.pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.whitesur-cursors;
+      name = "WhiteSur-cursors";
+      size = 24;
+    };
+
+
+    fonts.fontconfig.enable = true;
+    gtk.font = {
+      name = "Noto Sans SemiCondensed";
+      size = 11;
     };
 
     # Makes QT follow GTK theme
@@ -47,18 +52,17 @@
     };
 
     home.sessionVariables = {
-      XCURSOR_SIZE = 24;
       GDK_BACKEND = "wayland, x11";
       QT_QPA_PLATFORM = "wayland";
-      # QT_QPA_PLATFORMTHEME = "qt5ct";
     };
 
     home.packages = with pkgs; [
-      gruvbox-gtk-theme
-      gruvbox-plus-icons
       gtk-engine-murrine
-      nwg-look
-      whitesur-cursors
+      noto-fonts
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       xorg.xrdb
     ];
   };
