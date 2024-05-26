@@ -27,6 +27,7 @@
       baobab
       brave
       firefox
+      ffmpeg
       gnome.gnome-disk-utility
       libreoffice-fresh
       nsxiv
@@ -37,6 +38,7 @@
       vlc
       xwaylandvideobridge
       vesktop
+      yt-dlp
     ])
 
     ++
