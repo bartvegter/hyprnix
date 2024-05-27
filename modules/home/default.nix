@@ -44,9 +44,9 @@
     lib.mkDefault true;
   dotfiles.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  theming.enable =
-    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   mako.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  theming.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   tofi.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);

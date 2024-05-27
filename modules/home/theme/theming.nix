@@ -24,10 +24,6 @@
         package = pkgs.gruvbox-plus-icons;
         name = "Gruvbox-Plus-Dark";
       };
-      # cursorTheme = {
-      #   package = pkgs.whitesur-cursors;
-      #   name = "WhiteSur-cursors";
-      # };
     };
 
     home.pointerCursor = {
@@ -37,14 +33,12 @@
       size = 24;
     };
 
-
     fonts.fontconfig.enable = true;
     gtk.font = {
       name = "Noto Sans SemiCondensed";
       size = 11;
     };
 
-    # Makes QT follow GTK theme
     qt = {
       enable = true;
       platformTheme.name = "gtk";
