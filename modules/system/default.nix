@@ -26,6 +26,8 @@
     ./hyprland/pipewire.nix
     ./hyprland/polkitGnome.nix
     ./hyprland/sddm.nix
+
+    ./theme/stylix.nix
   ];
 
 
@@ -72,6 +74,8 @@
   polkitGnome.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   sddm.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  stylix.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   thunar.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);

@@ -13,6 +13,8 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { self, ... }@inputs:
@@ -103,6 +105,7 @@
         system = systemSettings.system;
         modules = [
           (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix")
+          inputs.stylix.nixosModules.stylix
         ];
         specialArgs = {
           inherit inputs;
