@@ -9,7 +9,6 @@
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -18,7 +17,6 @@
 
   outputs = { self, ... }@inputs:
     let
-
       systemSettings = {
         version = "unstable";
         system = "x86_64-linux";
@@ -44,7 +42,6 @@
         term = "alacritty";
         editor = "nvim";
       };
-
 
       home-manager = (if (systemSettings.version == "stable")
       then
@@ -90,7 +87,6 @@
         pkgs-stable
       );
 
-
       # The following was yoinked from pjones/plasma-manager, with thanks to @LibrePhoenix on YT for referring to this.
       # Systems that can run tests:
       supportedSystems = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
@@ -101,41 +97,38 @@
       # Attribute set of nixpkgs for each system:
       nixpkgsFor = forAllSystems (system:
         pkgs { inherit system; });
-
     in
     {
-      nixosConfigurations = {
-        ${systemSettings.hostname} = lib.nixosSystem {
-          system = systemSettings.system;
-          modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix") ];
-          specialArgs = {
-            inherit inputs;
-            inherit pkgs-alt;
-            inherit systemSettings;
-            inherit userSettings;
-          };
+      nixosConfigurations.${systemSettings.hostname} = lib.nixosSystem {
+        system = systemSettings.system;
+        modules = [
+          (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix")
+        ];
+        specialArgs = {
+          inherit inputs;
+          inherit pkgs-alt;
+          inherit systemSettings;
+          inherit userSettings;
         };
       };
 
-      homeConfigurations = {
-        ${userSettings.username} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
-          extraSpecialArgs = {
-            inherit inputs;
-            inherit pkgs-alt;
-            inherit systemSettings;
-            inherit userSettings;
-          };
+      homeConfigurations.${userSettings.username} = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
+        extraSpecialArgs = {
+          inherit inputs;
+          inherit pkgs-alt;
+          inherit systemSettings;
+          inherit userSettings;
         };
       };
 
       packages = forAllSystems (system:
-        let pkgs = nixpkgsFor.${system};
+        let
+          pkgs = nixpkgsFor.${system};
         in
         {
           default = self.packages.${system}.install;
-
           install = pkgs.writeShellApplication {
             name = "install";
             runtimeInputs = with pkgs; [ git vim ];
@@ -145,7 +138,6 @@
 
       apps = forAllSystems (system: {
         default = self.apps.${system}.install;
-
         install = {
           type = "app";
           program = "${self.packages.${system}.install}/bin/install";
