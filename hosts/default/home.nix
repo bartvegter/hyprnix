@@ -1,4 +1,4 @@
-{ pkgs, pkgs-alt, userSettings, ... }:
+{ lib, pkgs, pkgs-alt, userSettings, ... }:
 
 {
   imports = [
@@ -58,7 +58,7 @@
 
   # --- Nix settings --- #
   # Ensures nix command and flakes are enabled && Enables packages with unfree license.
-  nix.package = pkgs.nixFlakes;
+  nix.package = lib.mkDefault pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

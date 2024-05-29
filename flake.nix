@@ -107,7 +107,7 @@
           (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix")
           inputs.stylix.nixosModules.stylix
         ];
-        specialArgs = { inherit inputs pkgs-alt systemSettings userSettings; };
+        specialArgs = { inherit inputs home-manager pkgs-alt systemSettings userSettings; };
       };
 
       homeConfigurations.${userSettings.username} = home-manager.lib.homeManagerConfiguration {

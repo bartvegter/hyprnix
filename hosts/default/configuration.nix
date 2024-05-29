@@ -1,4 +1,4 @@
-{ lib, pkgs, pkgs-alt, systemSettings, ... }:
+{ inputs, home-manager, lib, pkgs, pkgs-alt, systemSettings, userSettings, ... }:
 
 {
   imports = [
@@ -6,7 +6,17 @@
     # The module imported here imports all other modules from [modules/system/] and enables most by default.
     # See the overrides section below if you want to change the default config.
     ../../modules/system
+
+    # When using home-manager as a module, use the following line and the home-manager set below.
+    home-manager.nixosModules.home-manager
   ];
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs pkgs pkgs-alt systemSettings userSettings; };
+    users = {
+      ${userSettings.username} = import ./home.nix;
+    };
+  };
 
   # --- Module overrides section --- #
   # If you want to change any module defaults set in [modules/system/default.nix], it is recommended to override them here.
