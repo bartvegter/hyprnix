@@ -9,34 +9,17 @@
 
     home.file = {
       ".config/color-scheme/" = {
-        source = ../hyprland/dotfiles/.config/color-scheme;
+        source = ./color-scheme;
         recursive = true;
       };
     };
 
     gtk = {
       enable = true;
-      theme = {
-        package = pkgs.gruvbox-gtk-theme;
-        name = "Gruvbox-Dark-BL";
-      };
       iconTheme = {
         package = pkgs.gruvbox-plus-icons;
         name = "Gruvbox-Plus-Dark";
       };
-    };
-
-    home.pointerCursor = {
-      gtk.enable = true;
-      package = pkgs.whitesur-cursors;
-      name = "WhiteSur-cursors";
-      size = 24;
-    };
-
-    fonts.fontconfig.enable = true;
-    gtk.font = {
-      name = "Noto Sans SemiCondensed";
-      size = 11;
     };
 
     qt = {
@@ -52,11 +35,6 @@
 
     home.packages = with pkgs; [
       gtk-engine-murrine
-      noto-fonts
-      noto-fonts-lgc-plus
-      noto-fonts-cjk-serif
-      noto-fonts-color-emoji
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       xorg.xrdb
     ];
   };

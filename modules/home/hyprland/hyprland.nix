@@ -27,8 +27,6 @@
 
         "$scriptDir" = "~/.config/hypr/scripts";
 
-        source = "~/.config/color-scheme/active/colors-hyprland.conf";
-
         # - Monitor setup (hyprctl monitors) - #
 
         monitor = "DP-3, 2560x1440@165, 0x0,1, vrr,2";
@@ -64,8 +62,6 @@
           gaps_in = 5;
           gaps_out = 10;
           border_size = 1;
-          "col.active_border" = "$foreground";
-          "col.inactive_border" = "$background";
 
           layout = "dwindle";
         };
@@ -89,7 +85,6 @@
           shadow_range = 4;
           shadow_render_power = 3;
           shadow_ignore_window = true;
-          "col.shadow" = "rgba(282828aa)";
 
           blur = {
             enabled = true;

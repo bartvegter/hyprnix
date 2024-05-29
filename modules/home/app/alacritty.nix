@@ -17,12 +17,7 @@
 
         window = {
           padding = { x = 15; y = 15; };
-          opacity = 0.8;
-        };
-
-        font = {
-          normal = { family = "JetBrainsMono NF"; style = "Medium"; };
-          size = 11;
+          # opacity = 0.8;
         };
 
         colors.draw_bold_text_with_bright_colors = true;

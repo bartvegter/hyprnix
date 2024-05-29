@@ -9,7 +9,7 @@
 
     home.file = {
       ".config/Thunar/uca.xml".source = ./dotfiles/.config/Thunar/uca.xml;
-      ".Xresources".source = ./dotfiles/.Xresources;
+      # ".Xresources".source = ./dotfiles/.Xresources;
     };
 
   };

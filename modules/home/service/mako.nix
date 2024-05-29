@@ -14,7 +14,6 @@
       defaultTimeout = 5000;
 
       markup = true;
-      font = "JetBrainsMono 9";
       format = "<b>%s</b>\\n%b";
       icons = true;
       maxIconSize = 64;
@@ -28,11 +27,6 @@
       padding= "8";
       borderSize = 1;
       borderRadius = 10;
-
-      textColor = "#EBDBB2";
-      borderColor = "#EBDBB2";
-      backgroundColor = "#282828";
-      progressColor = "over #B8BB26";
     };
 
   };
