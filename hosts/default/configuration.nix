@@ -13,9 +13,9 @@
 
   home-manager = {
     extraSpecialArgs = { inherit inputs pkgs pkgs-alt systemSettings userSettings; };
-    users = {
-      ${userSettings.username} = import ./home.nix;
-    };
+    users.${userSettings.username} = import ./home.nix;
+    # useUserPackages = true;
+    useGlobalPkgs = true;
   };
 
   # --- Module overrides section --- #
