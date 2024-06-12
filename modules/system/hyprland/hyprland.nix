@@ -20,14 +20,6 @@
 
     environment.systemPackages = with pkgs; [
       cliphist
-      grimblast
-      hyprcursor
-      hyprlock
-      hyprpaper
-      hyprpicker
-      killall
-      kitty
-      libnotify
       wl-clip-persist
       wl-clipboard
       xdg-desktop-portal-gtk

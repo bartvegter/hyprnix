@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options = {
@@ -28,6 +28,10 @@
       borderSize = 1;
       borderRadius = 10;
     };
+
+    home.packages = with pkgs; [
+      libnotify
+    ];
 
   };
 }

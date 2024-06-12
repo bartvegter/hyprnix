@@ -1,4 +1,4 @@
-{ config, lib, systemSettings, ... }:
+{ config, lib, pkgs, systemSettings, ... }:
 
 {
   options = {
@@ -7,13 +7,15 @@
 
   config = lib.mkIf config.hyprland.enable {
 
+    home.packages = with pkgs; [
+      grimblast
+      hyprpicker
+      killall
+    ];
+
     home.file = {
       ".config/hypr/scripts" = {
         source = ./dotfiles/.config/hypr/scripts;
-        recursive = true;
-      };
-      ".config/hypr/wallpapers" = {
-        source = ./dotfiles/.config/hypr/wallpapers;
         recursive = true;
       };
     };
@@ -23,11 +25,16 @@
       systemd.enable = true;
       settings = {
 
+        "$mod" = "SUPER";
         "$scriptDir" = "~/.config/hypr/scripts";
+
 
         # - Monitor setup (hyprctl monitors) - #
 
-        monitor = "DP-3, 2560x1440@165, 0x0,1, vrr,2";
+        monitor = [ 
+          "DP-3, 2560x1440@165, auto, 1, vrr,2"
+          "    , preferred    , auto, 1, vrr,0"
+        ];
 
 
         # - Keyboard and mouse & touchpad - #
@@ -120,12 +127,9 @@
 
 
         exec-once = [
-          # - Clipboard initialisation
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
 
-          # - Notification deamon
-          "mako"
 
           # - Status bar - #
 
@@ -135,105 +139,106 @@
           # - Applications - #
 
           # "[workspace 1 silent] brave"
-          "[fullscreen] spotify"
-          "steam"
-          "vesktop"
+          "[fullscreen; workspace 6 silent] spotify"
+          "[silent] steam"
+          "[silent] vesktop"
         ];
 
+
         windowrulev2 = [
-          # - Window opacity - #
+          # - System applets - #
 
-          # "opacity 0.90 0.90, class:(Brave-browser)$"
-          # "opaque, class:^(Brave-browser), title:^(.*)(YouTube)(.*)$"
-          # "opacity 0.90 0.90, class:^(VSCodium)$"
-          # "opacity 0.90 0.90, class:^(obsidian)$"
-          # "opacity 0.85 0.85, class:^(vesktop)$"
-          # "opacity 0.80 0.80, class:^(steam)$"
-          # "opacity 0.80 0.80, class:^(steamwebhelper)$"
-          # "opacity 0.80 0.80, class:^(Spotify)$"
-          # "opacity 0.80 0.80, class:^(thunar)$"
-          # "opacity 0.80 0.80, class:^(file-roller)$"
-          # "opacity 0.80 0.80, class:^(nwg-look)$"
-          # "opacity 0.80 0.80, class:^(qt5ct)$"
-          # "opacity 0.80 0.80, class:^(qt6ct)$"
-          # "opacity 0.80 0.70, class:^(pavucontrol)$"
-          # "opacity 0.80 0.70, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+          "stayfocused, class: (tofi)"
+          "stayfocused, class: (polkit-gnome-authentication-agent-1)"
 
+          "pin, class: (blueberry.py)"
+          "float, class: (blueberry.py)"
+          "size 500 400, class: (blueberry.py)"
+          "move 100%-511 55, class: (blueberry.py)"
 
-          # - Window position - #
+          # "pin, tag:nmtui"
+          # "float, tag:nmtui"
 
-          "float, title:^(Friends List)$"
-          "float, title:^(Steam Settings)$"
-          "float, title:^(Game Servers)$"
-          "float, title:^(Bluetooth)$"
-          "float, class:^(gedit)$"
-          "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
-          "float, class:^(nwg-look)$"
-          "float, class:^(pavucontrol)$"
-          "float, class:^(Viewnior)$"
-          "float, title:^(Confirm to replace files)"
-          "float, title:^(File Operation Progress)"
-          "float, title:^(Media viewer)$"
-          "float, title:^(Picture in picture)$"
-          "float, title:^(Picture-in-Picture)$"
-          "float, class:^(soffice)$"
-          "move 100%-652 100%-372, title:^(Picture in picture)$"
-          "move 100%-652 100%-372, title:^(Picture-in-Picture)$"
-          "pin, title:^(Picture in picture)$"
-          "pin, title:^(Picture-in-Picture)$"
+          "pin, class: (pavucontrol)"
+          "float, class: (pavucontrol)"
+          "size 700 500, class: (pavucontrol)"
+          "move 100%-711 55, class: (pavucontrol)"
 
 
-          # - Workspace rules - #
+          # - Gaming - #
 
-          "workspace 4 silent, class:^(vesktop)$"
-          "workspace 4 silent, class:^(steam)$"
-          "workspace 5, class:^(steam_app_)(.*)$"
-          "workspace 5, title:^(Game Servers)$"
-          "workspace 5, title:^(worldoftanks.exe)$"
-          "workspace 5, class:^(cs2)$"
-          "fullscreen, class:^(steam_app_)(.*)$"
-          "fullscreen, title:^(Game Servers)$"
-          "fullscreen, title:^(worldoftanks.exe)$"
-          "fullscreen, class:^(cs2)$"
-          "workspace 6 silent, title:^(Spotify Premium)$"
+          "float, title: (Game Servers)"
+          "float, title: (Steam Settings)"
+          "float, title: (Friends List)"
+          "size 300 600, title: (Friends List)"
+          "move 100%-310 100%-610, title: (Friends List)"
+          "nofocus, class: (steam), title:^()$"
 
-
-          # - Window size - #
-
-          "size 640 360, title:^(Picture in picture)$"
-          "size 640 360, title:^(Picture-in-Picture)$"
-          "size 800 600, title:^(Volume Control)$"
-          "size 800 600, class:^(nwg-look)$"
-          "keepaspectratio, title:^(Picture in picture)$"
-          "keepaspectratio, title:^(Picture-in-Picture)$"
-          "fullscreen, class:^(Nsxiv)$"
+          "workspace 4 silent, class: (vesktop)"
+          "workspace 4 silent, class: (steam)"
+          # "workspace 4, title: (Game Servers)"
+          "workspace 5, class: (steam_app_)(.*)"
+          "workspace 5, class: (cs2)"
+          "workspace 5, title: (worldoftanks.exe)"
+          # "fullscreen, class: (steam_app_)(.*)"
+          # "fullscreen, class: (cs2)"
+          # "fullscreen, title: (worldoftanks.exe)"
 
 
-          # - Focus & Behaviour - #
+          # - Thunar - #
 
-          "nofocus, class:^(steam)$, title:^()$"
-          "noinitialfocus, title:^(Picture in picture)$"
-          "noinitialfocus, title:^(Picture-in-Picture)$"
-          "stayfocused, class:(tofi)$"
-          "stayfocused, class:(soffice)$"
-          "stayfocused, class:(thunar), title:(Attention)$"
-          "stayfocused, class:(thunar), title:(Rename)(.*)$"
-          "stayfocused, class:(thunar), title:(Create New Folder)$"
-          "suppressevent maximize, class:^(VSCodium)$"
-          "suppressevent maximize, class:^(libreoffice)(.*)$"
+          "stayfocused, class: (thunar), title: (Attention)"
+          "stayfocused, class: (thunar), title: (Rename)(.*)"
+          "stayfocused, class: (thunar), title: (Create New Folder)"
+          "float, class: (thunar), title: (?<!.* - Thunar)"
+          # "float, class: (thunar), title: ^(Confirm to replace files)"
+          # "float, class: (thunar), title: ^(File Operation Progress)"
+
+
+          # - Picture in Picture (Brave & Firefox) - #
+
+          "pin, title: ^(Picture in picture)$"
+          "pin, title: ^(Picture-in-Picture)$"
+          "float, title: ^(Picture in picture)$"
+          "float, title: ^(Picture-in-Picture)$"
+          "size 640 360, title: ^(Picture in picture)$"
+          "size 640 360, title: ^(Picture-in-Picture)$"
+          "move 100%-651 100%-371, title: ^(Picture in picture)$"
+          "move 100%-651 100%-371, title: ^(Picture-in-Picture)$"
+          "noinitialfocus, title: ^(Picture in picture)$"
+          "noinitialfocus, title: ^(Picture-in-Picture)$"
+          "keepaspectratio, title: ^(Picture in picture)$"
+          "keepaspectratio, title: ^(Picture-in-Picture)$"
+
+
+          # - LibreOffice - #
+
+          "float, class: (soffice)"
+          "suppressevent maximize, class: (libreoffice)(.*)"
+
+
+          # - Misc - #
+
+          "float, class: (Viewnior)"
 
 
           # - xwaylandvideobridge - #
 
-          "opacity 0.0 override 0.0 override,class:^(xwaylandvideobridge)$"
-          "noanim,class:^(xwaylandvideobridge)$"
-          "noinitialfocus,class:^(xwaylandvideobridge)$"
-          "maxsize 1 1,class:^(xwaylandvideobridge)$"
-          "noblur,class:^(xwaylandvideobridge)$"
+          "noanim, class: ^(xwaylandvideobridge)$"
+          "noblur, class: ^(xwaylandvideobridge)$"
+          "maxsize 1 1, class: ^(xwaylandvideobridge)$"
+          "noinitialfocus, class: ^(xwaylandvideobridge)$"
+          "opacity 0.0 override 0.0 override, class: ^(xwaylandvideobridge)$"
         ];
 
 
-        "$mod" = "SUPER";
+        workspace = [
+          "1, defaultName: brave"
+          "4, defaultName: gaming"
+          "5, defaultName: activeGame"
+          "6, defaultName: spotify, on-created-empty: [fullscreen] spotify"
+        ];
+
 
         bind = [
           # - Launching applications - #
@@ -328,6 +333,7 @@
           "$mod SHIFT, 8, movetoworkspace, 8"
           "$mod SHIFT, 9, movetoworkspace, 9"
           "$mod SHIFT, 0, movetoworkspace, 10"
+
 
           # - Resizing current window - #
 
