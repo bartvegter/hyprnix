@@ -8,6 +8,8 @@
     ./app/tofi.nix
 
     ./hyprland/hyprland.nix
+    ./hyprland/hyprlock.nix
+    ./hyprland/hyprpaper.nix
     ./hyprland/waybar.nix
     ./hyprland/wlogout.nix
     ./hyprland/wlsunset.nix
@@ -41,6 +43,9 @@
   # --- Hyprland --- #
   hyprland.enable =
     lib.mkDefault true;
+  hyprlock.enable =
+    lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
+  hyprpaper.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   mako.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);

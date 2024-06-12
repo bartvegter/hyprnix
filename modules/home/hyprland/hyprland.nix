@@ -16,8 +16,6 @@
         source = ./dotfiles/.config/hypr/wallpapers;
         recursive = true;
       };
-      ".config/hypr/hyprlock.conf".source = ./dotfiles/.config/hypr/hyprlock.conf;
-      ".config/hypr/hyprpaper.conf".source = ./dotfiles/.config/hypr/hyprpaper.conf;
     };
 
     wayland.windowManager.hyprland = {
@@ -129,14 +127,13 @@
           # - Notification deamon
           "mako"
 
-          # - Automatic disk mounting utility
-          "$scriptDir/wallpaper/wallpaper.sh"
-          "hyprpaper"
+          # - Status bar - #
 
-          # - Status bar
           ".waybar-wrapped"
 
-          # - Applications
+
+          # - Applications - #
+
           # "[workspace 1 silent] brave"
           "[fullscreen] spotify"
           "steam"
