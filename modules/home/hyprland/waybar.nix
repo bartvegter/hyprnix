@@ -8,7 +8,7 @@
   config = lib.mkIf config.waybar.enable {
 
     home.file.".config/waybar/" = {
-      source = ./dotfiles/.config/waybar;
+      source = ./waybar;
       recursive = true;
     };
 
