@@ -3,9 +3,7 @@
 {
   imports = [
     ./app/gaming.nix
-    ./app/samba.nix
     ./app/thunar.nix
-    ./app/wireguard.nix
 
     ./core/amdCPU.nix
     ./core/bootloader.nix
@@ -26,6 +24,9 @@
     ./hyprland/pipewire.nix
     ./hyprland/polkitGnome.nix
     ./hyprland/sddm.nix
+
+    ./service/samba.nix
+    ./service/wireguard.nix
 
     ./theme/stylix.nix
   ];
@@ -49,9 +50,9 @@
     lib.mkDefault true;
   userSetup.enable =
     lib.mkDefault true;
-
   wireguard.enable =
     lib.mkDefault true;
+
 
   # --- Hardware --- #
   bluetooth.enable =

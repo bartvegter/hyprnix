@@ -7,7 +7,6 @@
     ./app/nvim.nix
     ./app/tofi.nix
 
-    ./hyprland/dotfiles.nix
     ./hyprland/hyprland.nix
     ./hyprland/waybar.nix
     ./hyprland/wlogout.nix
@@ -42,7 +41,6 @@
   # --- Hyprland --- #
   hyprland.enable =
     lib.mkDefault true;
-  dotfiles.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   mako.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
