@@ -108,7 +108,7 @@
             "format-ethernet" = "󰈀";
             "format-disconnected" = "󰖪";
             "tooltip-format" = "{essid}";
-            "on-click" = "$TERM -e nmtui";
+            "on-click" = "hyprctl dispatch exec '[float; tag +nmtui] $TERM -e nmtui'";
             "format-icons" = [
               "󰤯"
               "󰤟"
@@ -184,8 +184,8 @@
 
         /* For floating module, use: */
         window#waybar {
-          color: transparent;
           background-color: transparent;
+          color: transparent;
         }
 
         #custom-launcher,
@@ -202,45 +202,37 @@
         #pulseaudio,
         #clock,
         #custom-power-menu {
-          color: @foreground;
           background-color: @background;
-          padding: 10px;
+          color: @foreground;
           margin: 10px 3px 0;
+          padding: 0 12px;
           border-radius: 10px;
           /* border: 1px solid @foreground; */
         }
 
         #custom-launcher {
           color: @color4;
-          padding-left: 16px;
+          font-size: 16px;
           margin-left: 10px;
           margin-right: 0;
-          border-radius: 10px 0 0 10px;
-        }
-
-        #cpu {
-          color: @color3;
-          margin-right: 0;
-          border-radius: 10px 0 0 10px;
-        }
-
-        #memory {
-          color: @color3;
-          margin-left: 0;
-          border-radius: 0 10px 10px 0;
+          padding-left: 10px;
+          padding-right: 14px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
 
         #workspaces {
-          padding: 0 4px;
           margin-left: 0;
-          border-radius: 0 10px 10px 0;
+          padding-left: 0;
+          padding-right: 4px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
         }
 
         #workspaces button {
           color: @color4;
-          margin: 0;
-          padding: 6px 9px 6px 6px;
-          box-shadow: inset 0 -3px transparent;
+          padding-left: 3px;
+          padding-right: 8px;
         }
 
         #workspaces button.active {
@@ -256,7 +248,8 @@
           color: @color2a;
         }
 
-        window#waybar.empty #window, window#waybar.floating #window {
+        window#waybar.empty #window,
+        window#waybar.floating #window {
           color: transparent;
           background-color: transparent;
         }
