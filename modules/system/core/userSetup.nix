@@ -10,7 +10,7 @@
     users.users.${userSettings.username} = {
       isNormalUser = true;
       description = userSettings.name;
-      extraGroups = [ "networkmanager" "wheel" "samba" ];
+      extraGroups = [ "networkmanager" "wheel" "samba" "corectrl" ];
       shell = if (userSettings.shell == "zsh") then pkgs.zsh else pkgs.bashInteractive;
       # packages = with pkgs; [];
     };

@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./app/corectrl.nix
     ./app/gaming.nix
     ./app/thunar.nix
 
@@ -57,12 +58,14 @@
   # --- Hardware --- #
   bluetooth.enable =
     lib.mkDefault true;
-  zenKernel.enable =
+  corectrl.enable =
     lib.mkDefault true;
   opengl.enable =
     lib.mkDefault true;
   vmGuest.enable =
     lib.mkIf (systemSettings.systemType == "vm") (lib.mkDefault true);
+  zenKernel.enable =
+    lib.mkDefault true;
 
 
   # --- Hyprland --- #
