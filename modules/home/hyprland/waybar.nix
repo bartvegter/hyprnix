@@ -43,6 +43,7 @@
           "modules-right" = [
             "tray"
             "bluetooth"
+            "custom/wireguard"
             "network"
             "pulseaudio"
             "clock"
@@ -115,6 +116,12 @@
               "󰤥"
               "󰤨"
             ];
+          };
+          "custom/wireguard" = {
+            "format" = "󱠾";
+            "on-click" = "$HOME/.config/waybar/wireguard.sh status";
+            "on-click-right" = "$HOME/.config/waybar/wireguard.sh toggle";
+            "tooltip" = false;
           };
           "pulseaudio" = {
             "format" = "{icon}";
@@ -191,6 +198,7 @@
         #tray,
         #bluetooth,
         #network,
+        #custom-wireguard,
         #pulseaudio,
         #clock,
         #custom-power-menu {
@@ -266,8 +274,9 @@
         }
 
         #bluetooth,
-        #pulseaudio,
-        #network {
+        #network,
+        #custom-wireguard,
+        #pulseaudio {
           color: @color4;
           background-color: @background;
           padding: 0 12px;
@@ -284,14 +293,19 @@
           color: @color2a;
         }
 
-        #network {
-          padding-right: 13px;
-          padding-left: 10px;
+        #network,
+        #custom-wireguard {
           border-radius: 0;
           border-right: none;
           border-left: none;
           margin-left: 0;
           margin-right: 0;
+        }
+
+        #network,
+        #custom-wireguard {
+          padding-right: 13px;
+          padding-left: 10px;
         }
 
         #network.disconnected {
