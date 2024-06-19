@@ -11,8 +11,8 @@
       enable = true;
       settings = {
 
-        preload = "${config.stylix.image}";
-        wallpaper = "DP-3, ${config.stylix.image}";
+        preload = lib.mkDefault "${config.stylix.image}";
+        wallpaper = lib.mkDefault "DP-3, ${config.stylix.image}";
 
         splash = false;
         ipc = true;
