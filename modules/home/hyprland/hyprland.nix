@@ -32,7 +32,7 @@
         # - Monitor setup (hyprctl monitors) - #
 
         monitor = [ 
-          "DP-3, 2560x1440@165, auto, 1, vrr,2"
+          "DP-3, 2560x1440@165, auto, 1, vrr,0"
           "    , preferred    , auto, 1, vrr,0"
         ];
 
