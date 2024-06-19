@@ -4,6 +4,7 @@
   imports = [
     ./app/alacritty.nix
     ./app/btop.nix
+    ./app/mangohud.nix
     ./app/nvim.nix
     ./app/tofi.nix
 
@@ -70,6 +71,8 @@
   btop.enable =
     lib.mkDefault true;
   git.enable =
+    lib.mkDefault true;
+  mangohud.enable =
     lib.mkDefault true;
   nvim.enable =
     lib.mkDefault true;
