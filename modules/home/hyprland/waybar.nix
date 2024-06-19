@@ -24,7 +24,6 @@
       enable = true;
       systemd = {
         enable = false;
-        target = "hyprland-session.target";
       };
       settings = [
         {
