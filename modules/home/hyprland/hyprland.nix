@@ -245,7 +245,7 @@
 
           "$mod, B, exec, brave"
           "$mod, Y, exec, obsidian"
-          "$mod, C, exec, vscodium"
+          "$mod, C, exec, codium"
           "$mod, E, exec, thunar"
           "$mod, RETURN, exec, alacritty"
           "$mod SHIFT, RETURN, exec, alacritty -e ranger"

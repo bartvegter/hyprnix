@@ -15,11 +15,12 @@
     ./hyprland/wlsunset.nix
     ./hyprland/xdgPortals.nix
 
-    ./lang/go.nix
-    ./lang/java.nix
-    ./lang/nodejs.nix
-    ./lang/php.nix
-    ./lang/python.nix
+    ./dev/devenv.nix
+    ./dev/go.nix
+    ./dev/java.nix
+    ./dev/nodejs.nix
+    ./dev/php.nix
+    ./dev/python.nix
 
     ./service/mako.nix
     ./service/syncthing.nix
@@ -70,23 +71,25 @@
     lib.mkDefault true;
   git.enable =
     lib.mkDefault true;
+  nvim.enable =
+    lib.mkDefault true;
   syncthing.enable =
     lib.mkDefault true;
   udiskie.enable =
     lib.mkDefault true;
 
 
-  # --- Neovim --- #
-  nvim.enable =
+  # --- Development --- #
+  devenv.enable = 
     lib.mkDefault true;
   go.enable =
-    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
+    lib.mkIf (config.nvim.enable || config.devenv.enable) (lib.mkDefault true);
   java.enable =
-    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
+    lib.mkIf (config.nvim.enable || config.devenv.enable) (lib.mkDefault true);
   # nodejs.enable =
-  #   lib.mkIf (config.nvim.enable) (lib.mkDefault true);
+  #   lib.mkIf (config.nvim.enable || config.devenv.enable) (lib.mkDefault true);
   php.enable =
-    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
+    lib.mkIf (config.nvim.enable || config.devenv.enable) (lib.mkDefault true);
   python.enable =
-    lib.mkIf (config.nvim.enable) (lib.mkDefault true);
+    lib.mkIf (config.nvim.enable || config.devenv.enable) (lib.mkDefault true);
 }
