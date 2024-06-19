@@ -9,7 +9,7 @@
 
     networking.wg-quick.interfaces.proton = {
       autostart = true;
-      configFile = "/etc/wireguard/nix-NL-247.conf";
+      configFile = "/etc/wireguard/nix-NL-397.conf";
     };
 
     environment.systemPackages = with pkgs; [
