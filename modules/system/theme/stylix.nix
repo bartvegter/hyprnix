@@ -2,14 +2,15 @@
 
 {
   options = {
-    stylix.enable = lib.mkEnableOption "Enables stylix";
+    stylixConfig.enable = lib.mkEnableOption "Enables stylix";
   };
 
-  config = lib.mkIf config.stylix.enable {
+  config = lib.mkIf config.stylixConfig.enable {
 
     stylix = {
+      enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
-      image = ./wallpapers/pa-mountain-cabin.png;
+      image = ../../home/theme/wallpapers/far_from_tomorrow_4k.png;
 
       cursor = {
         package = pkgs.whitesur-cursors;
@@ -19,11 +20,11 @@
 
       fonts = {
         # packages = with pkgs; [
-        #   # noto-fonts
+        #   noto-fonts
         #   noto-fonts-lgc-plus
         #   noto-fonts-cjk-serif
         #   noto-fonts-color-emoji
-        #   # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
         # ];
         monospace = {
           package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
@@ -53,6 +54,10 @@
 
     environment.systemPackages = with pkgs; [
       base16-schemes
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 
   };

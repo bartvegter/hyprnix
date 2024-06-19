@@ -79,7 +79,7 @@
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   sddm.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  stylix.enable =
+  stylixConfig.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   thunar.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
