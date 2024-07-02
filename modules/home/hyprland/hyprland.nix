@@ -234,7 +234,7 @@
 
         workspace = [
           "1, defaultName: brave"
-          "4, defaultName: gaming"
+          "4, defaultName: gaming, monitor:DP-3, default:true"
           "5, defaultName: activeGame"
           "6, defaultName: spotify, on-created-empty: [fullscreen] spotify"
         ];
