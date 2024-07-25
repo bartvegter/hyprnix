@@ -236,8 +236,7 @@
           "$mod, C, exec, codium"
           "$mod, E, exec, thunar"
           "$mod, RETURN, exec, alacritty"
-          "$mod SHIFT, RETURN, exec, alacritty -e ranger"
-          "$mod SHIFT, W, exec, ~/.config/waybar/reloadWaybar.sh"
+          "$mod SHIFT, W, exec, reloadWaybar"
 
 
           # - Launching menus - #

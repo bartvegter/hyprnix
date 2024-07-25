@@ -1,5 +1,51 @@
 { config, lib, pkgs, ... }:
 
+let
+  reloadWaybar = pkgs.writeShellScriptBin "reloadWaybar" ''
+    killall .waybar-wrapped && hyprctl dispatch exec .waybar-wrapped
+  '';
+
+  spotifyWaybar = pkgs.writeShellScriptBin "spotifyWaybar" ''
+    while true; do
+      spotifyctl="playerctl --player=spotify"
+      playerStatus=$($spotifyctl status 2>/dev/null)
+      if [[ "$playerStatus" == "Playing" ]]; then
+        echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
+        elif [[ "$playerStatus" == "Paused" ]]; then
+        echo "  $($spotifyctl metadata artist) - $($spotifyctl metadata title)"
+      else
+        echo ""
+      fi
+      sleep 0.1
+    done
+  '';
+
+  wireguardWaybar = pkgs.writeShellScriptBin "wireguardWaybar" ''
+    wgStatus() {
+      if [[ $(systemctl is-active wg-quick-proton) == "active" ]]; then
+        notify-send -a WaybarWG "Wireguard" "Wireguard is running\nRight click module to toggle connection"
+      else
+        notify-send -a WaybarWG "Wireguard" "Wireguard not is running\nRight click module to toggle connection"
+      fi
+    }
+    wgToggle() {
+      if [[ $(systemctl is-active wg-quick-proton) == "active" ]]; then
+        systemctl stop wg-quick-proton &&
+        notify-send -a WaybarWG "Wireguard" "Stopped wireguard connection"
+      else
+        systemctl start wg-quick-proton &&
+        notify-send -a WaybarWG "Wireguard" "Started wireguard connection"
+      fi
+    }
+    if [[ $1 == "status" ]]; then
+      wgStatus
+    elif [[ $1 == "toggle" ]]; then
+      wgToggle
+    else
+      notify-send -a WaybarWG "Wireguard" "Invalid arguments\nValid arguments are 'status' or 'toggle'"
+    fi
+  '';
+in
 {
   options = {
     waybar.enable = lib.mkEnableOption "Enables waybar";
@@ -7,15 +53,13 @@
 
   config = lib.mkIf config.waybar.enable {
 
-    home.file.".config/waybar/" = {
-      source = ./waybar;
-      recursive = true;
-    };
-
     home.packages = with pkgs; [
       blueberry
       pavucontrol
       playerctl
+      reloadWaybar
+      spotifyWaybar
+      wireguardWaybar
     ];
 
     stylix.targets.waybar.enable = false;
