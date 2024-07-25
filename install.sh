@@ -38,7 +38,7 @@ echo && echo ":: The system will ask for your sudo password, which is required f
 echo ":: Feel free to check out the install script at https://github.com/bartvegter/hyprnix/blob/main/install.sh"
 
 # Generate hardware config for new system
-sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/system/hardware-configuration.nix
+sudo nixos-generate-config --show-hardware-config > $SCRIPT_DIR/hosts/default/hardware-configuration.nix
 
 gitAdd
 
@@ -66,7 +66,6 @@ while true; do
   case $ynVM in
     "Y" | "y")
       setOption systemType vm
-      # sed -i "0,/hardware/s//vm/" $SCRIPT_DIR/flake.nix
       break
       ;;
 
@@ -129,7 +128,6 @@ while true; do
 
           "N" | "n")
             setOption shell bashInteractive
-            # sed -i "0,/zsh/s//bashInteractive/" $SCRIPT_DIR/flake.nix
             break
             ;;
 
@@ -151,13 +149,11 @@ while true; do
 
           "vim" | "nano")
             setOption editor $editor
-            # sed -i "0,/nvim/s//$editor/" $SCRIPT_DIR/flake.nix
             break
             ;;
 
           "vscode" | "vscodium")
             setOption editor $editor
-            # sed -i "0,/nvim/s//$editor/" $SCRIPT_DIR/flake.nix
             $editor="nano";
             break
             ;;
@@ -172,11 +168,9 @@ while true; do
       echo && echo ":: Applying user settings..."
       setOption hostname $hostname
       setOption username $username
-      # sed -i "0,/bart/s//$username/" $SCRIPT_DIR/flake.nix
       # setOption name $name
       sed -i "0,/Bart/s//$name/" $SCRIPT_DIR/flake.nix
       setOption email $email
-      # sed -i "0,/contact@bartvegter.com/s//$email/" $SCRIPT_DIR/flake.nix
       echo && echo ":: Applied user settings"
       break
       ;;
@@ -185,11 +179,9 @@ while true; do
       echo && echo ":: Applying system defaults..."
       setOption hostname $(hostname)
       setOption username $(whoami)
-      # sed -i "0,/bart/s//$(whoami)/" $SCRIPT_DIR/flake.nix
       # setOption name $(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)
       sed -i "0,/Bart/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" $SCRIPT_DIR/flake.nix
       setOption email ""
-      # sed -i "s/contact@bartvegter.com//" $SCRIPT_DIR/flake.nix
       echo && echo ":: Applied system defaults"
       break
       ;;
@@ -231,26 +223,39 @@ while true; do
   esac
 done
 
-# Permissions for files that should be owned by root
-# sudo $SCRIPT_DIR/harden.sh $SCRIPT_DIR;
+# Final system rebuild
+echo
+while true; do
+  echo ":: Would you like to use home-manager as a standalone application instead of a nixos module?"
+  read -p ">> WARNING: Not recommended as this is not regularly tested and will break stylix [y/N]: " hmStandalone
+  case $hmStandalone in
+    "Y" | "y")
+      echo && echo ":: Disabling home-manager module in configuration.nix..." && echo
+      sed -i -e '11s/^/# /' -e '14,19s/^/# /' $SCRIPT_DIR/hosts/default/configuration.nix
 
-echo && echo ":: Starting system configuration rebuild..." && echo
+      echo && echo ":: Installing home-manager as standalone..." && echo
+      nix run home-manager/master --extra-experimental-features 'nix-command flakes' --no-write-lock-file -- switch --flake $SCRIPT_DIR;
+      gitAdd
 
-# Rebuild system
-sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR#system;
+      echo && echo ":: Starting system configuration rebuild..." && echo
+      sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR;
+      gitAdd
+      break
+      ;;
 
-gitAdd
+    "" | "N" | "n")
+      echo && echo ":: Starting system configuration rebuild..." && echo
+      sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR;
+      gitAdd
+      break
+      ;;
 
-echo && echo ":: System configuration rebuild complete"
-echo && echo ":: Starting home configuration rebuild..." && echo
-
-# Install and build home-manager configuration
-nix run home-manager/master --extra-experimental-features 'nix-command flakes' --no-write-lock-file -- switch --flake $SCRIPT_DIR#user;
-
-gitAdd
-
-echo && echo ":: Home configuration rebuild complete"
-
+    *)
+      echo ":: Invalid input, please try again..." && echo
+      echo ":: Valid values are [y]es or [N]o (case insensitive), or press [return] for default (No)"
+      ;;
+  esac
+done
 
 # Prompt for rebooting
 echo && echo ":: Hyprnix installed successfully" && echo
