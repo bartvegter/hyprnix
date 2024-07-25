@@ -19,13 +19,10 @@
       };
 
       fonts = {
-        # packages = with pkgs; [
-        #   noto-fonts
-        #   noto-fonts-lgc-plus
-        #   noto-fonts-cjk-serif
-        #   noto-fonts-color-emoji
-        #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-        # ];
+        emoji = {
+          package = pkgs.noto-fonts-color-emoji;
+          name = "Noto Color Emoji";
+        };
         monospace = {
           package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
           name = "JetBrainsMono NF";
@@ -49,15 +46,12 @@
       autoEnable = true;
       targets = {
         chromium.enable = false;
+        waybar.enable = false;
       };
     };
 
     environment.systemPackages = with pkgs; [
       base16-schemes
-      noto-fonts-lgc-plus
-      noto-fonts-cjk-serif
-      noto-fonts-color-emoji
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 
   };
