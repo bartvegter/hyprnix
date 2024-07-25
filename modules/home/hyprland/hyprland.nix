@@ -13,20 +13,12 @@
       killall
     ];
 
-    home.file = {
-      ".config/hypr/scripts" = {
-        source = ./dotfiles/.config/hypr/scripts;
-        recursive = true;
-      };
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
       settings = {
 
         "$mod" = "SUPER";
-        "$scriptDir" = "~/.config/hypr/scripts";
 
 
         # - Monitor setup (hyprctl monitors) - #
@@ -245,8 +237,7 @@
           "$mod, E, exec, thunar"
           "$mod, RETURN, exec, alacritty"
           "$mod SHIFT, RETURN, exec, alacritty -e ranger"
-          "$mod, W, exec, $scriptDir/logactivewindow.sh"
-          "$mod SHIFT, W, exec, $scriptDir/reloadWaybar.sh"
+          "$mod SHIFT, W, exec, ~/.config/waybar/reloadWaybar.sh"
 
 
           # - Launching menus - #
