@@ -17,7 +17,7 @@
 
     ./hardware/bluetooth.nix
     ./hardware/zenKernel.nix
-    ./hardware/opengl.nix
+    ./hardware/amdGPU.nix
     ./hardware/vmGuest.nix
 
     ./hyprland/gnome-keyring.nix
@@ -60,7 +60,7 @@
     lib.mkDefault true;
   corectrl.enable =
     lib.mkDefault true;
-  opengl.enable =
+  amdGPU.enable =
     lib.mkDefault true;
   vmGuest.enable =
     lib.mkIf (systemSettings.systemType == "vm") (lib.mkDefault true);

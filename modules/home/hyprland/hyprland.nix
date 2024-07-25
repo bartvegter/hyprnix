@@ -76,10 +76,6 @@
           preserve_split = true;
         };
 
-        master = {
-          new_is_master = true;
-        };
-
         decoration = {
           rounding = 10;
           active_opacity = 1.0;

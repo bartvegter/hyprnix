@@ -25,8 +25,6 @@
 
     qt = {
       enable = true;
-      platformTheme.name = "gtk";
-      style.name = "gtk2";
     };
 
     home.sessionVariables = {

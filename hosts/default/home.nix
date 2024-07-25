@@ -28,7 +28,7 @@
       brave
       firefox
       ffmpeg
-      gnome.gnome-disk-utility
+      gnome-disk-utility
       libreoffice-fresh
       nsxiv
       obs-studio

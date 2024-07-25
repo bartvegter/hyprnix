@@ -20,7 +20,7 @@
     services.gvfs.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.file-roller
+      file-roller
     ];
 
   };
