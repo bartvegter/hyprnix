@@ -115,17 +115,12 @@
 
 
         exec-once = [
+          # - Clipboard init - #
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
 
 
-          # - Status bar - #
-
-          ".waybar-wrapped"
-
-
           # - Applications - #
-
           # "[workspace 1 silent] brave"
           "[fullscreen; workspace 6 silent] spotify"
           "[silent] steam"
@@ -236,7 +231,7 @@
           "$mod, C, exec, codium"
           "$mod, E, exec, thunar"
           "$mod, RETURN, exec, alacritty"
-          "$mod SHIFT, W, exec, reloadWaybar"
+          "$mod SHIFT, W, exec, systemctl --user reload waybar"
 
 
           # - Launching menus - #

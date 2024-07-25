@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  reloadWaybar = pkgs.writeShellScriptBin "reloadWaybar" ''
-    killall .waybar-wrapped && hyprctl dispatch exec .waybar-wrapped
-  '';
-
   spotifyWaybar = pkgs.writeShellScriptBin "spotifyWaybar" ''
     while true; do
       spotifyctl="playerctl --player=spotify"
@@ -57,7 +53,6 @@ in
       blueberry
       pavucontrol
       playerctl
-      reloadWaybar
       spotifyWaybar
       wireguardWaybar
     ];
@@ -67,7 +62,7 @@ in
     programs.waybar = {
       enable = true;
       systemd = {
-        enable = false;
+        enable = true;
       };
       settings = [
         {
@@ -113,7 +108,7 @@ in
             };
           };
           "custom/spotify" = {
-            "exec" = "$HOME/.config/waybar/spotify.sh";
+            "exec" = "spotifyWaybar";
             "exec-if" = "pgrep spotify";
             "format" = "  {}";
             "on-click" = "playerctl --player=spotify play-pause";
