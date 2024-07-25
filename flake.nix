@@ -36,7 +36,7 @@
         keyboardVariant = "altgr-intl";
       };
 
-      userSettings = rec {
+      userSettings = {
         username = "bart";
         name = "Bart";
         email = "contact@bartvegter.com";
@@ -125,7 +125,7 @@
           install = pkgs.writeShellApplication {
             name = "install";
             runtimeInputs = with pkgs; [ git vim ];
-            text = ''${./install.sh} "$@"'';
+            text = ''${./install.sh} ${systemSettings.hyprnixPath}'';
           };
         });
 
