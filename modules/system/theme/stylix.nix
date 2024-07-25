@@ -46,7 +46,6 @@
       autoEnable = true;
       targets = {
         chromium.enable = false;
-        waybar.enable = false;
       };
     };
 
