@@ -78,7 +78,7 @@
     in
     {
       nixosConfigurations = {
-        systemSettings.hostname = lib.nixosSystem {
+        ${systemSettings.hostname} = lib.nixosSystem {
           system = systemSettings.system;
           specialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
           modules = [
@@ -98,7 +98,7 @@
       };
 
       homeConfigurations = {
-        userSettings.username = inputs.home-manager.lib.homeManagerConfiguration {
+        ${userSettings.username} = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
           extraSpecialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
