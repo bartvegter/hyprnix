@@ -23,6 +23,7 @@
   # --- User specific packages --- #
   home.packages =
     (with pkgs; [
+      ardour
       audacity
       baobab
       brave
