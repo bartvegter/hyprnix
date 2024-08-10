@@ -224,38 +224,9 @@ while true; do
 done
 
 # Final system rebuild
-echo
-while true; do
-  echo ":: Would you like to use home-manager as a standalone application instead of a nixos module?"
-  read -p ">> WARNING: Not recommended as this is not regularly tested and will break stylix [y/N]: " hmStandalone
-  case $hmStandalone in
-    "Y" | "y")
-      echo && echo ":: Disabling home-manager module in configuration.nix..." && echo
-      sed -i -e '11s/^/# /' -e '14,19s/^/# /' $SCRIPT_DIR/hosts/default/configuration.nix
-
-      echo && echo ":: Installing home-manager as standalone..." && echo
-      nix run home-manager/master --extra-experimental-features 'nix-command flakes' --no-write-lock-file -- switch --flake $SCRIPT_DIR;
-      gitAdd
-
-      echo && echo ":: Starting system configuration rebuild..." && echo
-      sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR;
-      gitAdd
-      break
-      ;;
-
-    "" | "N" | "n")
-      echo && echo ":: Starting system configuration rebuild..." && echo
-      sudo nixos-rebuild --no-write-lock-file switch --flake $SCRIPT_DIR;
-      gitAdd
-      break
-      ;;
-
-    *)
-      echo ":: Invalid input, please try again..." && echo
-      echo ":: Valid values are [y]es or [N]o (case insensitive), or press [return] for default (No)"
-      ;;
-  esac
-done
+echo && echo ":: Starting system configuration rebuild..." && echo
+sudo nixos-rebuild switch --no-write-lock-file --flake $SCRIPT_DIR;
+gitAdd
 
 # Prompt for rebooting
 echo && echo ":: Hyprnix installed successfully" && echo

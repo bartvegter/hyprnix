@@ -2,25 +2,27 @@
   description = "Hyprnix config flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    stylix.url = "github:danth/stylix";
   };
 
-  outputs = { self, ... }@inputs:
+  outputs = { self, ... } @ inputs:
     let
       systemSettings = {
-        version = "unstable";
         system = "x86_64-linux";
         systemType = "hardware";
         host = "default";
@@ -45,19 +47,13 @@
         editor = "nvim";
       };
 
-      home-manager = (if (systemSettings.version == "stable")
-      then
-        inputs.home-manager-stable
-      else
-        inputs.home-manager-unstable
-      );
-
-      lib = (if (systemSettings.version == "stable")
-      then
-        inputs.nixpkgs-stable.lib
-      else
-        inputs.nixpkgs-unstable.lib
-      );
+      pkgs = import inputs.nixpkgs {
+        system = systemSettings.system;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
+        };
+      };
 
       pkgs-stable = import inputs.nixpkgs-stable {
         system = systemSettings.system;
@@ -67,27 +63,7 @@
         };
       };
 
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        system = systemSettings.system;
-        config = {
-          allowUnfree = true;
-          allowUnfreePredicate = (_: true);
-        };
-      };
-
-      pkgs = (if (systemSettings.version == "stable")
-      then
-        pkgs-stable
-      else
-        pkgs-unstable
-      );
-
-      pkgs-alt = (if (systemSettings.version == "stable")
-      then
-        pkgs-unstable
-      else
-        pkgs-stable
-      );
+      lib = inputs.nixpkgs.lib;
 
       # The following was yoinked from pjones/plasma-manager, with thanks to @LibrePhoenix on YT for referring to this.
       # Systems that can run tests:
@@ -101,19 +77,32 @@
         pkgs { inherit system; });
     in
     {
-      nixosConfigurations.${systemSettings.hostname} = lib.nixosSystem {
-        system = systemSettings.system;
-        modules = [
-          (./. + "/hosts" + ("/" + systemSettings.host) + "/configuration.nix")
-          inputs.stylix.nixosModules.stylix
-        ];
-        specialArgs = { inherit inputs home-manager pkgs-alt systemSettings userSettings; };
+      nixosConfigurations = {
+        systemSettings.hostname = lib.nixosSystem {
+          system = systemSettings.system;
+          specialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
+          modules = [
+            ./hosts/default/configuration.nix
+            inputs.stylix.nixosModules.stylix
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit inputs pkgs pkgs-stable systemSettings userSettings; };
+                useGlobalPkgs = true;
+                # useUserPackages = true;
+                users.${userSettings.username} = import ./hosts/default/home.nix;
+              };
+            }
+          ];
+        };
       };
 
-      homeConfigurations.${userSettings.username} = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
-        extraSpecialArgs = { inherit inputs pkgs-alt systemSettings userSettings; };
+      homeConfigurations = {
+        userSettings.username = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ (./. + "/hosts" + ("/" + systemSettings.host) + "/home.nix") ];
+          extraSpecialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
+        };
       };
 
       packages = forAllSystems (system:
