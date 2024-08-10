@@ -89,7 +89,7 @@
               home-manager = {
                 extraSpecialArgs = { inherit inputs pkgs pkgs-stable systemSettings userSettings; };
                 useGlobalPkgs = true;
-                # useUserPackages = true;
+                useUserPackages = true;
                 users.${userSettings.username} = import ./hosts/default/home.nix;
               };
             }
