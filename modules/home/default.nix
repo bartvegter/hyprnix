@@ -5,7 +5,7 @@
     ./app/alacritty.nix
     ./app/btop.nix
     ./app/mangohud.nix
-    ./app/nvim.nix
+    ./app/nvim/nvim.nix
     ./app/tofi.nix
 
     ./hyprland/hyprland.nix

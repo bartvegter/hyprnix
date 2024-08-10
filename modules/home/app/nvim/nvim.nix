@@ -16,7 +16,7 @@
       vimAlias = true;
       withNodeJs = true;
       withPython3 = true;
-      extraLuaConfig = lib.fileContents ../hyprland/dotfiles/.config/nvim/init.lua;
+      extraLuaConfig = lib.fileContents ./init.lua;
     };
 
     home.packages = with pkgs; [
