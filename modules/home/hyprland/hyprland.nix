@@ -24,8 +24,8 @@
         # - Monitor setup (hyprctl monitors) - #
 
         monitor = [ 
-          "DP-3, 2560x1440@165, auto, 1, vrr,0"
-          "    , preferred    , auto, 1, vrr,0"
+          "DP-3, 2560x1440@120, auto, 1"
+          "    , preferred    , auto, 1"
         ];
 
 
@@ -122,7 +122,6 @@
 
           # - Applications - #
           # "[workspace 1 silent] brave"
-          "[fullscreen; workspace 6 silent] spotify"
           "[silent] steam"
           "[silent] vesktop"
         ];
@@ -216,10 +215,10 @@
 
 
         workspace = [
-          "1, defaultName: brave"
-          "4, defaultName: gaming, monitor:DP-3, default:true"
-          "5, defaultName: activeGame"
-          "6, defaultName: spotify, on-created-empty: [fullscreen] spotify"
+          "1, defaultName:brave"
+          "4, defaultName:gaming, monitor:DP-3, default:true"
+          "5, defaultName:activeGame"
+          "6, defaultName:spotify, on-created-empty: [fullscreen] spotify"
         ];
 
 

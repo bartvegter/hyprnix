@@ -15,6 +15,7 @@
       bottles
       lutris
       protonup
+      r2modman
     ];
 
     programs.gamemode.enable = true;
