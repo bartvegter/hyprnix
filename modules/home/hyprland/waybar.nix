@@ -158,8 +158,8 @@ in
           };
           "custom/wireguard" = {
             "format" = "󱠾";
-            "on-click" = "$HOME/.config/waybar/wireguard.sh status";
-            "on-click-right" = "$HOME/.config/waybar/wireguard.sh toggle";
+            "on-click" = "wireguardWaybar status";
+            "on-click-right" = "wireguardWaybar toggle";
             "tooltip" = false;
           };
           "pulseaudio" = {

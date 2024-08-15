@@ -6,10 +6,8 @@
     ./app/gaming.nix
     ./app/thunar.nix
 
-    ./core/amdCPU.nix
     ./core/bootloader.nix
     ./core/filesystemSetup.nix
-    ./core/kernel.nix
     ./core/networkSetup.nix
     ./core/sh.nix
     ./core/timeLocale.nix
@@ -35,14 +33,10 @@
 
   # --- Core --- #
   # Need to add if statements which check for the existence of hardware-configuration.nix.
-  amdCPU.enable =
-    lib.mkDefault true;
   bootloader.enable =
     lib.mkDefault true;
   filesystemSetup.enable =
     lib.mkDefault true;
-  kernel.enable =
-    lib.mkDefault true; 
   networkSetup.enable =
     lib.mkDefault true;
   sh.enable =

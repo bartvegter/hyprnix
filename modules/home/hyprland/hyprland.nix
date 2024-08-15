@@ -172,9 +172,10 @@
           "stayfocused, class: (thunar), title: (Attention)"
           "stayfocused, class: (thunar), title: (Rename)(.*)"
           "stayfocused, class: (thunar), title: (Create New Folder)"
-          "float, class: (thunar), title: (?<!.* - Thunar)"
-          # "float, class: (thunar), title: ^(Confirm to replace files)"
-          # "float, class: (thunar), title: ^(File Operation Progress)"
+          # "float, class: (thunar), title: (?<!.* - Thunar)"
+          "float, class: (thunar), title: (Confirm to replace files)"
+          "float, class: (thunar), title: (File Operation Progress)"
+          "float, class: (file-roller), title: (File Operation Progress)"
 
 
           # - Picture in Picture (Brave & Firefox) - #

@@ -8,7 +8,6 @@
   config = lib.mkIf config.theming.enable {
 
     home.file = {
-      # ".Xresources".source = ./dotfiles/.Xresources;
       ".config/color-scheme/" = {
         source = ./color-scheme;
         recursive = true;
