@@ -1,6 +1,17 @@
 { config, lib, pkgs, systemSettings, ... }:
 
 let
+  systemRebuild = pkgs.writeShellScriptBin "systemRebuild" ''
+    if [[ $# -eq 0 ]]; then
+      cd ${systemSettings.hyprnixPath} && sudo nixos-rebuild switch --flake .
+    elif [[ $1 == "switch" || $1 == "test" || $1 == "boot" ]]; then
+      cd ${systemSettings.hyprnixPath} && sudo nixos-rebuild $1 --flake .
+    else
+      echo "Invalid or too many arguments given"
+      echo "usage: systemRebuild [switch (default)] [test] [boot]"
+    fi
+  '';
+
   myAliases = {
     ls = "ls --color=auto";
     ll = "ls -alh --color=auto";
@@ -8,11 +19,12 @@ let
     v = "nvim";
     sv = "sudo nvim";
     code = "codium";
-    iv = "xrdb -load $HOME/.Xresources && nsxiv -ftars f";
-    iv-random = "xrdb -load $HOME/.Xresources && find . -type f | shuf | nsxiv -ifars f";
-    h = "cd " + "${systemSettings.hyprnixPath}";
+    iv = "nsxiv -ftars f";
+    iv-random = "find . -type f | shuf | nsxiv -ifars f";
+    h = "cd ${systemSettings.hyprnixPath}";
     hl = "lazygit --path=${systemSettings.hyprnixPath}";
     hv = "cd ${systemSettings.hyprnixPath} && $EDITOR";
+    sr = "${lib.getExe systemRebuild}";
   };
 in
 {
