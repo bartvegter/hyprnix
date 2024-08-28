@@ -4,7 +4,7 @@
   imports = [
     ./app/corectrl.nix
     ./app/gaming.nix
-    ./app/thunar.nix
+    ./app/nautilus.nix
 
     ./core/bootloader.nix
     ./core/filesystemSetup.nix
@@ -75,7 +75,7 @@
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
   stylixConfig.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
-  thunar.enable =
+  nautilus.enable =
     lib.mkIf (config.hyprland.enable) (lib.mkDefault true);
 
 

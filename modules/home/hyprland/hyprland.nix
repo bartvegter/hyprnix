@@ -167,17 +167,6 @@
           # "fullscreen, title: (worldoftanks.exe)"
 
 
-          # - Thunar - #
-
-          "stayfocused, class: (thunar), title: (Attention)"
-          "stayfocused, class: (thunar), title: (Rename)(.*)"
-          "stayfocused, class: (thunar), title: (Create New Folder)"
-          # "float, class: (thunar), title: (?<!.* - Thunar)"
-          "float, class: (thunar), title: (Confirm to replace files)"
-          "float, class: (thunar), title: (File Operation Progress)"
-          "float, class: (file-roller), title: (File Operation Progress)"
-
-
           # - Picture in Picture (Brave & Firefox) - #
 
           "pin, title: ^(Picture in picture)$"
@@ -203,6 +192,8 @@
           # - Misc - #
 
           "float, class: (Viewnior)"
+          "float, class: (org.gnome.NautilusPreviewer)"
+          "float, class: (file-roller), title: (File Operation Progress)"
 
 
           # - xwaylandvideobridge - #
@@ -229,7 +220,7 @@
           "$mod, B, exec, brave"
           "$mod, Y, exec, obsidian"
           "$mod, C, exec, codium"
-          "$mod, E, exec, thunar"
+          "$mod, E, exec, nautilus"
           "$mod, RETURN, exec, alacritty"
           "$mod SHIFT, W, exec, systemctl --user reload waybar"
 
@@ -289,6 +280,7 @@
           "$mod, 4, workspace, 4"
           "$mod, 5, workspace, 5"
           "$mod, 6, workspace, 6"
+          "$mod, 7, workspace, 7"
           "$mod, 8, workspace, 8"
           "$mod, 9, workspace, 9"
           "$mod, 0, workspace, 10"
