@@ -7,7 +7,6 @@
     ./app/nautilus.nix
 
     ./core/bootloader.nix
-    ./core/filesystemSetup.nix
     ./core/networkSetup.nix
     ./core/sh.nix
     ./core/timeLocale.nix
@@ -34,8 +33,6 @@
   # --- Core --- #
   # Need to add if statements which check for the existence of hardware-configuration.nix.
   bootloader.enable =
-    lib.mkDefault true;
-  filesystemSetup.enable =
     lib.mkDefault true;
   networkSetup.enable =
     lib.mkDefault true;
