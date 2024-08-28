@@ -34,6 +34,7 @@
       nsxiv
       obs-studio
       obsidian
+      rustdesk
       spotify
       viewnior
       vlc
