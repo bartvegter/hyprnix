@@ -7,17 +7,20 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = { self, ... } @ inputs:
@@ -78,7 +81,7 @@
     in
     {
       nixosConfigurations = {
-        ${systemSettings.hostname} = lib.nixosSystem {
+        hyprnix = lib.nixosSystem {
           system = systemSettings.system;
           specialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
           modules = [
@@ -91,6 +94,24 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${userSettings.username} = import ./hosts/default/home.nix;
+              };
+            }
+          ];
+        };
+        hyprnix-yoga = lib.nixosSystem {
+          system = systemSettings.system;
+          specialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
+          modules = [
+            ./hosts/yoga/configuration.nix
+            inputs.nixos-hardware.nixosModules.lenovo-yoga-7-slim-gen8
+            inputs.stylix.nixosModules.stylix
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit inputs pkgs pkgs-stable systemSettings userSettings; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${userSettings.username} = import ./hosts/yoga/home.nix;
               };
             }
           ];
