@@ -1,5 +1,11 @@
 { config, lib, pkgs, systemSettings, ... }:
 
+let
+  vesktopDelayed = pkgs.writeShellScriptBin "vesktopDelayed" ''
+    sleep 3
+    hyprctl dispatch exec vesktop
+  '';
+in
 {
   options = {
     hyprland.enable = lib.mkEnableOption "Enables hyprland";
@@ -11,6 +17,7 @@
       grimblast
       hyprpicker
       killall
+      vesktopDelayed
     ];
 
     wayland.windowManager.hyprland = {
@@ -122,8 +129,8 @@
 
           # - Applications - #
           # "[workspace 1 silent] brave"
-          "[silent] steam"
-          "[silent] vesktop"
+          "steam"
+          "vesktopDelayed"
         ];
 
 
@@ -165,6 +172,16 @@
           # "fullscreen, class: (steam_app_)(.*)"
           # "fullscreen, class: (cs2)"
           # "fullscreen, title: (worldoftanks.exe)"
+
+
+          # - Vesktop - #
+
+          "pin, title: ^(Discord Popout)$"
+          "float, title: ^(Discord Popout)$"
+          "size 640 360, title: ^(Discord Popout)$"
+          "move 100%-651 100%-371, title: ^(Discord Popout)$"
+          "noinitialfocus, title: ^(Discord Popout)$"
+          "keepaspectratio, title: ^(Discord Popout)$"
 
 
           # - Picture in Picture (Brave & Firefox) - #
