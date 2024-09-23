@@ -26,10 +26,12 @@
       ardour
       audacity
       baobab
+      bottles
       brave
       firefox
       ffmpeg
       gnome-disk-utility
+      input-leap
       libreoffice-fresh
       nsxiv
       obs-studio

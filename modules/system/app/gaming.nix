@@ -12,8 +12,8 @@
     };
 
     environment.systemPackages = with pkgs; [
-      bottles
       lutris
+      prismlauncher
       protonup
       r2modman
     ];

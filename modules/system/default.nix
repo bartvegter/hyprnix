@@ -5,6 +5,7 @@
     ./app/corectrl.nix
     ./app/gaming.nix
     ./app/nautilus.nix
+    ./app/vmHost.nix
 
     ./core/bootloader.nix
     ./core/networkSetup.nix
@@ -41,6 +42,8 @@
   timeLocale.enable =
     lib.mkDefault true;
   userSetup.enable =
+    lib.mkDefault true;
+  vmHost.enable =
     lib.mkDefault true;
   wireguard.enable =
     lib.mkDefault true;
