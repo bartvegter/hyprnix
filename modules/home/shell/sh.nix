@@ -6,9 +6,11 @@ let
       cd ${systemSettings.hyprnixPath} && sudo nixos-rebuild switch --flake .
     elif [[ $1 == "switch" || $1 == "test" || $1 == "boot" ]]; then
       cd ${systemSettings.hyprnixPath} && sudo nixos-rebuild $1 --flake .
+    elif [[ $1 == "upgrade" ]]; then
+      cd ${systemSettings.hyprnixPath} && nix flake update && git add flake.lock && sudo nixos-rebuild switch --flake .
     else
       echo "Invalid or too many arguments given"
-      echo "usage: systemRebuild [switch (default)] [test] [boot]"
+      echo "usage: systemRebuild [switch (default) / test / boot / upgrade (switch + flake update)]"
     fi
   '';
 
@@ -72,6 +74,7 @@ in
       cargo
       cmake
       gnumake
+      systemRebuild
       tldr
       trash-cli
       tree
