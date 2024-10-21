@@ -31,8 +31,8 @@ in
         # - Monitor setup (hyprctl monitors) - #
 
         monitor = [ 
-          "DP-3, 2560x1440@120, auto, 1"
-          "    , preferred    , auto, 1"
+          "    , 2560x1440@165, auto, 1"
+          # "    , preferred    , auto, 1"
         ];
 
 
@@ -118,6 +118,10 @@ in
           always_follow_on_dnd = true;
           #vrr = true;	    # Global toggle; can also be set on per-monitor basis (see monitor setup above)
           vfr = true;
+        };
+
+        debug = {
+          disable_logs = false;
         };
 
 

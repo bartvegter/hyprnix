@@ -26,6 +26,7 @@
       ardour
       audacity
       baobab
+      bottles
       brave
       firefox
       ffmpeg

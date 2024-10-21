@@ -98,11 +98,11 @@
             }
           ];
         };
-        hyprnix-yoga = lib.nixosSystem {
+        yoga = lib.nixosSystem {
           system = systemSettings.system;
           specialArgs = { inherit inputs pkgs-stable systemSettings userSettings; };
           modules = [
-            ./hosts/yoga/configuration.nix
+            ./hosts/default/configuration.nix
             inputs.nixos-hardware.nixosModules.lenovo-yoga-7-slim-gen8
             inputs.stylix.nixosModules.stylix
             inputs.home-manager.nixosModules.home-manager
@@ -111,7 +111,7 @@
                 extraSpecialArgs = { inherit inputs pkgs pkgs-stable systemSettings userSettings; };
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                users.${userSettings.username} = import ./hosts/yoga/home.nix;
+                users.${userSettings.username} = import ./hosts/default/home.nix;
               };
             }
           ];

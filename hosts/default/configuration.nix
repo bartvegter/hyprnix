@@ -12,6 +12,7 @@
   # If you want to change any module defaults set in [modules/system/default.nix], it is recommended to override them here.
   # E.g. for bluetooth, use:
   # bluetooth.enable = false;
+  zenKernel.enable = false;
 
   # --- System variables --- #
   # User specific variables can be set in home.nix.
